@@ -261,7 +261,19 @@
     .tl-seg { flex: 1; width: 1px; background: var(--border); margin-top: 6px; }
 
     .tl-content { padding-top: 4px; padding-left: 8px; }
-    .tl-co { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .tl-header { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+    .tl-logo-wrap {
+      width: 44px; height: 44px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--surface2);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .tl-logo-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+    .tl-logo-wrap.fallback {
+      font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+      font-weight: 700; color: var(--accent); letter-spacing: 0.02em;
+    }
+    .tl-co { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
     .tl-role { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; }
     .tl-desc { color: var(--muted); font-size: 14px; line-height: 1.75; max-width: 580px; margin-bottom: 14px; }
 
@@ -490,7 +502,10 @@
         <div class="tl-date">2025 – now</div>
         <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
         <div class="tl-content">
-          <div class="tl-co">AI Valley</div>
+          <div class="tl-header">
+            <div class="tl-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='AV'"></div>
+            <div><div class="tl-co">AI Valley</div></div>
+          </div>
           <div class="tl-role">Director of Expansion</div>
           <div class="tl-desc">Scaling a global community of 2,000+ first-gen AI builders. $50K+ in prizes across 100+ projects, 12+ events annually. Partners: Google, AWS, OpenAI, ElevenLabs, VAPI, Afore Capital. Leading expansion into new cities and communities.</div>
           <div class="chips">
@@ -505,7 +520,10 @@
         <div class="tl-date">2025</div>
         <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
         <div class="tl-content">
-          <div class="tl-co">OncoScan AI</div>
+          <div class="tl-header">
+            <div class="tl-logo-wrap fallback">OS</div>
+            <div><div class="tl-co">OncoScan AI</div></div>
+          </div>
           <div class="tl-role">CEO &amp; CTO</div>
           <div class="tl-desc">Building an oral cancer detection model with leading cancer researchers in India. Incubated and scaling across the Indian market. Patent pending on the core detection model.</div>
           <div class="chips">
@@ -520,7 +538,10 @@
         <div class="tl-date">2025</div>
         <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
         <div class="tl-content">
-          <div class="tl-co">Institute for Systems Biology</div>
+          <div class="tl-header">
+            <div class="tl-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='ISB'"></div>
+            <div><div class="tl-co">Institute for Systems Biology</div></div>
+          </div>
           <div class="tl-role">ML Research Intern</div>
           <div class="tl-desc">Predictive ML modeling for HIV and preeclampsia diagnosis at one of the world's leading systems biology institutes. Presented research to field leaders.</div>
           <div class="chips">
@@ -535,7 +556,10 @@
         <div class="tl-date">2023 – 2025</div>
         <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
         <div class="tl-content">
-          <div class="tl-co">Brain Stroke Research</div>
+          <div class="tl-header">
+            <div class="tl-logo-wrap fallback">🧠</div>
+            <div><div class="tl-co">Brain Stroke Research</div></div>
+          </div>
           <div class="tl-role">Lead ML Researcher</div>
           <div class="tl-desc">Built a 3D CNN to classify CT scans for stroke susceptibility. Won 1st Place at the Washington State Science and Engineering Fair.</div>
           <div class="chips">
@@ -550,7 +574,10 @@
         <div class="tl-date">2024 – 2025</div>
         <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
         <div class="tl-content">
-          <div class="tl-co">The Uplift Network</div>
+          <div class="tl-header">
+            <div class="tl-logo-wrap fallback">UN</div>
+            <div><div class="tl-co">The Uplift Network</div></div>
+          </div>
           <div class="tl-role">Founder</div>
           <div class="tl-desc">Built CS education for underserved students from the ground up. Grew to 3,000+ students and 25+ teachers.</div>
           <div class="chips">
@@ -565,7 +592,10 @@
         <div class="tl-date">2025</div>
         <div class="tl-line"><div class="tl-dot"></div></div>
         <div class="tl-content">
-          <div class="tl-co">TopStep</div>
+          <div class="tl-header">
+            <div class="tl-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='TS'"></div>
+            <div><div class="tl-co">TopStep</div></div>
+          </div>
           <div class="tl-role">Funded Trader</div>
           <div class="tl-desc">Qualified for and managing $150,000 in live capital through TopStep's express funded account program.</div>
           <div class="chips">
