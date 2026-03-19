@@ -5,427 +5,751 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vihaan Shringi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: { accent: '#6366f1' }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --surface: #111111;
+      --surface2: #161616;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.12);
+      --text: #ebebeb;
+      --muted: #666666;
+      --accent: #b8ff57;
+      --accent-dim: rgba(184,255,87,0.08);
+    }
+
     html { scroll-behavior: smooth; }
-    ::selection { background: #6366f1; color: white; }
-    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .fade-up.visible { opacity: 1; transform: none; }
-    .tag { display: inline-block; background: #f1f5f9; color: #475569; font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 99px; }
-    .project-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-    .project-card { transition: all 0.2s ease; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Dot grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Custom cursor */
+    #cursor {
+      position: fixed;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s;
+      mix-blend-mode: difference;
+    }
+    #cursor-ring {
+      position: fixed;
+      width: 38px; height: 38px;
+      border: 1.5px solid rgba(184,255,87,0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s, height 0.25s, border-color 0.25s;
+    }
+    body.hovered #cursor { width: 5px; height: 5px; }
+    body.hovered #cursor-ring { width: 56px; height: 56px; border-color: rgba(184,255,87,0.6); }
+
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 22px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.92) 60%, transparent);
+      pointer-events: none;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      font-size: 18px; color: var(--text); text-decoration: none;
+      position: relative; z-index: 1;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 36px; position: relative; z-index: 1; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 13px;
+      font-weight: 400; transition: color 0.2s; letter-spacing: 0.01em;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 130px 48px 90px;
+      position: relative; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: -240px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(184,255,87,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute; bottom: -100px; left: -150px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 500;
+      color: var(--accent); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 28px;
+    }
+    .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); opacity: 0.7; }
+    .status-dot {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 99px; padding: 4px 10px;
+      margin-left: 12px;
+    }
+    .status-dot::before {
+      content: ''; width: 6px; height: 6px;
+      background: #4ade80; border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .hero-name {
+      font-size: clamp(68px, 11vw, 140px);
+      font-weight: 700; line-height: 0.88;
+      letter-spacing: -0.03em; margin-bottom: 36px;
+    }
+    .hero-name .line2 { color: var(--accent); display: block; }
+    .hero-desc {
+      font-size: clamp(15px, 1.6vw, 19px);
+      color: var(--muted); max-width: 500px;
+      line-height: 1.75; margin-bottom: 48px; font-weight: 300;
+    }
+    .hero-desc strong { color: var(--text); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-accent {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #0a0a0a;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+      font-size: 14px; padding: 14px 28px; border-radius: 8px;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(184,255,87,0.22); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border2); color: var(--muted);
+      font-size: 14px; font-weight: 400; padding: 14px 24px;
+      border-radius: 8px; text-decoration: none;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.03); }
+    .scroll-hint {
+      position: absolute; bottom: 40px; left: 48px;
+      display: flex; align-items: center; gap: 12px;
+      color: var(--muted); font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .scroll-line { width: 44px; height: 1px; background: var(--muted); animation: sline 2.5s ease infinite; }
+    @keyframes sline { 0%, 100% { transform: scaleX(1); opacity: 0.4; } 50% { transform: scaleX(0.5); opacity: 1; } }
+
+    /* MARQUEE */
+    .marquee-wrap {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 16px 0; overflow: hidden; position: relative;
+    }
+    .marquee-track {
+      display: flex; white-space: nowrap;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 0 44px; color: var(--muted); font-size: 12px;
+      font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+    }
+    .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* BENTO */
+    .section-wrap { padding: 80px 48px; position: relative; }
+    .section-wrap.ruled { border-top: 1px solid var(--border); }
+    .section-eyebrow {
+      font-size: 11px; font-weight: 500; color: var(--accent);
+      letter-spacing: 0.14em; text-transform: uppercase;
+      margin-bottom: 40px; display: flex; align-items: center; gap: 10px;
+    }
+    .section-eyebrow::after { content: ''; flex: 1; max-width: 48px; height: 1px; background: var(--accent); opacity: 0.4; }
+
+    .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+    .bento-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .bento-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .bc-1 { grid-column: span 5; }
+    .bc-2 { grid-column: span 3; }
+    .bc-3 { grid-column: span 4; }
+    .bc-4 { grid-column: span 3; }
+    .bc-5 { grid-column: span 3; }
+    .bc-6 { grid-column: span 3; }
+    .bc-7 { grid-column: span 3; }
+
+    .bc-accent { border-color: rgba(184,255,87,0.18); background: rgba(184,255,87,0.04); }
+    .bc-accent:hover { border-color: rgba(184,255,87,0.3); }
+
+    .bnum {
+      font-family: 'Space Grotesk', sans-serif; font-size: 52px;
+      font-weight: 700; line-height: 1; margin-bottom: 8px;
+    }
+    .bnum.a { color: var(--accent); }
+    .blabel { color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .btitle { font-family: 'Space Grotesk', sans-serif; font-size: 21px; font-weight: 600; margin-bottom: 8px; }
+    .bdesc { color: var(--muted); font-size: 13px; line-height: 1.65; margin-bottom: 14px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .chip {
+      font-size: 11px; font-weight: 500; color: var(--muted);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 99px; padding: 3px 10px;
+    }
+    .chip.a { color: var(--accent); border-color: rgba(184,255,87,0.22); background: rgba(184,255,87,0.06); }
+
+    /* EXPERIENCE TIMELINE */
+    .timeline { display: flex; flex-direction: column; }
+    .tl-item {
+      display: grid; grid-template-columns: 160px 40px 1fr;
+      gap: 0; padding: 44px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .tl-item:first-child { border-top: 1px solid var(--border); }
+    .tl-item:hover { background: rgba(255,255,255,0.01); }
+
+    .tl-date { font-size: 13px; color: var(--muted); padding-top: 6px; }
+
+    .tl-line {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 8px;
+    }
+    .tl-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      border: 1.5px solid var(--muted); background: var(--bg);
+      flex-shrink: 0; transition: border-color 0.2s, background 0.2s;
+    }
+    .tl-item:hover .tl-dot { border-color: var(--accent); background: var(--accent); }
+    .tl-seg { flex: 1; width: 1px; background: var(--border); margin-top: 6px; }
+
+    .tl-content { padding-top: 4px; padding-left: 8px; }
+    .tl-co { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .tl-role { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+    .tl-desc { color: var(--muted); font-size: 14px; line-height: 1.75; max-width: 580px; margin-bottom: 14px; }
+
+    /* PROJECTS */
+    .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .proj {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px; text-decoration: none; color: var(--text);
+      transition: border-color 0.25s;
+      transform-style: preserve-3d; display: block;
+    }
+    .proj:hover { border-color: var(--border2); }
+    .proj-icon { font-size: 30px; margin-bottom: 20px; }
+    .proj-name { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+    .proj-desc { color: var(--muted); font-size: 13px; line-height: 1.75; margin-bottom: 22px; }
+    .proj-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; }
+    .proj-link.gl { color: var(--accent); }
+    .proj-link.dim { color: var(--muted); }
+
+    /* AWARDS */
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .award {
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px; transition: border-color 0.25s, transform 0.25s;
+    }
+    .award:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .award.featured { background: var(--accent); border-color: transparent; }
+    .award.featured .anum { color: #080808; }
+    .award.featured .alabel { color: rgba(8,8,8,0.55); }
+    .anum {
+      font-family: 'Space Grotesk', sans-serif; font-size: 44px;
+      font-weight: 700; line-height: 1; margin-bottom: 10px;
+    }
+    .alabel { color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    /* CONTACT */
+    .contact {
+      padding: 110px 48px; border-top: 1px solid var(--border);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .contact-glow {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 500px; height: 400px;
+      background: radial-gradient(ellipse, rgba(184,255,87,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .contact-pre {
+      font-size: 12px; font-weight: 500; color: var(--accent);
+      letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .contact-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 7vw, 80px); font-weight: 700;
+      line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 24px;
+    }
+    .contact-sub { color: var(--muted); font-size: 16px; margin-bottom: 48px; }
+    .contact-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--muted); font-size: 12px;
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* MOBILE */
+    @media (max-width: 820px) {
+      body { cursor: auto; }
+      #cursor, #cursor-ring { display: none; }
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 20px; }
+      .hero { padding: 110px 24px 80px; }
+      .hero-name { font-size: clamp(56px, 14vw, 80px); }
+      .scroll-hint { display: none; }
+      .section-wrap { padding: 60px 24px; }
+      .bento { grid-template-columns: 1fr 1fr; }
+      .bc-1 { grid-column: span 2; }
+      .bc-2 { grid-column: span 1; }
+      .bc-3 { grid-column: span 1; }
+      .bc-4, .bc-5, .bc-6, .bc-7 { grid-column: span 1; }
+      .tl-item { grid-template-columns: 100px 30px 1fr; }
+      .project-grid { grid-template-columns: 1fr; }
+      .awards-grid { grid-template-columns: 1fr 1fr; }
+      .contact { padding: 80px 24px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+    }
   </style>
 </head>
-<body class="bg-white font-sans text-gray-900 antialiased">
+<body>
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
 
-  <!-- Nav -->
-  <nav class="fixed top-0 w-full bg-white/80 backdrop-blur border-b border-gray-100 z-50">
-    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-      <span class="font-semibold tracking-tight">VS</span>
-      <div class="flex gap-6 text-sm text-gray-500">
-        <a href="#work" class="hover:text-gray-900 transition-colors">Work</a>
-        <a href="#projects" class="hover:text-gray-900 transition-colors">Projects</a>
-        <a href="#education" class="hover:text-gray-900 transition-colors">Education</a>
-        <a href="#awards" class="hover:text-gray-900 transition-colors">Awards</a>
-        <a href="mailto:vihaanvshringi@gmail.com" class="hover:text-gray-900 transition-colors">Contact</a>
-      </div>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">V<span>S</span></a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#awards">Awards</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="pt-36 pb-24 px-6">
-    <div class="max-w-4xl mx-auto">
-      <div class="fade-up visible">
-        <p class="text-accent font-medium text-sm mb-4 tracking-wide uppercase">Bellevue, Washington</p>
-        <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
-          Vihaan Shringi
-        </h1>
-        <p class="text-xl text-gray-500 max-w-2xl leading-relaxed mb-8">
-          CS student at Carnegie Mellon — one of the most selective CS programs in the world. I build things that matter: cancer detection models, AI companies, real estate networks. Director of Expansion at AI Valley. I believe the best builders are also the best connected.
-        </p>
-        <div class="flex flex-wrap gap-3 mb-8">
-          <span class="tag">CMU CS · Class of 2030</span>
-          <span class="tag">Python · Java · C++ · R</span>
-          <span class="tag">ML / Deep Learning</span>
-          <span class="tag">ACT 36/36</span>
-          <span class="tag">Patent Pending</span>
-          <span class="tag">AI Valley</span>
-        </div>
-        <div class="flex gap-4">
-          <a href="mailto:vihaanvshringi@gmail.com"
-            class="inline-flex items-center gap-2 bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-700 transition-colors">
-            Get in touch
-          </a>
-          <a href="https://github.com/v1hns" target="_blank"
-            class="inline-flex items-center gap-2 border border-gray-200 text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors">
-            GitHub →
-          </a>
-          <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank"
-            class="inline-flex items-center gap-2 border border-gray-200 text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors">
-            LinkedIn →
-          </a>
-        </div>
-      </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-eyebrow">
+      Bellevue, WA · CMU CS 2030
+      <span class="status-dot">building now</span>
+    </div>
+    <h1 class="hero-name">
+      Vihaan
+      <span class="line2">Shringi.</span>
+    </h1>
+    <p class="hero-desc">
+      Builder, researcher, connector.<br/>
+      <strong>Carnegie Mellon CS</strong> — one of the most selective programs in the world.
+      I make AI tools that matter, run a 2,000+ person AI community,
+      and believe the best engineers are also the best networked.
+    </p>
+    <div class="hero-ctas">
+      <a href="mailto:vihaanvshringi@gmail.com" class="btn-accent">Get in touch →</a>
+      <a href="https://github.com/v1hns" target="_blank" class="btn-outline">GitHub</a>
+      <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" class="btn-outline">LinkedIn</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      scroll
     </div>
   </section>
 
-  <!-- CMU Banner -->
-  <section class="px-6 pb-16">
-    <div class="max-w-4xl mx-auto">
-      <div class="fade-up bg-indigo-50 border border-indigo-100 rounded-2xl p-8">
-        <div class="flex flex-col md:flex-row md:items-center gap-6">
-          <div class="flex-1">
-            <p class="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-2">Carnegie Mellon University</p>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">B.S. Computer Science · GPA 4.0 · Class of 2030</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">
-              CMU's School of Computer Science is ranked <strong>#1 in the US</strong> with a ~5% acceptance rate. Admitted while still in high school, starting fall 2026.
-            </p>
-          </div>
-          <div class="flex flex-col gap-2 text-center shrink-0">
-            <div class="bg-white border border-indigo-100 rounded-xl px-6 py-3">
-              <div class="text-2xl font-bold text-accent">4.0</div>
-              <div class="text-xs text-gray-400">GPA</div>
-            </div>
-          </div>
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · #1 Ranked</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>2,000+ AI Builders in Network</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>WA State Fair · 1st Place</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Google · AWS · OpenAI Partners</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · #1 Ranked</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>2,000+ AI Builders in Network</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>WA State Fair · 1st Place</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Google · AWS · OpenAI Partners</span>
+    </div>
+  </div>
+
+  <!-- BENTO -->
+  <section class="section-wrap">
+    <div class="section-eyebrow">At a glance</div>
+    <div class="bento">
+
+      <div class="bento-card bc-1 bc-accent reveal">
+        <div class="bnum a">4.0</div>
+        <div class="btitle">Carnegie Mellon University</div>
+        <div class="bdesc">B.S. Computer Science · Class of 2030. Admitted out of high school to the #1 ranked CS program in the US — ~5% acceptance rate.</div>
+        <div class="chips">
+          <span class="chip a">#1 Ranked CS</span>
+          <span class="chip a">~5% Acceptance</span>
+          <span class="chip">Starting 2026</span>
         </div>
       </div>
+
+      <div class="bento-card bc-2 reveal reveal-d1">
+        <div class="bnum a" data-count="36">0</div>
+        <div class="blabel">ACT Composite<br/>Perfect Score</div>
+      </div>
+
+      <div class="bento-card bc-3 reveal reveal-d2">
+        <div class="bnum" data-count="2000" data-suffix="+">0</div>
+        <div class="blabel">AI builders in my network via AI Valley</div>
+      </div>
+
+      <div class="bento-card bc-4 reveal">
+        <div class="btitle">Patent Pending</div>
+        <div class="bdesc">Oral cancer detection model built with leading researchers in India. Scaling across the Indian healthcare market.</div>
+      </div>
+
+      <div class="bento-card bc-5 reveal reveal-d1">
+        <div class="bnum" style="font-size:40px">$150K</div>
+        <div class="blabel">Live capital managed via TopStep funded account</div>
+      </div>
+
+      <div class="bento-card bc-6 reveal reveal-d2">
+        <div class="bnum" data-count="3000" data-suffix="+">0</div>
+        <div class="blabel">Students reached via The Uplift Network</div>
+      </div>
+
+      <div class="bento-card bc-7 reveal reveal-d3">
+        <div class="bnum a">1st</div>
+        <div class="blabel">WA State Science &amp; Engineering Fair</div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Work -->
-  <section id="work" class="py-20 px-6 bg-gray-50 border-y border-gray-100">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Work & Experience</h2>
-      <div class="space-y-10">
+  <!-- EXPERIENCE -->
+  <section class="section-wrap ruled" id="work">
+    <div class="section-eyebrow">Experience</div>
+    <div class="timeline">
 
-        <div class="fade-up">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <div>
-              <h3 class="font-semibold text-lg">AI Valley</h3>
-              <p class="text-accent text-sm font-medium">Director of Expansion</p>
-            </div>
-            <span class="text-gray-400 text-sm shrink-0">2025 – present</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed mb-3">
-            Scaling a global community of 2,000+ first-generation AI builders. AI Valley has awarded $50K+ in prizes across 100+ projects and runs 12+ events annually — partnered with Google, AWS, OpenAI, ElevenLabs, VAPI, and Afore Capital. Leading expansion into new markets and communities.
-          </p>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag">2,000+ members</span>
-            <span class="tag">$50K+ in prizes</span>
-            <span class="tag">Google · AWS · OpenAI</span>
-          </div>
-        </div>
-
-        <div class="fade-up border-t border-gray-200 pt-10">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <div>
-              <h3 class="font-semibold text-lg">OncoScan AI</h3>
-              <p class="text-accent text-sm font-medium">CEO & CTO</p>
-            </div>
-            <span class="text-gray-400 text-sm shrink-0">2025</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed">
-            Building an oral cancer detection model in collaboration with leading cancer researchers in India. Incubated and scaling across the Indian market. Patent pending on the detection model.
-          </p>
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="tag">Patent Pending</span>
-            <span class="tag">ML / Computer Vision</span>
-            <span class="tag">Scaling in India</span>
-          </div>
-        </div>
-
-        <div class="fade-up border-t border-gray-200 pt-10">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <div>
-              <h3 class="font-semibold text-lg">Institute for Systems Biology (ISB)</h3>
-              <p class="text-accent text-sm font-medium">ML Research Intern</p>
-            </div>
-            <span class="text-gray-400 text-sm shrink-0">2025</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed">
-            ML modeling of HIV and preeclampsia diagnosis at one of the world's leading systems biology institutes. Presented research to field leaders.
-          </p>
-        </div>
-
-        <div class="fade-up border-t border-gray-200 pt-10">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <div>
-              <h3 class="font-semibold text-lg">Brain Stroke Diagnosis — 3D CNN Research</h3>
-              <p class="text-accent text-sm font-medium">Lead ML Researcher</p>
-            </div>
-            <span class="text-gray-400 text-sm shrink-0">2023 – 2025</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed">
-            Developed a 3D convolutional neural network to classify CT scans for stroke susceptibility. Awarded <strong>1st Place at the Washington State Science and Engineering Fair</strong>.
-          </p>
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="tag">3D CNN</span>
-            <span class="tag">Medical Imaging</span>
-            <span class="tag">WA State Fair — 1st Place</span>
-          </div>
-        </div>
-
-        <div class="fade-up border-t border-gray-200 pt-10">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <div>
-              <h3 class="font-semibold text-lg">The Uplift Network</h3>
-              <p class="text-accent text-sm font-medium">Founder</p>
-            </div>
-            <span class="text-gray-400 text-sm shrink-0">2024 – 2025</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed">
-            Built and scaled CS education for low-income students from the ground up. Grew to 3,000+ students and 25+ teachers.
-          </p>
-        </div>
-
-        <div class="fade-up border-t border-gray-200 pt-10">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <div>
-              <h3 class="font-semibold text-lg">TopStep Funded Trader</h3>
-              <p class="text-accent text-sm font-medium">Individual Contractor</p>
-            </div>
-            <span class="text-gray-400 text-sm shrink-0">2025</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed">
-            Qualified for and managing $150,000 in live trading capital through TopStep's express funded account.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="py-20 px-6">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Projects</h2>
-      <p class="text-gray-500 text-sm mb-10">Things I've built and shipped.</p>
-      <div class="grid md:grid-cols-2 gap-5">
-
-        <a href="https://github.com/v1hns/really.ai" target="_blank"
-          class="project-card border border-gray-200 rounded-xl p-6 block fade-up">
-          <div class="flex items-start justify-between mb-3">
-            <div class="text-2xl">🏡</div>
-            <span class="text-xs text-gray-400 border border-gray-100 rounded px-2 py-0.5">Python</span>
-          </div>
-          <h3 class="font-semibold mb-2">really.ai</h3>
-          <p class="text-sm text-gray-500 leading-relaxed">
-            AI real estate superconnecter. Drop your number, get called by an AI, get matched with buyers/sellers/agents — automatically. Built with VAPI, Groq, FastAPI.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="tag">VAPI</span>
-            <span class="tag">Groq LLaMA</span>
-            <span class="tag">FastAPI</span>
-          </div>
-        </a>
-
-        <div class="project-card border border-gray-200 rounded-xl p-6 fade-up">
-          <div class="flex items-start justify-between mb-3">
-            <div class="text-2xl">🧠</div>
-            <span class="text-xs text-gray-400 border border-gray-100 rounded px-2 py-0.5">Python</span>
-          </div>
-          <h3 class="font-semibold mb-2">Brain Stroke Classifier</h3>
-          <p class="text-sm text-gray-500 leading-relaxed">
-            3D CNN model for CT scan classification — predicts stroke susceptibility. Won 1st Place at the Washington State Science & Engineering Fair.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="tag">3D CNN</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">Medical Imaging</span>
-          </div>
-        </div>
-
-        <div class="project-card border border-gray-200 rounded-xl p-6 fade-up">
-          <div class="flex items-start justify-between mb-3">
-            <div class="text-2xl">🔬</div>
-            <span class="text-xs text-gray-400 border border-gray-100 rounded px-2 py-0.5">Python</span>
-          </div>
-          <h3 class="font-semibold mb-2">OncoScan — Oral Cancer Detection</h3>
-          <p class="text-sm text-gray-500 leading-relaxed">
-            ML model for early oral cancer detection built with leading researchers in India. Patent pending. Scaling across the Indian healthcare market.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="tag">Patent Pending</span>
-            <span class="tag">Computer Vision</span>
-            <span class="tag">Healthcare AI</span>
-          </div>
-        </div>
-
-        <div class="project-card border border-gray-200 rounded-xl p-6 fade-up">
-          <div class="flex items-start justify-between mb-3">
-            <div class="text-2xl">🧬</div>
-            <span class="text-xs text-gray-400 border border-gray-100 rounded px-2 py-0.5">Python · R</span>
-          </div>
-          <h3 class="font-semibold mb-2">HIV & Preeclampsia ML Models</h3>
-          <p class="text-sm text-gray-500 leading-relaxed">
-            ML research at the Institute for Systems Biology — predictive modeling for HIV and preeclampsia diagnosis. Results presented to field leaders.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="tag">ISB</span>
-            <span class="tag">Bioinformatics</span>
-            <span class="tag">ML Research</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section id="education" class="py-20 px-6 bg-gray-50 border-y border-gray-100">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Education</h2>
-      <div class="space-y-6">
-
-        <div class="fade-up bg-white border-2 border-accent/20 rounded-xl p-6">
-          <div class="flex items-start justify-between gap-4 mb-1">
-            <h3 class="font-bold text-lg">Carnegie Mellon University</h3>
-            <span class="text-gray-400 text-sm shrink-0">2026 – 2030</span>
-          </div>
-          <p class="text-accent font-medium text-sm mb-2">B.S. Computer Science · GPA 4.0</p>
-          <p class="text-gray-500 text-sm leading-relaxed">
-            #1 ranked CS program in the US. Admitted out of high school — CMU CS has a ~5% acceptance rate and produces more AI researchers and startup founders than almost any other program in the world.
-          </p>
-        </div>
-
-        <div class="fade-up bg-white border border-gray-100 rounded-xl p-6">
-          <div class="flex items-start justify-between gap-4 mb-1">
-            <h3 class="font-semibold">Stanford University — Pre-Collegiate</h3>
-            <span class="text-gray-400 text-sm shrink-0">Summer 2025</span>
-          </div>
-          <p class="text-gray-500 text-sm">Machine Learning, Principles of Data Science, Applied Statistics · GPA 3.85</p>
-        </div>
-
-        <div class="fade-up bg-white border border-gray-100 rounded-xl p-6">
-          <div class="flex items-start justify-between gap-4 mb-1">
-            <h3 class="font-semibold">Carnegie Mellon University — Summer</h3>
-            <span class="text-gray-400 text-sm shrink-0">Summer 2024</span>
-          </div>
-          <p class="text-gray-500 text-sm">Fundamentals of Computer Science, Reasoning With Data · GPA 4.0</p>
-        </div>
-
-        <div class="fade-up bg-white border border-gray-100 rounded-xl p-6">
-          <div class="flex items-start justify-between gap-4 mb-1">
-            <h3 class="font-semibold">Interlake High School</h3>
-            <span class="text-gray-400 text-sm shrink-0">Class of 2026</span>
-          </div>
-          <p class="text-gray-500 text-sm">Machine Learning & Computer Science · GPA 3.96 · IB Diploma</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Awards -->
-  <section id="awards" class="py-20 px-6">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Awards & Scores</h2>
-      <div class="grid md:grid-cols-2 gap-5">
-
-        <div class="fade-up bg-gray-900 text-white rounded-xl p-6">
-          <div class="text-3xl font-bold mb-1">36 <span class="text-lg text-gray-400">/ 36</span></div>
-          <div class="text-gray-300 text-sm">ACT Composite — Perfect Score</div>
-        </div>
-
-        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
-          <div class="text-3xl font-bold mb-1">1st</div>
-          <div class="text-gray-500 text-sm">Washington State Science & Engineering Fair — Brain Stroke ML Research</div>
-        </div>
-
-        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
-          <div class="text-3xl font-bold mb-1">5 × 5/5</div>
-          <div class="text-gray-500 text-sm">AP Statistics · CS A · Physics · Physics C · Calculus BC</div>
-        </div>
-
-        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
-          <div class="text-3xl font-bold mb-1">7/7</div>
-          <div class="text-gray-500 text-sm">IB Analysis & Approaches · AP Scholar with Distinction</div>
-        </div>
-
-        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
-          <div class="text-3xl font-bold mb-1">Stanford</div>
-          <div class="text-gray-500 text-sm">Accepted to Stanford Pre-Collegiate Machine Learning program</div>
-        </div>
-
-        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
-          <div class="text-3xl font-bold mb-1">Varsity</div>
-          <div class="text-gray-500 text-sm">Interlake HS Water Polo Varsity Athletic Award</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Network -->
-  <section class="py-20 px-6 bg-gray-50 border-t border-gray-100">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Network</h2>
-      <div class="fade-up">
-        <p class="text-2xl font-bold mb-3 leading-snug max-w-2xl">
-          Who you know matters as much as what you build.
-        </p>
-        <p class="text-gray-500 leading-relaxed max-w-2xl mb-8">
-          I've spent the last few years deliberately putting myself in rooms that matter — research labs, summer programs at CMU and Stanford, global hackathons, and a 2,000-person AI community. I believe relationships compound the same way code does.
-        </p>
-        <div class="grid md:grid-cols-3 gap-4">
-          <div class="bg-white rounded-xl p-5 border border-gray-100">
-            <div class="font-bold text-2xl mb-1">2,000+</div>
-            <div class="text-sm text-gray-500">AI builders in network via AI Valley</div>
-          </div>
-          <div class="bg-white rounded-xl p-5 border border-gray-100">
-            <div class="font-bold text-2xl mb-1">3,000+</div>
-            <div class="text-sm text-gray-500">Students reached through The Uplift Network</div>
-          </div>
-          <div class="bg-white rounded-xl p-5 border border-gray-100">
-            <div class="font-bold text-2xl mb-1">Global</div>
-            <div class="text-sm text-gray-500">Google · AWS · OpenAI · ElevenLabs · VAPI · Afore Capital</div>
+      <div class="tl-item reveal">
+        <div class="tl-date">2025 – now</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-content">
+          <div class="tl-co">AI Valley</div>
+          <div class="tl-role">Director of Expansion</div>
+          <div class="tl-desc">Scaling a global community of 2,000+ first-gen AI builders. $50K+ in prizes across 100+ projects, 12+ events annually. Partners: Google, AWS, OpenAI, ElevenLabs, VAPI, Afore Capital. Leading expansion into new cities and communities.</div>
+          <div class="chips">
+            <span class="chip">2,000+ Members</span>
+            <span class="chip">$50K+ Prizes</span>
+            <span class="chip">Google · AWS · OpenAI</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Contact -->
-  <section class="py-24 px-6 text-center">
-    <div class="max-w-xl mx-auto fade-up">
-      <h2 class="text-3xl font-bold mb-4">Let's connect.</h2>
-      <p class="text-gray-500 mb-8">Research, building, investing, or just a good conversation.</p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="mailto:vihaanvshringi@gmail.com"
-          class="inline-flex items-center justify-center gap-2 bg-gray-900 text-white font-medium px-7 py-3.5 rounded-xl hover:bg-gray-700 transition-colors">
-          vihaanvshringi@gmail.com
-        </a>
-        <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank"
-          class="inline-flex items-center justify-center gap-2 border border-gray-200 font-medium px-7 py-3.5 rounded-xl hover:bg-gray-50 transition-colors">
-          LinkedIn →
-        </a>
+      <div class="tl-item reveal">
+        <div class="tl-date">2025</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-content">
+          <div class="tl-co">OncoScan AI</div>
+          <div class="tl-role">CEO &amp; CTO</div>
+          <div class="tl-desc">Building an oral cancer detection model with leading cancer researchers in India. Incubated and scaling across the Indian market. Patent pending on the core detection model.</div>
+          <div class="chips">
+            <span class="chip a">Patent Pending</span>
+            <span class="chip">Computer Vision</span>
+            <span class="chip">Healthcare AI</span>
+          </div>
+        </div>
       </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-date">2025</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-content">
+          <div class="tl-co">Institute for Systems Biology</div>
+          <div class="tl-role">ML Research Intern</div>
+          <div class="tl-desc">Predictive ML modeling for HIV and preeclampsia diagnosis at one of the world's leading systems biology institutes. Presented research to field leaders.</div>
+          <div class="chips">
+            <span class="chip">Bioinformatics</span>
+            <span class="chip">Python · R</span>
+            <span class="chip">Research</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-date">2023 – 2025</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-content">
+          <div class="tl-co">Brain Stroke Research</div>
+          <div class="tl-role">Lead ML Researcher</div>
+          <div class="tl-desc">Built a 3D CNN to classify CT scans for stroke susceptibility. Won 1st Place at the Washington State Science and Engineering Fair.</div>
+          <div class="chips">
+            <span class="chip a">1st Place — WA State Fair</span>
+            <span class="chip">3D CNN</span>
+            <span class="chip">Medical Imaging</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-date">2024 – 2025</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-content">
+          <div class="tl-co">The Uplift Network</div>
+          <div class="tl-role">Founder</div>
+          <div class="tl-desc">Built CS education for underserved students from the ground up. Grew to 3,000+ students and 25+ teachers.</div>
+          <div class="chips">
+            <span class="chip">3,000+ Students</span>
+            <span class="chip">25+ Teachers</span>
+            <span class="chip">EdTech</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-date">2025</div>
+        <div class="tl-line"><div class="tl-dot"></div></div>
+        <div class="tl-content">
+          <div class="tl-co">TopStep</div>
+          <div class="tl-role">Funded Trader</div>
+          <div class="tl-desc">Qualified for and managing $150,000 in live capital through TopStep's express funded account program.</div>
+          <div class="chips">
+            <span class="chip">$150K Capital</span>
+            <span class="chip">Quant / Trading</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-gray-100 py-8 px-6 text-center">
-    <p class="text-xs text-gray-400">© 2026 Vihaan Shringi · CMU CS · really.ai · AI Valley</p>
+  <!-- PROJECTS -->
+  <section class="section-wrap ruled" id="projects">
+    <div class="section-eyebrow">Projects</div>
+    <div class="project-grid">
+
+      <a href="https://github.com/v1hns/really.ai" target="_blank" class="proj reveal">
+        <div class="proj-icon">🏡</div>
+        <div class="proj-name">really.ai</div>
+        <div class="proj-desc">AI real estate superconnecter. Drop your number, get called by AI, get matched with buyers, sellers, and agents — automatically. Built with VAPI, Groq LLaMA, FastAPI.</div>
+        <div class="chips" style="margin-bottom:22px">
+          <span class="chip">VAPI</span>
+          <span class="chip">Groq LLaMA</span>
+          <span class="chip">FastAPI</span>
+          <span class="chip">WhatsApp API</span>
+        </div>
+        <div class="proj-link gl">View on GitHub →</div>
+      </a>
+
+      <div class="proj reveal reveal-d1">
+        <div class="proj-icon">🧠</div>
+        <div class="proj-name">Brain Stroke Classifier</div>
+        <div class="proj-desc">3D CNN for CT scan classification — predicts stroke susceptibility from medical imaging. Won 1st Place at Washington State Science &amp; Engineering Fair.</div>
+        <div class="chips" style="margin-bottom:22px">
+          <span class="chip">3D CNN</span>
+          <span class="chip">PyTorch</span>
+          <span class="chip">Medical Imaging</span>
+        </div>
+        <div class="proj-link dim">1st Place — WA State Fair</div>
+      </div>
+
+      <div class="proj reveal">
+        <div class="proj-icon">🔬</div>
+        <div class="proj-name">OncoScan</div>
+        <div class="proj-desc">Early oral cancer detection model — patent pending. Built with leading cancer researchers in India, scaling across the Indian healthcare system.</div>
+        <div class="chips" style="margin-bottom:22px">
+          <span class="chip a">Patent Pending</span>
+          <span class="chip">Computer Vision</span>
+          <span class="chip">Healthcare AI</span>
+        </div>
+        <div class="proj-link gl">Patent Pending</div>
+      </div>
+
+      <div class="proj reveal reveal-d1">
+        <div class="proj-icon">🧬</div>
+        <div class="proj-name">HIV &amp; Preeclampsia Models</div>
+        <div class="proj-desc">Predictive ML research at ISB — modeling HIV and preeclampsia diagnosis. Results presented to field leaders at one of the world's top systems biology institutes.</div>
+        <div class="chips" style="margin-bottom:22px">
+          <span class="chip">ISB</span>
+          <span class="chip">Bioinformatics</span>
+          <span class="chip">Python · R</span>
+        </div>
+        <div class="proj-link dim">Research Publication</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section class="section-wrap ruled" id="awards">
+    <div class="section-eyebrow">Awards &amp; Scores</div>
+    <div class="awards-grid">
+
+      <div class="award featured reveal">
+        <div class="anum">36<span style="font-size:22px;opacity:0.5"> / 36</span></div>
+        <div class="alabel">ACT Composite · Perfect Score</div>
+      </div>
+
+      <div class="award reveal reveal-d1">
+        <div class="anum">1st</div>
+        <div class="alabel">Washington State Science &amp; Engineering Fair — Brain Stroke ML Research</div>
+      </div>
+
+      <div class="award reveal reveal-d2">
+        <div class="anum">5 × 5</div>
+        <div class="alabel">AP Stats · CS A · Physics · Physics C · Calc BC — all 5/5</div>
+      </div>
+
+      <div class="award reveal">
+        <div class="anum">7/7</div>
+        <div class="alabel">IB Analysis &amp; Approaches · AP Scholar with Distinction</div>
+      </div>
+
+      <div class="award reveal reveal-d1">
+        <div class="anum">CMU</div>
+        <div class="alabel">GPA 4.0 · Summer Program · Fundamentals of CS &amp; Reasoning with Data</div>
+      </div>
+
+      <div class="award reveal reveal-d2">
+        <div class="anum">Stanford</div>
+        <div class="alabel">Pre-Collegiate · ML, Data Science, Applied Statistics · GPA 3.85</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact reveal" id="contact">
+    <div class="contact-glow"></div>
+    <p class="contact-pre">Let's talk</p>
+    <h2 class="contact-title">Build something<br/>together.</h2>
+    <p class="contact-sub">Research, AI, real estate, investing, or just a good conversation.</p>
+    <div class="contact-ctas">
+      <a href="mailto:vihaanvshringi@gmail.com" class="btn-accent">vihaanvshringi@gmail.com →</a>
+      <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" class="btn-outline">LinkedIn</a>
+      <a href="https://github.com/v1hns" target="_blank" class="btn-outline">GitHub</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Vihaan Shringi</span>
+    <span>CMU CS · really.ai · AI Valley</span>
   </footer>
 
   <script>
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  </script>
+    // Custom cursor
+    const cur = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = -200, my = -200, rx = -200, ry = -200;
 
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    (function tick() {
+      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+      rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(tick);
+    })();
+
+    document.querySelectorAll('a, button, .proj, .bento-card, .award, .tl-item').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
+    });
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.06 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Count-up
+    function countUp(el, target, suffix = '', dur = 1100) {
+      let v = 0;
+      const step = target / (dur / 16);
+      const t = setInterval(() => {
+        v = Math.min(v + step, target);
+        el.textContent = Math.floor(v).toLocaleString() + suffix;
+        if (v >= target) clearInterval(t);
+      }, 16);
+    }
+
+    const cobs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        countUp(el, +el.dataset.count, el.dataset.suffix || '');
+        cobs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => cobs.observe(el));
+
+    // 3D tilt on project cards
+    document.querySelectorAll('.proj').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg) translateY(-3px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  </script>
 </body>
 </html>
