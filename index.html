@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vihaan Shringi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: { accent: '#6366f1' }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    ::selection { background: #6366f1; color: white; }
+    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-up.visible { opacity: 1; transform: none; }
+    .tag { display: inline-block; background: #f1f5f9; color: #475569; font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 99px; }
+  </style>
+</head>
+<body class="bg-white font-sans text-gray-900 antialiased">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full bg-white/80 backdrop-blur border-b border-gray-100 z-50">
+    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+      <span class="font-semibold tracking-tight">VS</span>
+      <div class="flex gap-6 text-sm text-gray-500">
+        <a href="#work" class="hover:text-gray-900 transition-colors">Work</a>
+        <a href="#education" class="hover:text-gray-900 transition-colors">Education</a>
+        <a href="#awards" class="hover:text-gray-900 transition-colors">Awards</a>
+        <a href="mailto:vihaanvshringi@gmail.com" class="hover:text-gray-900 transition-colors">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="pt-36 pb-24 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="fade-up visible">
+        <p class="text-accent font-medium text-sm mb-4 tracking-wide uppercase">Bellevue, Washington</p>
+        <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
+          Vihaan Shringi
+        </h1>
+        <p class="text-xl text-gray-500 max-w-2xl leading-relaxed mb-8">
+          CS student at Carnegie Mellon. Building at the intersection of machine learning and real-world impact — from cancer detection to real estate AI. Founder, researcher, and funded trader.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <span class="tag">Python · Java · C++ · R</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">AI / Deep Learning</span>
+          <span class="tag">ACT 36/36</span>
+          <span class="tag">CMU Class of 2030</span>
+        </div>
+        <div class="flex gap-4 mt-8">
+          <a href="mailto:vihaanvshringi@gmail.com"
+            class="inline-flex items-center gap-2 bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-700 transition-colors">
+            Get in touch
+          </a>
+          <a href="https://github.com/v1hns" target="_blank"
+            class="inline-flex items-center gap-2 border border-gray-200 text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors">
+            GitHub →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="py-20 px-6 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Work & Projects</h2>
+      <div class="space-y-10">
+
+        <div class="fade-up">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="font-semibold text-lg">OncoScan AI</h3>
+              <p class="text-accent text-sm font-medium">CEO & CTO</p>
+            </div>
+            <span class="text-gray-400 text-sm shrink-0">2025</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Building an oral cancer detection model using machine learning in collaboration with leading cancer researchers in India. Patent pending. Incubated and scaling across the Indian market.
+          </p>
+        </div>
+
+        <div class="fade-up border-t border-gray-200 pt-10">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="font-semibold text-lg">The Uplift Network</h3>
+              <p class="text-accent text-sm font-medium">Founder</p>
+            </div>
+            <span class="text-gray-400 text-sm shrink-0">2024 – 2025</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Created and distributed computer science education to low-income students. Grew to 3,000+ students across 25+ teachers.
+          </p>
+        </div>
+
+        <div class="fade-up border-t border-gray-200 pt-10">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="font-semibold text-lg">Institute for Systems Biology (ISB)</h3>
+              <p class="text-accent text-sm font-medium">ML Intern</p>
+            </div>
+            <span class="text-gray-400 text-sm shrink-0">2025</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            ML modeling of HIV and preeclampsia diagnosis. Presented research findings to leaders in the field.
+          </p>
+        </div>
+
+        <div class="fade-up border-t border-gray-200 pt-10">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="font-semibold text-lg">Brain Stroke Diagnosis — 3D CNN Research</h3>
+              <p class="text-accent text-sm font-medium">ML Researcher</p>
+            </div>
+            <span class="text-gray-400 text-sm shrink-0">2023 – 2025</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Developed a 3D CNN model to classify CT scans for stroke susceptibility. Won First Place at the Washington State Science and Engineering Fair.
+          </p>
+        </div>
+
+        <div class="fade-up border-t border-gray-200 pt-10">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="font-semibold text-lg">TopStep Funded Trader</h3>
+              <p class="text-accent text-sm font-medium">Individual Contractor</p>
+            </div>
+            <span class="text-gray-400 text-sm shrink-0">2025</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Managing and trading $150,000 in funding through TopStep's express funded account.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Education</h2>
+      <div class="space-y-8">
+
+        <div class="fade-up flex gap-6">
+          <div class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></div>
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-semibold">Carnegie Mellon University</h3>
+              <span class="text-gray-400 text-sm shrink-0">2026 – 2030</span>
+            </div>
+            <p class="text-gray-500 text-sm">B.S. Computer Science · GPA 4.0</p>
+          </div>
+        </div>
+
+        <div class="fade-up flex gap-6">
+          <div class="w-2 h-2 rounded-full bg-gray-300 mt-2 shrink-0"></div>
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-semibold">Stanford University — Summer Program</h3>
+              <span class="text-gray-400 text-sm shrink-0">2025</span>
+            </div>
+            <p class="text-gray-500 text-sm">Data Science & Applied Statistics · GPA 3.85</p>
+          </div>
+        </div>
+
+        <div class="fade-up flex gap-6">
+          <div class="w-2 h-2 rounded-full bg-gray-300 mt-2 shrink-0"></div>
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-semibold">Carnegie Mellon University — Summer Program</h3>
+              <span class="text-gray-400 text-sm shrink-0">2024</span>
+            </div>
+            <p class="text-gray-500 text-sm">Computer & Data Science · GPA 4.0</p>
+          </div>
+        </div>
+
+        <div class="fade-up flex gap-6">
+          <div class="w-2 h-2 rounded-full bg-gray-300 mt-2 shrink-0"></div>
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-semibold">Interlake High School</h3>
+              <span class="text-gray-400 text-sm shrink-0">Class of 2026</span>
+            </div>
+            <p class="text-gray-500 text-sm">Machine Learning & CS · GPA 3.96</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  <section id="awards" class="py-20 px-6 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Awards & Scores</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <div class="fade-up bg-white border border-gray-100 rounded-xl p-5">
+          <div class="text-2xl font-bold text-gray-900 mb-1">36 / 36</div>
+          <div class="text-sm text-gray-500">ACT Composite</div>
+        </div>
+
+        <div class="fade-up bg-white border border-gray-100 rounded-xl p-5">
+          <div class="text-2xl font-bold text-gray-900 mb-1">1st Place</div>
+          <div class="text-sm text-gray-500">Washington State Science & Engineering Fair — Brain Stroke ML</div>
+        </div>
+
+        <div class="fade-up bg-white border border-gray-100 rounded-xl p-5">
+          <div class="text-2xl font-bold text-gray-900 mb-1">5 × AP 5/5</div>
+          <div class="text-sm text-gray-500">Statistics · CS A · Physics · Physics C · Calculus BC</div>
+        </div>
+
+        <div class="fade-up bg-white border border-gray-100 rounded-xl p-5">
+          <div class="text-2xl font-bold text-gray-900 mb-1">AP Scholar</div>
+          <div class="text-sm text-gray-500">AP Scholar with Distinction · IB Analysis 7/7</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="py-24 px-6 text-center">
+    <div class="max-w-xl mx-auto fade-up">
+      <h2 class="text-3xl font-bold mb-4">Let's connect.</h2>
+      <p class="text-gray-500 mb-8">Whether it's research, building, or just a good conversation.</p>
+      <a href="mailto:vihaanvshringi@gmail.com"
+        class="inline-flex items-center gap-2 bg-gray-900 text-white font-medium px-7 py-3.5 rounded-xl hover:bg-gray-700 transition-colors">
+        vihaanvshringi@gmail.com
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-100 py-8 px-6 text-center">
+    <p class="text-xs text-gray-400">© 2026 Vihaan Shringi</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
