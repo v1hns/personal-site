@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brain Stroke Classifier — Vihaan Shringi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_project.css" />
+</head>
+<body>
+  <div id="cursor"></div><div id="cursor-ring"></div>
+  <nav><a href="../index.html" class="back">← Vihaan Shringi</a><span class="nav-tag">Research</span></nav>
+
+  <main>
+    <section class="proj-hero reveal">
+      <div class="proj-icon-lg">🧠</div>
+      <div class="eyebrow">Independent Research · 2023 – 2025</div>
+      <h1>Brain Stroke Diagnostic Model</h1>
+      <p class="proj-tagline">A 3D convolutional neural network for CT scan classification — predicting stroke susceptibility from volumetric medical imaging data.</p>
+      <div class="link-row">
+        <span class="award-badge">🏆 1st Place — WA State Science &amp; Engineering Fair</span>
+      </div>
+    </section>
+
+    <section class="proj-body">
+      <div class="proj-grid">
+        <div class="proj-main reveal">
+          <h2>Overview</h2>
+          <p>Developed a 3D convolutional neural network (3D CNN) to classify brain CT scans for stroke susceptibility. Unlike 2D models that analyze individual slices, the 3D architecture captures volumetric spatial relationships across the full scan — enabling more accurate diagnosis of ischemic and hemorrhagic stroke indicators.</p>
+          <p>The model was trained on a curated dataset of annotated CT scans and evaluated against radiologist-level benchmarks. The work was awarded <strong>1st Place at the Washington State Science and Engineering Fair (WSSEF)</strong> — one of the most competitive regional STEM competitions in the country, feeding into international fairs.</p>
+
+          <h2>Architecture</h2>
+          <p>The model uses a custom 3D CNN pipeline with volumetric convolutions, batch normalization, and max-pooling across three spatial dimensions. A fully connected classifier head outputs susceptibility scores for multiple stroke classifications. Data augmentation techniques (random flipping, rotation, intensity jitter) were applied to improve generalization on limited medical imaging data.</p>
+
+          <h2>Impact</h2>
+          <p>Stroke is a leading cause of death and disability worldwide. Early, automated detection from CT imaging can dramatically reduce time-to-treatment. This model demonstrates that a 3D deep learning approach can meaningfully assist clinical triage — especially in under-resourced settings where specialized radiologists are unavailable.</p>
+
+          <h2>Awards</h2>
+          <div class="award-list">
+            <div class="award-item featured">
+              <div class="award-num">1st</div>
+              <div class="award-info">
+                <div class="award-title">Washington State Science &amp; Engineering Fair</div>
+                <div class="award-sub">State / Regional — Grade 11</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-sidebar">
+          <div class="sidebar-card reveal">
+            <div class="sidebar-label">Status</div>
+            <div class="sidebar-val accent">Award Winner</div>
+          </div>
+          <div class="sidebar-card reveal">
+            <div class="sidebar-label">Type</div>
+            <div class="sidebar-val">ML Research · Medical Imaging</div>
+          </div>
+          <div class="sidebar-card reveal">
+            <div class="sidebar-label">Stack</div>
+            <div class="chips">
+              <span class="chip">Python</span><span class="chip">PyTorch</span>
+              <span class="chip">3D CNN</span><span class="chip">Medical Imaging</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><a href="../index.html">← Back to vihaanshringi.com</a><span>© 2026 Vihaan Shringi</span></footer>
+  <script src="_project.js"></script>
+</body>
+</html>

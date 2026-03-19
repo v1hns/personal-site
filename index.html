@@ -301,7 +301,14 @@
       transform-style: preserve-3d; display: block;
     }
     .proj:hover { border-color: var(--border2); }
-    .proj-icon { font-size: 30px; margin-bottom: 20px; }
+    .proj-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+    .proj-icon { font-size: 30px; }
+    .proj-type-badge {
+      font-size: 11px; font-weight: 500; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 99px; padding: 3px 10px;
+      white-space: nowrap;
+    }
+    .award-badge-sm { color: var(--accent) !important; border-color: rgba(184,255,87,0.22) !important; background: rgba(184,255,87,0.06); }
     .proj-name { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; margin-bottom: 10px; }
     .proj-desc { color: var(--muted); font-size: 13px; line-height: 1.75; margin-bottom: 22px; }
     .proj-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; }
@@ -642,7 +649,7 @@
             <div><div class="tl-co">TopStep</div></div>
           </div>
           <div class="tl-role">Funded Trader</div>
-          <div class="tl-desc">Qualified for and managing $150,000 in live capital through TopStep's express funded account program.</div>
+          <div class="tl-desc">Qualified by demonstrating $9,000+ in verified profits over one month. Now managing $150,000 in live trading capital through TopStep's express funded account program.</div>
           <div class="chips">
             <span class="chip">$150K Capital</span>
             <span class="chip">Quant / Trading</span>
@@ -658,54 +665,70 @@
     <div class="section-eyebrow">Projects</div>
     <div class="project-grid">
 
-      <a href="https://github.com/v1hns/really.ai" target="_blank" class="proj reveal">
-        <div class="proj-icon">🏡</div>
-        <div class="proj-name">really.ai</div>
-        <div class="proj-desc">AI real estate superconnecter. Drop your number, get called by AI, get matched with buyers, sellers, and agents — automatically. Built with VAPI, Groq LLaMA, FastAPI.</div>
-        <div class="chips" style="margin-bottom:22px">
-          <span class="chip">VAPI</span>
-          <span class="chip">Groq LLaMA</span>
-          <span class="chip">FastAPI</span>
-          <span class="chip">WhatsApp API</span>
+      <a href="projects/really-ai.html" class="proj reveal">
+        <div class="proj-header">
+          <div class="proj-icon">🏡</div>
+          <span class="proj-type-badge">Product</span>
         </div>
-        <div class="proj-link gl">View on GitHub →</div>
+        <div class="proj-name">really.ai</div>
+        <div class="proj-desc">AI real estate superconnecter. Drop your number, get called by AI, get matched with buyers, sellers, and agents — automatically.</div>
+        <div class="chips" style="margin-bottom:22px">
+          <span class="chip">VAPI</span><span class="chip">Groq LLaMA</span><span class="chip">FastAPI</span>
+        </div>
+        <div class="proj-link gl">View project →</div>
       </a>
 
-      <div class="proj reveal reveal-d1">
-        <div class="proj-icon">🧠</div>
+      <a href="projects/brain-stroke.html" class="proj reveal reveal-d1">
+        <div class="proj-header">
+          <div class="proj-icon">🧠</div>
+          <span class="proj-type-badge award-badge-sm">🏆 1st Place</span>
+        </div>
         <div class="proj-name">Brain Stroke Classifier</div>
-        <div class="proj-desc">3D CNN for CT scan classification — predicts stroke susceptibility from medical imaging. Won 1st Place at Washington State Science &amp; Engineering Fair.</div>
+        <div class="proj-desc">3D CNN for CT scan classification predicting stroke susceptibility. 1st Place — WA State Science &amp; Engineering Fair.</div>
         <div class="chips" style="margin-bottom:22px">
-          <span class="chip">3D CNN</span>
-          <span class="chip">PyTorch</span>
-          <span class="chip">Medical Imaging</span>
+          <span class="chip">3D CNN</span><span class="chip">PyTorch</span><span class="chip">Medical Imaging</span>
         </div>
-        <div class="proj-link dim">1st Place — WA State Fair</div>
-      </div>
+        <div class="proj-link gl">View project →</div>
+      </a>
 
-      <div class="proj reveal">
-        <div class="proj-icon">🔬</div>
-        <div class="proj-name">OncoScan</div>
-        <div class="proj-desc">Early oral cancer detection model — patent pending. Built with leading cancer researchers in India, scaling across the Indian healthcare system.</div>
-        <div class="chips" style="margin-bottom:22px">
-          <span class="chip a">Patent Pending</span>
-          <span class="chip">Computer Vision</span>
-          <span class="chip">Healthcare AI</span>
+      <a href="projects/oncoscan.html" class="proj reveal">
+        <div class="proj-header">
+          <div class="proj-icon">🔬</div>
+          <span class="proj-type-badge">Startup · Patent Pending</span>
         </div>
-        <div class="proj-link gl">Patent Pending</div>
-      </div>
+        <div class="proj-name">OncoScan AI</div>
+        <div class="proj-desc">Oral cancer detection model with leading researchers in India. VC funded, AWS credits, patent pending, scaling nationally.</div>
+        <div class="chips" style="margin-bottom:22px">
+          <span class="chip a">Patent Pending</span><span class="chip">Computer Vision</span><span class="chip">Healthcare AI</span>
+        </div>
+        <div class="proj-link gl">View project →</div>
+      </a>
 
-      <div class="proj reveal reveal-d1">
-        <div class="proj-icon">🧬</div>
-        <div class="proj-name">HIV &amp; Preeclampsia Models</div>
-        <div class="proj-desc">Predictive ML research at ISB — modeling HIV and preeclampsia diagnosis. Results presented to field leaders at one of the world's top systems biology institutes.</div>
-        <div class="chips" style="margin-bottom:22px">
-          <span class="chip">ISB</span>
-          <span class="chip">Bioinformatics</span>
-          <span class="chip">Python · R</span>
+      <a href="projects/isb-research.html" class="proj reveal reveal-d1">
+        <div class="proj-header">
+          <div class="proj-icon">🧬</div>
+          <span class="proj-type-badge">Research · ISB</span>
         </div>
-        <div class="proj-link dim">Research Publication</div>
-      </div>
+        <div class="proj-name">Computational Bio Modeling</div>
+        <div class="proj-desc">ML models for HIV &amp; preeclampsia diagnosis under Mario Arrieta Ortiz at the Baliga Lab, Institute for Systems Biology.</div>
+        <div class="chips" style="margin-bottom:22px">
+          <span class="chip">Bioinformatics</span><span class="chip">Python · R</span><span class="chip">Multi-omics</span>
+        </div>
+        <div class="proj-link gl">View project →</div>
+      </a>
+
+      <a href="projects/minecraft-bots.html" class="proj reveal">
+        <div class="proj-header">
+          <div class="proj-icon">⛏️</div>
+          <span class="proj-type-badge">In Progress</span>
+        </div>
+        <div class="proj-name">Minecraft AI Bots</div>
+        <div class="proj-desc">Autonomous agents that play Minecraft — navigating, crafting, and surviving through RL and LLM-based task planning in an open-world environment.</div>
+        <div class="chips" style="margin-bottom:22px">
+          <span class="chip">RL</span><span class="chip">LLM Planning</span><span class="chip">Agents</span>
+        </div>
+        <div class="proj-link gl">View project →</div>
+      </a>
 
     </div>
   </section>
@@ -722,7 +745,22 @@
 
       <div class="award reveal reveal-d1">
         <div class="anum">1st</div>
-        <div class="alabel">Washington State Science &amp; Engineering Fair — Brain Stroke ML Research</div>
+        <div class="alabel">WA State Science &amp; Engineering Fair — Brain Stroke Diagnostic ML · State / Regional · Grade 11</div>
+      </div>
+
+      <div class="award reveal reveal-d2">
+        <div class="anum" style="font-size:30px">AWS</div>
+        <div class="alabel">Incubated as startup · Awarded $1,000 AWS Credits for Computational Bio startup · International · Grade 11</div>
+      </div>
+
+      <div class="award reveal">
+        <div class="anum" style="font-size:30px">Stanford</div>
+        <div class="alabel">Selected for Stanford Pre-Collegiate AI Program — ~60 students, ~5% acceptance rate · International · Grade 10</div>
+      </div>
+
+      <div class="award reveal reveal-d1">
+        <div class="anum" style="font-size:30px">$150K</div>
+        <div class="alabel">TopStep Funded Trader — awarded after demonstrating $9,000+ in profits over 1 month · International · Grade 11</div>
       </div>
 
       <div class="award reveal reveal-d2">
@@ -732,7 +770,7 @@
 
       <div class="award reveal">
         <div class="anum">7/7</div>
-        <div class="alabel">IB Analysis &amp; Approaches · AP Scholar with Distinction</div>
+        <div class="alabel">IB Analysis &amp; Approaches · AP Scholar with Distinction · Grade 11</div>
       </div>
 
       <div class="award reveal reveal-d1">
