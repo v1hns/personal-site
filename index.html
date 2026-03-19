@@ -23,6 +23,8 @@
     .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
     .fade-up.visible { opacity: 1; transform: none; }
     .tag { display: inline-block; background: #f1f5f9; color: #475569; font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 99px; }
+    .project-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .project-card { transition: all 0.2s ease; }
   </style>
 </head>
 <body class="bg-white font-sans text-gray-900 antialiased">
@@ -33,6 +35,7 @@
       <span class="font-semibold tracking-tight">VS</span>
       <div class="flex gap-6 text-sm text-gray-500">
         <a href="#work" class="hover:text-gray-900 transition-colors">Work</a>
+        <a href="#projects" class="hover:text-gray-900 transition-colors">Projects</a>
         <a href="#education" class="hover:text-gray-900 transition-colors">Education</a>
         <a href="#awards" class="hover:text-gray-900 transition-colors">Awards</a>
         <a href="mailto:vihaanvshringi@gmail.com" class="hover:text-gray-900 transition-colors">Contact</a>
@@ -49,17 +52,17 @@
           Vihaan Shringi
         </h1>
         <p class="text-xl text-gray-500 max-w-2xl leading-relaxed mb-8">
-          CS student at Carnegie Mellon. I build things — cancer detection models, AI startups, real estate superconnecters. Director of Expansion at AI Valley, where I help grow a global network of 2,000+ AI builders backed by Google, AWS, OpenAI, and more. I care about who you know as much as what you build.
+          CS student at Carnegie Mellon — one of the most selective CS programs in the world. I build things that matter: cancer detection models, AI companies, real estate networks. Director of Expansion at AI Valley. I believe the best builders are also the best connected.
         </p>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-3 mb-8">
+          <span class="tag">CMU CS · Class of 2030</span>
           <span class="tag">Python · Java · C++ · R</span>
-          <span class="tag">Machine Learning</span>
-          <span class="tag">AI / Deep Learning</span>
+          <span class="tag">ML / Deep Learning</span>
           <span class="tag">ACT 36/36</span>
-          <span class="tag">CMU Class of 2030</span>
+          <span class="tag">Patent Pending</span>
           <span class="tag">AI Valley</span>
         </div>
-        <div class="flex gap-4 mt-8">
+        <div class="flex gap-4">
           <a href="mailto:vihaanvshringi@gmail.com"
             class="inline-flex items-center gap-2 bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-700 transition-colors">
             Get in touch
@@ -68,6 +71,33 @@
             class="inline-flex items-center gap-2 border border-gray-200 text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors">
             GitHub →
           </a>
+          <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank"
+            class="inline-flex items-center gap-2 border border-gray-200 text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors">
+            LinkedIn →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CMU Banner -->
+  <section class="px-6 pb-16">
+    <div class="max-w-4xl mx-auto">
+      <div class="fade-up bg-indigo-50 border border-indigo-100 rounded-2xl p-8">
+        <div class="flex flex-col md:flex-row md:items-center gap-6">
+          <div class="flex-1">
+            <p class="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-2">Carnegie Mellon University</p>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">B.S. Computer Science · GPA 4.0 · Class of 2030</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              CMU's School of Computer Science is ranked <strong>#1 in the US</strong> with a ~5% acceptance rate. Admitted while still in high school, starting fall 2026.
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 text-center shrink-0">
+            <div class="bg-white border border-indigo-100 rounded-xl px-6 py-3">
+              <div class="text-2xl font-bold text-accent">4.0</div>
+              <div class="text-xs text-gray-400">GPA</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -76,7 +106,7 @@
   <!-- Work -->
   <section id="work" class="py-20 px-6 bg-gray-50 border-y border-gray-100">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Work & Projects</h2>
+      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Work & Experience</h2>
       <div class="space-y-10">
 
         <div class="fade-up">
@@ -87,10 +117,10 @@
             </div>
             <span class="text-gray-400 text-sm shrink-0">2025 – present</span>
           </div>
-          <p class="text-gray-600 leading-relaxed">
-            Scaling a global community of 2,000+ first-generation AI builders. AI Valley has awarded $50K+ in prizes across 100+ projects and runs 12+ events annually — partnered with Google, AWS, OpenAI, ElevenLabs, VAPI, Afore Capital, and more. I lead expansion: new markets, new members, new opportunities.
+          <p class="text-gray-600 leading-relaxed mb-3">
+            Scaling a global community of 2,000+ first-generation AI builders. AI Valley has awarded $50K+ in prizes across 100+ projects and runs 12+ events annually — partnered with Google, AWS, OpenAI, ElevenLabs, VAPI, and Afore Capital. Leading expansion into new markets and communities.
           </p>
-          <div class="mt-3 flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2">
             <span class="tag">2,000+ members</span>
             <span class="tag">$50K+ in prizes</span>
             <span class="tag">Google · AWS · OpenAI</span>
@@ -106,8 +136,44 @@
             <span class="text-gray-400 text-sm shrink-0">2025</span>
           </div>
           <p class="text-gray-600 leading-relaxed">
-            Building an oral cancer detection model using machine learning in collaboration with leading cancer researchers in India. Patent pending. Incubated and scaling across the Indian market.
+            Building an oral cancer detection model in collaboration with leading cancer researchers in India. Incubated and scaling across the Indian market. Patent pending on the detection model.
           </p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="tag">Patent Pending</span>
+            <span class="tag">ML / Computer Vision</span>
+            <span class="tag">Scaling in India</span>
+          </div>
+        </div>
+
+        <div class="fade-up border-t border-gray-200 pt-10">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="font-semibold text-lg">Institute for Systems Biology (ISB)</h3>
+              <p class="text-accent text-sm font-medium">ML Research Intern</p>
+            </div>
+            <span class="text-gray-400 text-sm shrink-0">2025</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            ML modeling of HIV and preeclampsia diagnosis at one of the world's leading systems biology institutes. Presented research to field leaders.
+          </p>
+        </div>
+
+        <div class="fade-up border-t border-gray-200 pt-10">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="font-semibold text-lg">Brain Stroke Diagnosis — 3D CNN Research</h3>
+              <p class="text-accent text-sm font-medium">Lead ML Researcher</p>
+            </div>
+            <span class="text-gray-400 text-sm shrink-0">2023 – 2025</span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Developed a 3D convolutional neural network to classify CT scans for stroke susceptibility. Awarded <strong>1st Place at the Washington State Science and Engineering Fair</strong>.
+          </p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="tag">3D CNN</span>
+            <span class="tag">Medical Imaging</span>
+            <span class="tag">WA State Fair — 1st Place</span>
+          </div>
         </div>
 
         <div class="fade-up border-t border-gray-200 pt-10">
@@ -119,33 +185,7 @@
             <span class="text-gray-400 text-sm shrink-0">2024 – 2025</span>
           </div>
           <p class="text-gray-600 leading-relaxed">
-            Created and distributed computer science education to low-income students. Grew to 3,000+ students across 25+ teachers.
-          </p>
-        </div>
-
-        <div class="fade-up border-t border-gray-200 pt-10">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <div>
-              <h3 class="font-semibold text-lg">Institute for Systems Biology (ISB)</h3>
-              <p class="text-accent text-sm font-medium">ML Intern</p>
-            </div>
-            <span class="text-gray-400 text-sm shrink-0">2025</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed">
-            ML modeling of HIV and preeclampsia diagnosis. Presented research findings to leaders in the field.
-          </p>
-        </div>
-
-        <div class="fade-up border-t border-gray-200 pt-10">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <div>
-              <h3 class="font-semibold text-lg">Brain Stroke Diagnosis — 3D CNN Research</h3>
-              <p class="text-accent text-sm font-medium">ML Researcher</p>
-            </div>
-            <span class="text-gray-400 text-sm shrink-0">2023 – 2025</span>
-          </div>
-          <p class="text-gray-600 leading-relaxed">
-            Developed a 3D CNN model to classify CT scans for stroke susceptibility. Won First Place at the Washington State Science and Engineering Fair.
+            Built and scaled CS education for low-income students from the ground up. Grew to 3,000+ students and 25+ teachers.
           </p>
         </div>
 
@@ -158,7 +198,7 @@
             <span class="text-gray-400 text-sm shrink-0">2025</span>
           </div>
           <p class="text-gray-600 leading-relaxed">
-            Managing and trading $150,000 in funding through TopStep's express funded account.
+            Qualified for and managing $150,000 in live trading capital through TopStep's express funded account.
           </p>
         </div>
 
@@ -166,54 +206,121 @@
     </div>
   </section>
 
+  <!-- Projects -->
+  <section id="projects" class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Projects</h2>
+      <p class="text-gray-500 text-sm mb-10">Things I've built and shipped.</p>
+      <div class="grid md:grid-cols-2 gap-5">
+
+        <a href="https://github.com/v1hns/really.ai" target="_blank"
+          class="project-card border border-gray-200 rounded-xl p-6 block fade-up">
+          <div class="flex items-start justify-between mb-3">
+            <div class="text-2xl">🏡</div>
+            <span class="text-xs text-gray-400 border border-gray-100 rounded px-2 py-0.5">Python</span>
+          </div>
+          <h3 class="font-semibold mb-2">really.ai</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            AI real estate superconnecter. Drop your number, get called by an AI, get matched with buyers/sellers/agents — automatically. Built with VAPI, Groq, FastAPI.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag">VAPI</span>
+            <span class="tag">Groq LLaMA</span>
+            <span class="tag">FastAPI</span>
+          </div>
+        </a>
+
+        <div class="project-card border border-gray-200 rounded-xl p-6 fade-up">
+          <div class="flex items-start justify-between mb-3">
+            <div class="text-2xl">🧠</div>
+            <span class="text-xs text-gray-400 border border-gray-100 rounded px-2 py-0.5">Python</span>
+          </div>
+          <h3 class="font-semibold mb-2">Brain Stroke Classifier</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            3D CNN model for CT scan classification — predicts stroke susceptibility. Won 1st Place at the Washington State Science & Engineering Fair.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag">3D CNN</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">Medical Imaging</span>
+          </div>
+        </div>
+
+        <div class="project-card border border-gray-200 rounded-xl p-6 fade-up">
+          <div class="flex items-start justify-between mb-3">
+            <div class="text-2xl">🔬</div>
+            <span class="text-xs text-gray-400 border border-gray-100 rounded px-2 py-0.5">Python</span>
+          </div>
+          <h3 class="font-semibold mb-2">OncoScan — Oral Cancer Detection</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            ML model for early oral cancer detection built with leading researchers in India. Patent pending. Scaling across the Indian healthcare market.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag">Patent Pending</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Healthcare AI</span>
+          </div>
+        </div>
+
+        <div class="project-card border border-gray-200 rounded-xl p-6 fade-up">
+          <div class="flex items-start justify-between mb-3">
+            <div class="text-2xl">🧬</div>
+            <span class="text-xs text-gray-400 border border-gray-100 rounded px-2 py-0.5">Python · R</span>
+          </div>
+          <h3 class="font-semibold mb-2">HIV & Preeclampsia ML Models</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            ML research at the Institute for Systems Biology — predictive modeling for HIV and preeclampsia diagnosis. Results presented to field leaders.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="tag">ISB</span>
+            <span class="tag">Bioinformatics</span>
+            <span class="tag">ML Research</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- Education -->
-  <section id="education" class="py-20 px-6">
+  <section id="education" class="py-20 px-6 bg-gray-50 border-y border-gray-100">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Education</h2>
-      <div class="space-y-8">
+      <div class="space-y-6">
 
-        <div class="fade-up flex gap-6">
-          <div class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></div>
-          <div>
-            <div class="flex items-start justify-between gap-4">
-              <h3 class="font-semibold">Carnegie Mellon University</h3>
-              <span class="text-gray-400 text-sm shrink-0">2026 – 2030</span>
-            </div>
-            <p class="text-gray-500 text-sm">B.S. Computer Science · GPA 4.0</p>
+        <div class="fade-up bg-white border-2 border-accent/20 rounded-xl p-6">
+          <div class="flex items-start justify-between gap-4 mb-1">
+            <h3 class="font-bold text-lg">Carnegie Mellon University</h3>
+            <span class="text-gray-400 text-sm shrink-0">2026 – 2030</span>
           </div>
+          <p class="text-accent font-medium text-sm mb-2">B.S. Computer Science · GPA 4.0</p>
+          <p class="text-gray-500 text-sm leading-relaxed">
+            #1 ranked CS program in the US. Admitted out of high school — CMU CS has a ~5% acceptance rate and produces more AI researchers and startup founders than almost any other program in the world.
+          </p>
         </div>
 
-        <div class="fade-up flex gap-6">
-          <div class="w-2 h-2 rounded-full bg-gray-300 mt-2 shrink-0"></div>
-          <div>
-            <div class="flex items-start justify-between gap-4">
-              <h3 class="font-semibold">Stanford University — Summer Program</h3>
-              <span class="text-gray-400 text-sm shrink-0">2025</span>
-            </div>
-            <p class="text-gray-500 text-sm">Data Science & Applied Statistics · GPA 3.85</p>
+        <div class="fade-up bg-white border border-gray-100 rounded-xl p-6">
+          <div class="flex items-start justify-between gap-4 mb-1">
+            <h3 class="font-semibold">Stanford University — Pre-Collegiate</h3>
+            <span class="text-gray-400 text-sm shrink-0">Summer 2025</span>
           </div>
+          <p class="text-gray-500 text-sm">Machine Learning, Principles of Data Science, Applied Statistics · GPA 3.85</p>
         </div>
 
-        <div class="fade-up flex gap-6">
-          <div class="w-2 h-2 rounded-full bg-gray-300 mt-2 shrink-0"></div>
-          <div>
-            <div class="flex items-start justify-between gap-4">
-              <h3 class="font-semibold">Carnegie Mellon University — Summer Program</h3>
-              <span class="text-gray-400 text-sm shrink-0">2024</span>
-            </div>
-            <p class="text-gray-500 text-sm">Computer & Data Science · GPA 4.0</p>
+        <div class="fade-up bg-white border border-gray-100 rounded-xl p-6">
+          <div class="flex items-start justify-between gap-4 mb-1">
+            <h3 class="font-semibold">Carnegie Mellon University — Summer</h3>
+            <span class="text-gray-400 text-sm shrink-0">Summer 2024</span>
           </div>
+          <p class="text-gray-500 text-sm">Fundamentals of Computer Science, Reasoning With Data · GPA 4.0</p>
         </div>
 
-        <div class="fade-up flex gap-6">
-          <div class="w-2 h-2 rounded-full bg-gray-300 mt-2 shrink-0"></div>
-          <div>
-            <div class="flex items-start justify-between gap-4">
-              <h3 class="font-semibold">Interlake High School</h3>
-              <span class="text-gray-400 text-sm shrink-0">Class of 2026</span>
-            </div>
-            <p class="text-gray-500 text-sm">Machine Learning & CS · GPA 3.96</p>
+        <div class="fade-up bg-white border border-gray-100 rounded-xl p-6">
+          <div class="flex items-start justify-between gap-4 mb-1">
+            <h3 class="font-semibold">Interlake High School</h3>
+            <span class="text-gray-400 text-sm shrink-0">Class of 2026</span>
           </div>
+          <p class="text-gray-500 text-sm">Machine Learning & Computer Science · GPA 3.96 · IB Diploma</p>
         </div>
 
       </div>
@@ -221,29 +328,39 @@
   </section>
 
   <!-- Awards -->
-  <section id="awards" class="py-20 px-6 bg-gray-50 border-y border-gray-100">
+  <section id="awards" class="py-20 px-6">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">Awards & Scores</h2>
-      <div class="grid md:grid-cols-2 gap-6">
+      <div class="grid md:grid-cols-2 gap-5">
 
-        <div class="fade-up bg-white border border-gray-100 rounded-xl p-5">
-          <div class="text-2xl font-bold text-gray-900 mb-1">36 / 36</div>
-          <div class="text-sm text-gray-500">ACT Composite</div>
+        <div class="fade-up bg-gray-900 text-white rounded-xl p-6">
+          <div class="text-3xl font-bold mb-1">36 <span class="text-lg text-gray-400">/ 36</span></div>
+          <div class="text-gray-300 text-sm">ACT Composite — Perfect Score</div>
         </div>
 
-        <div class="fade-up bg-white border border-gray-100 rounded-xl p-5">
-          <div class="text-2xl font-bold text-gray-900 mb-1">1st Place</div>
-          <div class="text-sm text-gray-500">Washington State Science & Engineering Fair — Brain Stroke ML</div>
+        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
+          <div class="text-3xl font-bold mb-1">1st</div>
+          <div class="text-gray-500 text-sm">Washington State Science & Engineering Fair — Brain Stroke ML Research</div>
         </div>
 
-        <div class="fade-up bg-white border border-gray-100 rounded-xl p-5">
-          <div class="text-2xl font-bold text-gray-900 mb-1">5 × AP 5/5</div>
-          <div class="text-sm text-gray-500">Statistics · CS A · Physics · Physics C · Calculus BC</div>
+        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
+          <div class="text-3xl font-bold mb-1">5 × 5/5</div>
+          <div class="text-gray-500 text-sm">AP Statistics · CS A · Physics · Physics C · Calculus BC</div>
         </div>
 
-        <div class="fade-up bg-white border border-gray-100 rounded-xl p-5">
-          <div class="text-2xl font-bold text-gray-900 mb-1">AP Scholar</div>
-          <div class="text-sm text-gray-500">AP Scholar with Distinction · IB Analysis 7/7</div>
+        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
+          <div class="text-3xl font-bold mb-1">7/7</div>
+          <div class="text-gray-500 text-sm">IB Analysis & Approaches · AP Scholar with Distinction</div>
+        </div>
+
+        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
+          <div class="text-3xl font-bold mb-1">Stanford</div>
+          <div class="text-gray-500 text-sm">Accepted to Stanford Pre-Collegiate Machine Learning program</div>
+        </div>
+
+        <div class="fade-up bg-gray-50 border border-gray-100 rounded-xl p-6">
+          <div class="text-3xl font-bold mb-1">Varsity</div>
+          <div class="text-gray-500 text-sm">Interlake HS Water Polo Varsity Athletic Award</div>
         </div>
 
       </div>
@@ -251,7 +368,7 @@
   </section>
 
   <!-- Network -->
-  <section class="py-20 px-6">
+  <section class="py-20 px-6 bg-gray-50 border-t border-gray-100">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Network</h2>
       <div class="fade-up">
@@ -259,20 +376,20 @@
           Who you know matters as much as what you build.
         </p>
         <p class="text-gray-500 leading-relaxed max-w-2xl mb-8">
-          I've spent the last few years deliberately building in rooms that matter — research labs, hackathons, summer programs at CMU and Stanford, and a global AI community. If you're building something real, let's connect.
+          I've spent the last few years deliberately putting myself in rooms that matter — research labs, summer programs at CMU and Stanford, global hackathons, and a 2,000-person AI community. I believe relationships compound the same way code does.
         </p>
         <div class="grid md:grid-cols-3 gap-4">
-          <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+          <div class="bg-white rounded-xl p-5 border border-gray-100">
             <div class="font-bold text-2xl mb-1">2,000+</div>
-            <div class="text-sm text-gray-500">AI builders in my network via AI Valley</div>
+            <div class="text-sm text-gray-500">AI builders in network via AI Valley</div>
           </div>
-          <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+          <div class="bg-white rounded-xl p-5 border border-gray-100">
             <div class="font-bold text-2xl mb-1">3,000+</div>
             <div class="text-sm text-gray-500">Students reached through The Uplift Network</div>
           </div>
-          <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+          <div class="bg-white rounded-xl p-5 border border-gray-100">
             <div class="font-bold text-2xl mb-1">Global</div>
-            <div class="text-sm text-gray-500">Partners: Google, AWS, OpenAI, ElevenLabs, VAPI, Afore Capital</div>
+            <div class="text-sm text-gray-500">Google · AWS · OpenAI · ElevenLabs · VAPI · Afore Capital</div>
           </div>
         </div>
       </div>
@@ -283,17 +400,23 @@
   <section class="py-24 px-6 text-center">
     <div class="max-w-xl mx-auto fade-up">
       <h2 class="text-3xl font-bold mb-4">Let's connect.</h2>
-      <p class="text-gray-500 mb-8">Whether it's research, building, or just a good conversation.</p>
-      <a href="mailto:vihaanvshringi@gmail.com"
-        class="inline-flex items-center gap-2 bg-gray-900 text-white font-medium px-7 py-3.5 rounded-xl hover:bg-gray-700 transition-colors">
-        vihaanvshringi@gmail.com
-      </a>
+      <p class="text-gray-500 mb-8">Research, building, investing, or just a good conversation.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="mailto:vihaanvshringi@gmail.com"
+          class="inline-flex items-center justify-center gap-2 bg-gray-900 text-white font-medium px-7 py-3.5 rounded-xl hover:bg-gray-700 transition-colors">
+          vihaanvshringi@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank"
+          class="inline-flex items-center justify-center gap-2 border border-gray-200 font-medium px-7 py-3.5 rounded-xl hover:bg-gray-50 transition-colors">
+          LinkedIn →
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="border-t border-gray-100 py-8 px-6 text-center">
-    <p class="text-xs text-gray-400">© 2026 Vihaan Shringi</p>
+    <p class="text-xs text-gray-400">© 2026 Vihaan Shringi · CMU CS · really.ai · AI Valley</p>
   </footer>
 
   <script>
