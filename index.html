@@ -275,7 +275,22 @@
     }
     .tl-co { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
     .tl-role { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; }
-    .tl-desc { color: var(--muted); font-size: 14px; line-height: 1.75; max-width: 580px; margin-bottom: 14px; }
+    .tl-desc { color: var(--muted); font-size: 14px; line-height: 1.75; max-width: 580px; margin-bottom: 18px; }
+    .tl-subsection { margin-bottom: 16px; }
+    .tl-sublabel { font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .tl-people { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .tl-person { display: flex; align-items: flex-start; gap: 12px; }
+    .tl-person-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--surface2);
+      overflow: hidden; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; color: var(--accent);
+    }
+    .tl-person-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .tl-person-avatar.fallback img { display: none; }
+    .tl-person-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .tl-person-bio { font-size: 12px; color: var(--muted); line-height: 1.55; max-width: 500px; }
 
     /* PROJECTS */
     .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -408,7 +423,7 @@
     <p class="hero-desc">
       Builder, researcher, connector.<br/>
       <strong>Carnegie Mellon CS</strong> — one of the most selective programs in the world.
-      I make AI tools that matter, run a 2,000+ person AI community,
+      I make AI tools that matter, run a 5,000+ person AI community,
       and believe the best engineers are also the best networked.
     </p>
     <div class="hero-ctas">
@@ -428,7 +443,7 @@
       <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · #1 Ranked</span>
       <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
       <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>2,000+ AI Builders in Network</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>5,000+ AI Builders in Network</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI</span>
       <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
       <span class="marquee-item"><span class="marquee-dot"></span>WA State Fair · 1st Place</span>
@@ -436,7 +451,7 @@
       <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · #1 Ranked</span>
       <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
       <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>2,000+ AI Builders in Network</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>5,000+ AI Builders in Network</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI</span>
       <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
       <span class="marquee-item"><span class="marquee-dot"></span>WA State Fair · 1st Place</span>
@@ -466,7 +481,7 @@
       </div>
 
       <div class="bento-card bc-3 reveal reveal-d2">
-        <div class="bnum" data-count="2000" data-suffix="+">0</div>
+        <div class="bnum" data-count="5000" data-suffix="+">0</div>
         <div class="blabel">AI builders in my network via AI Valley</div>
       </div>
 
@@ -507,11 +522,41 @@
             <div><div class="tl-co">AI Valley</div></div>
           </div>
           <div class="tl-role">Director of Expansion</div>
-          <div class="tl-desc">Scaling a global community of 2,000+ first-gen AI builders. $50K+ in prizes across 100+ projects, 12+ events annually. Partners: Google, AWS, OpenAI, ElevenLabs, VAPI, Afore Capital. Leading expansion into new cities and communities.</div>
-          <div class="chips">
-            <span class="chip">2,000+ Members</span>
-            <span class="chip">$50K+ Prizes</span>
-            <span class="chip">Google · AWS · OpenAI</span>
+          <div class="tl-desc">Scaling a global community of 5,000+ first-gen AI builders across 12+ annual events and 100+ projects — with $50K+ in prizes awarded. Leading expansion into new cities and university campuses.</div>
+
+          <div class="tl-subsection">
+            <div class="tl-sublabel">Hosted with &amp; sponsored by</div>
+            <div class="chips">
+              <span class="chip a">OpenAI</span>
+              <span class="chip a">Google</span>
+              <span class="chip a">AMD</span>
+              <span class="chip a">AWS</span>
+              <span class="chip a">ElevenLabs</span>
+              <span class="chip a">VAPI</span>
+              <span class="chip a">Afore Capital</span>
+            </div>
+          </div>
+
+          <div class="tl-subsection">
+            <div class="tl-sublabel">Events hosted at</div>
+            <div class="chips">
+              <span class="chip">Carnegie Mellon</span>
+              <span class="chip">Stanford</span>
+              <span class="chip">UW Seattle</span>
+            </div>
+          </div>
+
+          <div class="tl-subsection">
+            <div class="tl-sublabel">People I've connected with &amp; admire</div>
+            <div class="tl-people">
+              <div class="tl-person">
+                <div class="tl-person-avatar"><img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=x_waa8kAAAAJ" alt="Eric Xing" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='EX'"></div>
+                <div>
+                  <div class="tl-person-name">Eric Xing</div>
+                  <div class="tl-person-bio">Professor &amp; President, MBZUAI · CMU ML Dept founder · Pioneer in probabilistic graphical models &amp; genomic AI</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
