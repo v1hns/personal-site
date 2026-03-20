@@ -180,6 +180,46 @@
     .proj-link.gl { color: var(--accent); }
     .proj-link.dim { color: var(--muted); }
 
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 5000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-panel { background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; width: 100%; max-width: 660px; max-height: 88vh; overflow-y: auto; scrollbar-width: none; transform: translateY(32px) scale(0.97); transition: transform 0.38s cubic-bezier(.16,1,.3,1); position: relative; }
+    .modal-panel::-webkit-scrollbar { display: none; }
+    .modal-overlay.open .modal-panel { transform: translateY(0) scale(1); }
+    .modal-close { position: sticky; top: 0; z-index: 10; display: flex; justify-content: flex-end; padding: 20px 24px 0; }
+    .modal-close button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06); color: var(--muted); font-size: 18px; cursor: none; display: flex; align-items: center; justify-content: center; transition: background .2s, color .2s; line-height: 1; }
+    .modal-close button:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+    .modal-body { padding: 8px 40px 44px; }
+    .modal-icon { font-size: 44px; margin-bottom: 16px; }
+    .modal-eyebrow { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
+    .modal-title { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .modal-tagline { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; max-width: 520px; }
+    .modal-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+    .modal-link { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 8px; text-decoration: none; transition: transform .2s, box-shadow .2s; font-family: 'Space Grotesk', sans-serif; }
+    .modal-link.primary { background: var(--accent); color: #080808; }
+    .modal-link.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(184,255,87,0.25); }
+    .modal-link.ghost { border: 1px solid rgba(255,255,255,0.12); color: var(--muted); }
+    .modal-link.ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+    .modal-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 24px 0; }
+    .modal-section-label { font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .modal-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+    .modal-desc strong { color: var(--text); font-weight: 500; }
+    .modal-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+    .modal-stack-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 12px 14px; }
+    .modal-stack-key { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .modal-stack-val { font-size: 13px; font-weight: 500; color: var(--text); }
+    .modal-awards { display: flex; flex-direction: column; gap: 8px; }
+    .modal-award { display: flex; align-items: center; gap: 14px; border: 1px solid rgba(184,255,87,0.15); background: rgba(184,255,87,0.04); border-radius: 12px; padding: 14px 18px; }
+    .modal-award-num { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--accent); min-width: 56px; }
+    .modal-award-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .modal-award-text strong { color: var(--text); display: block; margin-bottom: 2px; }
+    .modal-person { display: flex; gap: 14px; align-items: flex-start; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 18px; }
+    .modal-person-avatar { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: var(--surface2); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--accent); }
+    .modal-person-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-person-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .modal-person-role { font-size: 12px; color: var(--accent); margin-bottom: 6px; }
+    .modal-person-bio { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
     /* CHIPS */
     .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
     .chip { font-size: 11px; font-weight: 500; color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 99px; padding: 3px 10px; }
@@ -514,45 +554,45 @@
     </div>
     <div class="proj-strip" id="projStrip">
 
-      <a href="projects/really-ai.html" class="proj">
+      <div class="proj" data-project="really-ai">
         <div class="proj-header"><div class="proj-icon">🏡</div><span class="proj-type-badge">Product</span></div>
         <div class="proj-name">really.ai</div>
         <div class="proj-desc">AI real estate superconnecter. Drop your number, get called by AI, get matched with buyers, sellers, and agents — automatically.</div>
         <div class="chips" style="margin-bottom:22px"><span class="chip">VAPI</span><span class="chip">Groq LLaMA</span><span class="chip">FastAPI</span></div>
-        <div class="proj-link gl">View project →</div>
-      </a>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
 
-      <a href="projects/brain-stroke.html" class="proj">
+      <div class="proj" data-project="brain-stroke">
         <div class="proj-header"><div class="proj-icon">🧠</div><span class="proj-type-badge award-badge-sm">🏆 1st Place</span></div>
         <div class="proj-name">Brain Stroke Classifier</div>
         <div class="proj-desc">3D CNN for CT scan classification predicting stroke susceptibility. 1st Place — WA State Science &amp; Engineering Fair.</div>
         <div class="chips" style="margin-bottom:22px"><span class="chip">3D CNN</span><span class="chip">PyTorch</span><span class="chip">Medical Imaging</span></div>
-        <div class="proj-link gl">View project →</div>
-      </a>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
 
-      <a href="projects/oncoscan.html" class="proj">
+      <div class="proj" data-project="oncoscan">
         <div class="proj-header"><div class="proj-icon">🔬</div><span class="proj-type-badge">Startup · Patent</span></div>
         <div class="proj-name">OncoScan AI</div>
         <div class="proj-desc">Oral cancer detection model with leading researchers in India. VC funded, AWS credits, patent pending, scaling nationally.</div>
         <div class="chips" style="margin-bottom:22px"><span class="chip a">Patent Pending</span><span class="chip">Computer Vision</span></div>
-        <div class="proj-link gl">View project →</div>
-      </a>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
 
-      <a href="projects/isb-research.html" class="proj">
+      <div class="proj" data-project="isb">
         <div class="proj-header"><div class="proj-icon">🧬</div><span class="proj-type-badge">Research · ISB</span></div>
         <div class="proj-name">Computational Bio Modeling</div>
         <div class="proj-desc">ML models for HIV &amp; preeclampsia diagnosis under Mario Arrieta Ortiz at the Nobel Prize-winning Baliga Lab.</div>
         <div class="chips" style="margin-bottom:22px"><span class="chip">Bioinformatics</span><span class="chip">Python · R</span></div>
-        <div class="proj-link gl">View project →</div>
-      </a>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
 
-      <a href="projects/minecraft-bots.html" class="proj">
+      <div class="proj" data-project="minecraft">
         <div class="proj-header"><div class="proj-icon">⛏️</div><span class="proj-type-badge">In Progress</span></div>
         <div class="proj-name">Minecraft AI Bots</div>
         <div class="proj-desc">Autonomous agents that play Minecraft through RL and LLM-based task planning in an open-world environment.</div>
         <div class="chips" style="margin-bottom:22px"><span class="chip">RL</span><span class="chip">LLM Planning</span><span class="chip">Agents</span></div>
-        <div class="proj-link gl">View project →</div>
-      </a>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
 
     </div>
   </div>
@@ -607,6 +647,14 @@
     <span>© 2026 Vihaan Shringi</span>
     <span>CMU CS · really.ai · AI Valley</span>
   </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel" id="modalPanel">
+      <div class="modal-close"><button id="modalClose" aria-label="Close">✕</button></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
 
   <script>
     // ── SCROLL PROGRESS ──
@@ -721,6 +769,110 @@
       });
       card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
+
+    // ── PROJECT MODALS ──
+    const PROJECTS = {
+      'really-ai': {
+        icon: '🏡', type: 'Product · 2025', title: 'really.ai',
+        tagline: 'AI real estate superconnecter. Drop your number, get called by AI, get matched with buyers, sellers, and agents — automatically.',
+        links: [{ label: 'GitHub →', url: 'https://github.com/v1hns/really.ai', cls: 'primary' }],
+        desc: [
+          'really.ai replaces cold, transactional real estate search with a warm, AI-driven matching experience. Users submit only their phone number — an AI calls them immediately, learns their situation in a 2-minute conversation, and automatically matches them with compatible counterparties.',
+          'When a match is found, both parties receive an AI consent call. If both agree, each gets the other\'s number directly — no agent middleman, no forms, no friction.'
+        ],
+        stack: [['AI Calls', 'VAPI'], ['LLM', 'Groq · LLaMA-3.3-70b'], ['Backend', 'FastAPI · Python'], ['Database', 'SQLite · SQLModel'], ['Messaging', 'WhatsApp Cloud API'], ['Hosting', 'ngrok / Railway']],
+        awards: [],
+        mentors: []
+      },
+      'brain-stroke': {
+        icon: '🧠', type: 'Independent Research · 2023–2025', title: 'Brain Stroke Classifier',
+        tagline: 'A 3D CNN for CT scan classification — predicting stroke susceptibility from volumetric medical imaging data.',
+        links: [],
+        desc: [
+          'Developed a 3D convolutional neural network to classify brain CT scans for stroke susceptibility. Unlike 2D models that process individual slices, this 3D architecture captures volumetric spatial relationships across the full scan — enabling far more accurate diagnosis.',
+          'The model uses volumetric convolutions, batch normalization, and max-pooling across three spatial dimensions. Data augmentation (random flipping, rotation, intensity jitter) improved generalization on the limited medical imaging dataset.'
+        ],
+        stack: [['Model', '3D CNN'], ['Framework', 'PyTorch'], ['Domain', 'Medical Imaging'], ['Language', 'Python']],
+        awards: [{ num: '1st', title: 'WA State Science & Engineering Fair', sub: 'Brain Stroke Diagnostic ML · State/Regional · Grade 11' }],
+        mentors: []
+      },
+      'oncoscan': {
+        icon: '🔬', type: 'Startup · CEO & CTO · 2025', title: 'OncoScan AI',
+        tagline: 'Early oral cancer detection powered by computer vision — built with leading researchers in India, VC funded, and scaling nationally.',
+        links: [],
+        desc: [
+          'OncoScan AI builds a computer vision model for oral cancer detection. Oral cancer has very high survival rates when caught early, but early-stage lesions are easy to miss without specialist imaging — and specialists are concentrated in urban India while the disease burden is national.',
+          'Led both the technical model development and a national physician outreach effort — connecting doctors across India to contribute clinician-annotated imaging data. Early contributors become early adopters, seeding the go-to-market.'
+        ],
+        stack: [['Model', 'Computer Vision'], ['Framework', 'PyTorch'], ['Cloud', 'AWS'], ['Language', 'Python']],
+        awards: [
+          { num: '📄', title: 'Patent Pending', sub: 'Core detection model architecture' },
+          { num: 'AWS', title: 'Incubated Startup · $1,000 AWS Credits', sub: 'International · Grade 11' },
+          { num: 'VC', title: 'VC Funded', sub: 'Incubated and funded for scaling' }
+        ],
+        mentors: []
+      },
+      'isb': {
+        icon: '🧬', type: 'ML Research Internship · 2025', title: 'Computational Bio Modeling',
+        tagline: 'Predictive ML models for HIV and preeclampsia diagnosis at the Nobel Prize-winning Institute for Systems Biology.',
+        links: [{ label: 'Baliga Lab →', url: 'https://systemsbiology.org', cls: 'ghost' }],
+        desc: [
+          'Conducted ML research at the Institute for Systems Biology (ISB) — a Nobel Prize-winning research institution known for pioneering work in network-based approaches to disease and P4 Medicine (predictive, preventive, personalized, participatory).',
+          'Working under the Baliga Lab, developed predictive models for HIV diagnosis and preeclampsia risk — integrating multi-omic datasets to surface biomarker signatures enabling earlier, more accurate clinical detection.'
+        ],
+        stack: [['Languages', 'Python · R'], ['Methods', 'Multi-omics ML'], ['Domain', 'Bioinformatics'], ['Lab', 'Baliga Lab · ISB']],
+        awards: [{ num: '🏆', title: 'Nobel Prize-Winning Institution', sub: 'Institute for Systems Biology' }],
+        mentors: [{ initials: 'MA', name: 'Mario Arrieta Ortiz', role: 'Research Scientist · Baliga Lab, ISB', bio: 'Expert in systems biology and regulatory network modeling. Core member of the Baliga Lab — a world leader in network-based multi-omic research.' }]
+      },
+      'minecraft': {
+        icon: '⛏️', type: 'Personal Project · In Progress', title: 'Minecraft AI Bots',
+        tagline: 'Autonomous AI agents that navigate, craft, and survive in Minecraft through RL and LLM-based task planning.',
+        links: [{ label: 'GitHub →', url: 'https://github.com/v1hns', cls: 'primary' }],
+        desc: [
+          'Minecraft is a uniquely hard environment for AI agents — open-ended, partially observable, requiring long-horizon planning across thousands of sequential decisions. Bots must combine low-level behavioral programming with higher-level goal decomposition.',
+          'This project explores autonomous agent architectures: pathfinding in procedurally generated terrain, resource gathering via state machines, LLM-driven task decomposition, and multi-agent coordination experiments.'
+        ],
+        stack: [['Agents', 'RL + LLM Planning'], ['API', 'Mineflayer / Mods'], ['Language', 'Python / JS'], ['Status', 'In Progress']],
+        awards: [],
+        mentors: []
+      }
+    };
+
+    function buildModal(id) {
+      const p = PROJECTS[id]; if (!p) return '';
+      const links = p.links.map(l => `<a href="${l.url}" target="_blank" class="modal-link ${l.cls}">${l.label}</a>`).join('');
+      const desc = p.desc.map(d => `<p class="modal-desc">${d}</p>`).join('');
+      const stack = p.stack.map(([k,v]) => `<div class="modal-stack-item"><div class="modal-stack-key">${k}</div><div class="modal-stack-val">${v}</div></div>`).join('');
+      const awards = p.awards.length ? `<div class="modal-divider"></div><div class="modal-section-label">Awards & Recognition</div><div class="modal-awards">${p.awards.map(a => `<div class="modal-award"><div class="modal-award-num">${a.num}</div><div class="modal-award-text"><strong>${a.title}</strong>${a.sub}</div></div>`).join('')}</div>` : '';
+      const mentors = p.mentors.length ? `<div class="modal-divider"></div><div class="modal-section-label">Mentor</div>${p.mentors.map(m => `<div class="modal-person"><div class="modal-person-avatar">${m.img ? `<img src="${m.img}" onerror="this.parentElement.textContent='${m.initials}'">` : m.initials}</div><div><div class="modal-person-name">${m.name}</div><div class="modal-person-role">${m.role}</div><div class="modal-person-bio">${m.bio}</div></div></div>`).join('')}` : '';
+      return `<div class="modal-icon">${p.icon}</div><div class="modal-eyebrow">${p.type}</div><div class="modal-title">${p.title}</div><p class="modal-tagline">${p.tagline}</p>${links.length ? `<div class="modal-links">${links}</div>` : ''}<div class="modal-divider"></div><div class="modal-section-label">Overview</div>${desc}<div class="modal-divider"></div><div class="modal-section-label">Stack</div><div class="modal-stack">${stack}</div>${awards}${mentors}`;
+    }
+
+    const overlay = document.getElementById('modalOverlay');
+    const body = document.getElementById('modalBody');
+
+    function openModal(id) {
+      body.innerHTML = buildModal(id);
+      document.getElementById('modalPanel').scrollTop = 0;
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // re-register hover on modal links
+      overlay.querySelectorAll('a').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
+      });
+    }
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.proj[data-project]').forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.project));
+    });
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
     // ── PARALLAX on orbs ──
     window.addEventListener('scroll', () => {
