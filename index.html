@@ -190,28 +190,26 @@
     .mc-title { font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:var(--text); line-height:1.3; position:relative; z-index:1; }
     .mc-sub { font-size:11px; color:var(--muted); margin-top:3px; position:relative; z-index:1; }
 
-    /* PHOTO STRIP */
-    .photo-strip-outer { border-top:1px solid var(--border); padding:56px 0; }
-    .photo-strip-head { padding:0 48px; display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
-    .photo-strip { display:flex; gap:16px; padding:4px 48px 24px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; cursor:grab; -webkit-overflow-scrolling:touch; }
-    .photo-strip:active { cursor:grabbing; }
-    .photo-strip::-webkit-scrollbar { display:none; }
-    .photo-frame { flex-shrink:0; width:380px; border-radius:18px; overflow:hidden; border:1px solid var(--border); background:var(--surface); scroll-snap-align:start; transition:border-color .25s, transform .3s ease, box-shadow .3s ease; }
-    .photo-frame:hover { border-color:var(--border2); transform:translateY(-5px); box-shadow:0 16px 48px rgba(0,0,0,0.4); }
-    .photo-frame img { width:100%; height:230px; object-fit:cover; display:block; }
-    .pf-placeholder { width:100%; height:230px; background:var(--surface2); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; border-bottom:1px solid var(--border); }
-    .pf-placeholder span:first-child { font-size:32px; opacity:.4; }
-    .pf-placeholder span:last-child { font-size:11px; color:#333; letter-spacing:.06em; text-transform:uppercase; }
-    .photo-caption { padding:18px 20px; }
-    .pc-tag { font-size:9px; font-weight:500; color:var(--accent); text-transform:uppercase; letter-spacing:.12em; margin-bottom:6px; }
-    .pc-title { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:var(--text); margin-bottom:5px; line-height:1.3; }
-    .pc-sub { font-size:12px; color:var(--muted); line-height:1.65; margin-bottom:10px; }
-    .pc-partners { font-size:11px; color:#444; margin-top:8px; border-top:1px solid var(--border); padding-top:8px; }
-    .pc-partners span { color:var(--muted); font-weight:500; }
-    a.photo-frame { text-decoration:none; display:block; cursor:pointer; }
-    a.photo-frame:hover { border-color:rgba(184,255,87,0.3); }
-    a.photo-frame::after { content:'↗'; position:absolute; top:12px; right:14px; font-size:14px; color:rgba(184,255,87,0.5); opacity:0; transition:opacity .2s; }
-    a.photo-frame:hover::after { opacity:1; }
+    /* EVENTS GRID */
+    .events-outer { border-top:1px solid var(--border); padding:56px 48px; }
+    .events-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+    .events-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .event-card { border-radius:18px; overflow:hidden; border:1px solid var(--border); background:var(--surface); text-decoration:none; display:flex; flex-direction:column; transition:border-color .25s, transform .3s ease, box-shadow .3s ease; position:relative; }
+    .event-card:hover { border-color:var(--border2); transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,0.4); }
+    .event-card.upcoming { border-color:rgba(184,255,87,0.2); background:rgba(184,255,87,0.02); }
+    .event-card img { width:100%; height:200px; object-fit:cover; display:block; }
+    .event-info { padding:16px 18px 20px; display:flex; flex-direction:column; flex:1; }
+    .event-date { font-size:9px; font-weight:500; color:var(--accent); text-transform:uppercase; letter-spacing:.12em; margin-bottom:8px; display:flex; align-items:center; gap:7px; }
+    .event-upcoming { background:rgba(184,255,87,0.1); border:1px solid rgba(184,255,87,0.28); border-radius:99px; padding:2px 7px; font-size:9px; color:var(--accent); }
+    .event-title { font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:var(--text); margin-bottom:6px; line-height:1.3; }
+    .event-desc { font-size:12px; color:var(--muted); line-height:1.6; flex:1; }
+    .event-partners { font-size:10px; color:#444; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
+    .event-partners span { color:var(--muted); font-weight:500; }
+    .event-cta { font-size:11px; color:var(--accent); margin-top:8px; display:flex; align-items:center; gap:4px; font-weight:500; }
+
+    /* VLOG */
+    .vlog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 780px; }
+    .vlog-embed { border-radius: 16px; overflow: hidden; }
 
     /* SECTION WRAPPER */
     .section-wrap { padding: 80px 48px; position: relative; }
@@ -402,6 +400,8 @@
       .proj-strip-head { padding: 0 24px; }
       .proj-strip { padding: 4px 24px 20px; }
       .proj { width: 280px; }
+      .events-outer { padding: 48px 24px; }
+      .events-grid { grid-template-columns: 1fr 1fr; }
       .vlog-grid { grid-template-columns: 1fr; }
       .awards-grid { grid-template-columns: 1fr 1fr; }
       .contact { padding: 80px 24px; }
@@ -557,55 +557,54 @@
     <div class="logos-more">+ many more</div>
   </div>
 
-  <!-- PHOTO STRIP -->
-  <div class="photo-strip-outer">
-    <div class="photo-strip-head">
+  <!-- EVENTS -->
+  <div class="events-outer">
+    <div class="events-head">
       <div class="section-eyebrow" style="margin-bottom:0">events I've hosted</div>
-      <span class="hstrip-hint"><span class="drag-hint-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>drag to explore</span>
     </div>
-    <div class="photo-strip" id="photoStrip">
+    <div class="events-grid">
 
-      <!-- AMD / MiniMax event Feb 12 -->
-      <a class="photo-frame" href="https://luma.com/svdg9q8g" target="_blank">
-        <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,anim=false,background=white,quality=75,width=500,height=500/event-covers/d5/249c689a-87f7-46d4-9e73-04caafef3484.png" alt="MiniMax: Deploying Open-Source Frontier Models">
-        <div class="photo-caption">
-          <div class="pc-tag">Feb 12 · AI House Seattle</div>
-          <div class="pc-title">Deploying Open-Source Frontier Models</div>
-          <div class="pc-sub">Workshop + panel on practical deployment and production-ready AI — with speakers from Zapier, CoreWeave, Anaconda, and AMD.</div>
-          <div class="pc-partners">Sponsors: <span>MiniMax · AMD · Plug and Play</span></div>
+      <a class="event-card" href="https://luma.com/svdg9q8g" target="_blank">
+        <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,anim=false,background=white,quality=75,width=500,height=500/event-covers/d5/249c689a-87f7-46d4-9e73-04caafef3484.png" alt="Deploying Open-Source Frontier Models">
+        <div class="event-info">
+          <div class="event-date">Feb 12 · AI House Seattle</div>
+          <div class="event-title">Deploying Open-Source Frontier Models</div>
+          <div class="event-desc">Workshop + panel on practical deployment with speakers from Zapier, CoreWeave, Anaconda, and AMD.</div>
+          <div class="event-partners">Sponsors: <span>MiniMax · AMD · Plug and Play</span></div>
+          <div class="event-cta">View event ↗</div>
         </div>
       </a>
 
-      <!-- GTC Cofounder Mixer Mar 17 -->
-      <a class="photo-frame" href="https://luma.com/jyfhye35" target="_blank">
-        <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,anim=false,background=white,quality=75,width=500,height=500/event-covers/qo/905c29cd-2f70-48c4-ad39-cfa158e50c9d.png" alt="AI Valley GTC Cofounder Mixer">
-        <div class="photo-caption">
-          <div class="pc-tag">Mar 17 · GTC · San Francisco</div>
-          <div class="pc-title">GTC Cofounder Mixer</div>
-          <div class="pc-sub">"Find the person you'll build the next decade with." Structured networking with color-coded expertise matching.</div>
-          <div class="pc-partners">With: <span>MiniMax · Hanwha AI Center · The AI Collective</span></div>
+      <a class="event-card" href="https://luma.com/jyfhye35" target="_blank">
+        <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,anim=false,background=white,quality=75,width=500,height=500/event-covers/qo/905c29cd-2f70-48c4-ad39-cfa158e50c9d.png" alt="GTC Cofounder Mixer">
+        <div class="event-info">
+          <div class="event-date">Mar 17 · GTC · San Francisco</div>
+          <div class="event-title">GTC Cofounder Mixer</div>
+          <div class="event-desc">"Find the person you'll build the next decade with." Color-coded expertise matching across 100+ builders.</div>
+          <div class="event-partners">With: <span>MiniMax · Hanwha AI · The AI Collective</span></div>
+          <div class="event-cta">View event ↗</div>
         </div>
       </a>
 
-      <!-- CMU -->
-      <a class="photo-frame" href="https://luma.com/zdpdm3k6" target="_blank">
+      <a class="event-card" href="https://luma.com/zdpdm3k6" target="_blank">
         <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,anim=false,background=white,quality=75,width=500,height=500/event-covers/7x/56a51197-ad53-47d1-86ac-58fe6df5415e.png" alt="Research to Real Systems">
-        <div class="photo-caption">
-          <div class="pc-tag">Mar 23 · Tepper · CMU · Pittsburgh</div>
-          <div class="pc-title">Research to Real Systems</div>
-          <div class="pc-sub">Technical talks, live demo of IFM's PAN world model, and networking with researchers from global labs.</div>
-          <div class="pc-partners">Partners: <span>IFM · MBZUAI · CMU</span></div>
+        <div class="event-info">
+          <div class="event-date">Mar 23 · Tepper · CMU · Pittsburgh</div>
+          <div class="event-title">Research to Real Systems</div>
+          <div class="event-desc">Technical talks and live demo of IFM's PAN world model — hosted at Carnegie Mellon.</div>
+          <div class="event-partners">Partners: <span>IFM · MBZUAI · CMU</span></div>
+          <div class="event-cta">View event ↗</div>
         </div>
       </a>
 
-      <!-- OpenAI Hackathon Apr 4 -->
-      <a class="photo-frame" href="https://luma.com/dqvdp45m" target="_blank" style="border-color:rgba(184,255,87,0.18);background:rgba(184,255,87,0.02)">
+      <a class="event-card upcoming" href="https://luma.com/dqvdp45m" target="_blank">
         <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,anim=false,background=white,quality=75,width=500,height=500/event-covers/z7/99ad86a3-89f4-41f0-a670-eba1cfea3357.png" alt="OpenAI Marketing Agents Hackathon">
-        <div class="photo-caption">
-          <div class="pc-tag" style="display:flex;align-items:center;gap:8px">Apr 4 · San Francisco <span style="background:rgba(184,255,87,0.12);border:1px solid rgba(184,255,87,0.3);color:var(--accent);font-size:9px;padding:2px 7px;border-radius:99px;letter-spacing:.08em">UPCOMING</span></div>
-          <div class="pc-title">OpenAI Marketing Agents Hackathon</div>
-          <div class="pc-sub">Build orchestrated agent systems with real marketing outcomes — end-to-end GTM workflows, sponsor APIs, and VC interviews.</div>
-          <div class="pc-partners">With: <span>OpenAI</span></div>
+        <div class="event-info">
+          <div class="event-date">Apr 4 · San Francisco <span class="event-upcoming">UPCOMING</span></div>
+          <div class="event-title">OpenAI Marketing Agents Hackathon</div>
+          <div class="event-desc">Build agent systems with real marketing outcomes — GTM workflows, sponsor APIs, and VC interviews.</div>
+          <div class="event-partners">With: <span>OpenAI</span></div>
+          <div class="event-cta">Register ↗</div>
         </div>
       </a>
 
@@ -815,21 +814,6 @@
     </div>
   </div>
 
-  <!-- VLOG -->
-  <section class="section-wrap ruled" id="vlog">
-    <div class="section-eyebrow">some of the journey</div>
-    <p style="color:var(--muted);font-size:15px;margin-bottom:36px;max-width:480px;line-height:1.7">building, traveling, figuring it out.</p>
-    <div class="vlog-grid">
-      <div class="vlog-embed reveal">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DV9M4qiEYsw/" data-instgrm-version="14" style="background:#111;border:1px solid rgba(255,255,255,0.07);border-radius:16px;margin:0;max-width:100%;width:100%"></blockquote>
-      </div>
-      <div class="vlog-embed reveal reveal-d1">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DV_vBGbj8Bo/" data-instgrm-version="14" style="background:#111;border:1px solid rgba(255,255,255,0.07);border-radius:16px;margin:0;max-width:100%;width:100%"></blockquote>
-      </div>
-    </div>
-    <div style="margin-top:20px"><a href="https://www.instagram.com/vhn1squests/" target="_blank" class="btn-outline" style="display:inline-flex">@vhn1squests →</a></div>
-  </section>
-  <script async src="//www.instagram.com/embed.js"></script>
 
   <!-- CONTACT -->
   <section class="contact reveal" id="contact">
@@ -993,15 +977,17 @@
 
     // ── DRAG SCROLL (projects + numbers strip) ──
     function makeDraggable(el) {
-      let down = false, startX, scrollLeft;
-      el.addEventListener('mousedown', e => { down = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+      let down = false, startX, scrollLeft, dragged = false;
+      el.addEventListener('mousedown', e => { down = true; dragged = false; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
       el.addEventListener('mouseleave', () => down = false);
       el.addEventListener('mouseup', () => down = false);
       el.addEventListener('mousemove', e => {
         if (!down) return;
+        if (Math.abs(e.pageX - el.offsetLeft - startX) > 5) dragged = true;
         e.preventDefault();
         el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX) * 1.5;
       });
+      el.addEventListener('click', e => { if (dragged) e.stopPropagation(); }, true);
     }
     makeDraggable(document.getElementById('projStrip'));
     makeDraggable(document.getElementById('numStrip'));
