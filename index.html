@@ -110,10 +110,50 @@
     @keyframes sline { 0%,100% { transform: scaleX(1); opacity: 0.4; } 50% { transform: scaleX(0.5); opacity: 1; } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* HERO PHOTO FRAME */
-    .hero-photo-frame { position:absolute; right:48px; top:50%; transform:translateY(-50%); width:260px; height:300px; border:2px dashed rgba(184,255,87,0.2); border-radius:20px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; background:rgba(184,255,87,0.02); opacity:.5; }
-    .hero-photo-frame span { font-size:12px; color:#444; text-align:center; }
-    @media(max-width:1000px){.hero-photo-frame{display:none}}
+    /* HERO AURORA */
+    .hero-aurora { position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(ellipse 80% 60% at 78% 38%, rgba(184,255,87,0.055) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 45% at 90% 8%, rgba(99,102,241,0.05) 0%, transparent 50%),
+        radial-gradient(ellipse 45% 55% at 65% 85%, rgba(184,255,87,0.03) 0%, transparent 50%);
+      animation: auroraShift 14s ease infinite alternate; }
+    @keyframes auroraShift { 0%{opacity:.6} 50%{opacity:1} 100%{opacity:.5} }
+
+    /* HERO GRID LINES */
+    .hero-gridlines { position:absolute; inset:0; pointer-events:none;
+      background-image: linear-gradient(rgba(184,255,87,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184,255,87,0.025) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 50% 80% at 80% 50%, rgba(0,0,0,0.5) 0%, transparent 65%); }
+
+    /* HERO VISUAL - floating stat cards */
+    .hero-visual { position:absolute; right:72px; top:50%; transform:translateY(-50%); width:290px; height:370px; pointer-events:none; }
+    @media(max-width:1140px){.hero-visual{display:none}}
+    .hv-card { position:absolute; background:rgba(12,12,12,0.92); border:1px solid var(--border2); border-radius:14px; padding:14px 20px; backdrop-filter:blur(16px); box-shadow:0 12px 40px rgba(0,0,0,0.55); pointer-events:all; transition:transform 0.3s ease, border-color 0.3s ease; }
+    .hv-card:hover { border-color:rgba(184,255,87,0.35); }
+    .hv-label { font-size:9px; font-weight:500; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:5px; }
+    .hv-val { font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:var(--text); line-height:1; }
+    .hv-val.a { color:var(--accent); }
+    .hv-sub { font-size:11px; color:var(--muted); margin-top:3px; }
+    .hv-c1 { top:0; left:0; width:196px; animation:hvFloat 5s ease-in-out infinite; }
+    .hv-c2 { top:105px; right:0; width:188px; animation:hvFloat 6.5s ease-in-out 0.8s infinite; border-color:rgba(184,255,87,0.2); background:rgba(184,255,87,0.04); }
+    .hv-c2 .hv-val { color:var(--accent); }
+    .hv-c3 { top:215px; left:20px; width:152px; animation:hvFloat 7s ease-in-out 1.4s infinite; }
+    .hv-c4 { top:288px; right:10px; width:165px; animation:hvFloat 5.8s ease-in-out 2s infinite; }
+    .hv-ring { position:absolute; border-radius:50%; border:1px solid rgba(184,255,87,0.09); pointer-events:none; animation:hvRingPulse 4s ease infinite; }
+    .hv-r1 { width:110px; height:110px; top:-18px; right:-18px; }
+    .hv-r2 { width:66px; height:66px; bottom:14px; left:-4px; animation-delay:1.8s; }
+    .hv-dotgrid { position:absolute; inset:0; pointer-events:none;
+      background-image:radial-gradient(rgba(184,255,87,0.14) 1px, transparent 1px);
+      background-size:22px 22px;
+      mask-image:radial-gradient(ellipse at 55% 50%, rgba(0,0,0,0.35) 0%, transparent 68%); }
+    @keyframes hvFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+    @keyframes hvRingPulse { 0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.75;transform:scale(1.09)} }
+
+    /* EXTRA SHAPES */
+    .shape5 { top:22%; right:38%; width:3px; height:3px; background:rgba(184,255,87,0.5); border-radius:50%; animation:blink 4.2s ease infinite 2.1s; }
+    .shape6 { top:72%; right:28%; width:4px; height:4px; background:rgba(99,102,241,0.4); border-radius:50%; animation:blink 3.8s ease infinite 0.3s; }
+    .shape7 { top:48%; left:38%; width:48px; height:1px; background:linear-gradient(90deg,transparent,rgba(184,255,87,0.18),transparent); animation:fadeScan 7s ease infinite; }
+    @keyframes fadeScan { 0%,100%{opacity:.2} 50%{opacity:1} }
 
     /* MARQUEE */
     .marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; overflow: hidden; }
@@ -134,6 +174,20 @@
     .logo-pill img { width:18px; height:18px; object-fit:contain; border-radius:3px; }
     .logo-pill span { font-size:12px; font-weight:500; color:#555; }
     .logos-more { text-align:center; margin-top:20px; font-size:12px; color:#444; letter-spacing:.08em; }
+
+    /* MOMENTS STRIP */
+    .moments-outer { overflow:hidden; border-top:1px solid var(--border); padding:56px 0; }
+    .moments-label { padding:0 48px 24px; font-size:11px; font-weight:500; color:var(--accent); letter-spacing:.14em; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
+    .moments-label::after { content:''; flex:0 0 48px; height:1px; background:var(--accent); opacity:.4; }
+    .moments-strip { display:flex; gap:14px; padding:4px 48px 8px; overflow-x:auto; scrollbar-width:none; }
+    .moments-strip::-webkit-scrollbar { display:none; }
+    .moment-card { flex-shrink:0; width:188px; height:230px; border-radius:18px; border:1px solid var(--border); display:flex; flex-direction:column; justify-content:flex-end; padding:18px; position:relative; overflow:hidden; transition:transform .3s ease, border-color .3s ease; cursor:default; }
+    .moment-card:hover { transform:translateY(-5px) scale(1.02); border-color:var(--border2); }
+    .mc-bg { position:absolute; inset:0; pointer-events:none; }
+    .mc-emoji { position:absolute; top:18px; right:18px; font-size:36px; line-height:1; filter:drop-shadow(0 0 12px rgba(0,0,0,0.5)); }
+    .mc-tag { font-size:9px; font-weight:500; color:var(--accent); text-transform:uppercase; letter-spacing:.1em; margin-bottom:5px; position:relative; z-index:1; }
+    .mc-title { font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:var(--text); line-height:1.3; position:relative; z-index:1; }
+    .mc-sub { font-size:11px; color:var(--muted); margin-top:3px; position:relative; z-index:1; }
 
     /* SECTION WRAPPER */
     .section-wrap { padding: 80px 48px; position: relative; }
@@ -229,11 +283,14 @@
     .proj-link.dim { color: var(--muted); }
 
     /* MODAL */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 5000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal-panel { background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; width: 100%; max-width: 660px; max-height: 88vh; overflow-y: auto; scrollbar-width: none; transform: translateY(32px) scale(0.97); transition: transform 0.38s cubic-bezier(.16,1,.3,1); position: relative; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px); z-index: 5000; display: flex; align-items: flex-end; justify-content: center; padding: 0 24px 0; opacity: 0; pointer-events: none; transition: opacity 0.35s ease, backdrop-filter 0.5s ease; }
+    @media(min-width:600px){ .modal-overlay { align-items: center; padding: 24px; } }
+    .modal-overlay.open { opacity: 1; pointer-events: all; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .modal-panel { background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px 24px 0 0; width: 100%; max-width: 660px; max-height: 92vh; overflow-y: auto; scrollbar-width: none; transform: translateY(100px) scale(0.92); opacity: 0; transition: transform 0.58s cubic-bezier(.34,1.56,.64,1), opacity 0.35s ease; position: relative; }
+    @media(min-width:600px){ .modal-panel { border-radius: 24px; max-height: 88vh; } }
     .modal-panel::-webkit-scrollbar { display: none; }
-    .modal-overlay.open .modal-panel { transform: translateY(0) scale(1); }
+    .modal-overlay.open .modal-panel { transform: translateY(0) scale(1); opacity: 1; }
+    .modal-overlay.closing .modal-panel { transform: translateY(60px) scale(0.94); opacity: 0; transition: transform 0.26s cubic-bezier(.4,0,.6,1), opacity 0.2s ease; }
     .modal-close { position: sticky; top: 0; z-index: 10; display: flex; justify-content: flex-end; padding: 20px 24px 0; }
     .modal-close button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06); color: var(--muted); font-size: 18px; cursor: none; display: flex; align-items: center; justify-content: center; transition: background .2s, color .2s; line-height: 1; }
     .modal-close button:hover { background: rgba(255,255,255,0.12); color: var(--text); }
@@ -325,6 +382,9 @@
       .awards-grid { grid-template-columns: 1fr 1fr; }
       .contact { padding: 80px 24px; }
       footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+      .moments-label { padding: 0 24px 20px; }
+      .moments-strip { padding: 4px 24px 8px; }
+      .moment-card { width: 160px; height: 200px; }
     }
   </style>
 </head>
@@ -348,6 +408,8 @@
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-aurora"></div>
+    <div class="hero-gridlines"></div>
     <div class="hero-orb orb1"></div>
     <div class="hero-orb orb2"></div>
     <div class="hero-orb orb3"></div>
@@ -355,6 +417,9 @@
     <div class="shape shape2"></div>
     <div class="shape shape3"></div>
     <div class="shape shape4"></div>
+    <div class="shape shape5"></div>
+    <div class="shape shape6"></div>
+    <div class="shape shape7"></div>
     <div class="hero-eyebrow">Bellevue, WA · CMU CS 2030<span class="status-dot">building now</span></div>
     <h1 class="hero-name">
       <span class="line1">Vihaan</span>
@@ -367,14 +432,34 @@
       and believe the best engineers are also the best networked.
     </p>
     <div class="hero-ctas">
-      <a href="mailto:vihaanvshringi@gmail.com" class="btn-accent magnetic">Get in touch →</a>
+      <a href="mailto:vihaans@andrew.cmu.edu" class="btn-accent magnetic">Get in touch →</a>
       <a href="https://github.com/v1hns" target="_blank" class="btn-outline magnetic">GitHub</a>
       <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" class="btn-outline magnetic">LinkedIn</a>
     </div>
     <div class="scroll-hint"><div class="scroll-line"></div>scroll</div>
-    <div class="hero-photo-frame">
-      <span style="font-size:28px">📸</span>
-      <span>photo coming soon</span>
+    <div class="hero-visual">
+      <div class="hv-dotgrid"></div>
+      <div class="hv-card hv-c1">
+        <div class="hv-label">Carnegie Mellon CS</div>
+        <div class="hv-val a">#1 Ranked</div>
+        <div class="hv-sub">Class of 2030 · ~5% admit</div>
+      </div>
+      <div class="hv-card hv-c2">
+        <div class="hv-label">AI Valley Network</div>
+        <div class="hv-val">7,000+</div>
+        <div class="hv-sub">AI builders</div>
+      </div>
+      <div class="hv-card hv-c3">
+        <div class="hv-label">ACT Score</div>
+        <div class="hv-val a">36/36</div>
+      </div>
+      <div class="hv-card hv-c4">
+        <div class="hv-label">Funded Capital</div>
+        <div class="hv-val">$150K</div>
+        <div class="hv-sub">TopStep live account</div>
+      </div>
+      <div class="hv-ring hv-r1"></div>
+      <div class="hv-ring hv-r2"></div>
     </div>
   </section>
 
@@ -446,11 +531,68 @@
     <div class="logos-more">+ many more</div>
   </div>
 
+  <!-- MOMENTS STRIP -->
+  <div class="moments-outer">
+    <div class="moments-label">moments &amp; milestones</div>
+    <div class="moments-strip">
+      <div class="moment-card">
+        <div class="mc-bg" style="background:linear-gradient(145deg,#0d1b2a,#1a2d4a)"></div>
+        <div class="mc-emoji">🏛️</div>
+        <div class="mc-tag">Carnegie Mellon</div>
+        <div class="mc-title">Pittsburgh, PA</div>
+        <div class="mc-sub">#1 CS program</div>
+      </div>
+      <div class="moment-card">
+        <div class="mc-bg" style="background:linear-gradient(145deg,#0a180a,#152a15)"></div>
+        <div class="mc-emoji">🤝</div>
+        <div class="mc-tag">AI Valley</div>
+        <div class="mc-title">7,000+ Builders</div>
+        <div class="mc-sub">Global community</div>
+      </div>
+      <div class="moment-card">
+        <div class="mc-bg" style="background:linear-gradient(145deg,#1a0f2e,#2d1b52)"></div>
+        <div class="mc-emoji">🧬</div>
+        <div class="mc-tag">ISB Research</div>
+        <div class="mc-title">Nobel Lab</div>
+        <div class="mc-sub">Baliga Lab · HIV & cancer</div>
+      </div>
+      <div class="moment-card">
+        <div class="mc-bg" style="background:linear-gradient(145deg,#1a0808,#2d1010)"></div>
+        <div class="mc-emoji">📈</div>
+        <div class="mc-tag">TopStep</div>
+        <div class="mc-title">$150K Funded</div>
+        <div class="mc-sub">Live trading capital</div>
+      </div>
+      <div class="moment-card">
+        <div class="mc-bg" style="background:linear-gradient(145deg,#111a0e,#1c2e18)"></div>
+        <div class="mc-emoji">🔬</div>
+        <div class="mc-tag">OncoScan AI</div>
+        <div class="mc-title">Patent Pending</div>
+        <div class="mc-sub">Oral cancer detection</div>
+      </div>
+      <div class="moment-card">
+        <div class="mc-bg" style="background:linear-gradient(145deg,#0e1528,#182338)"></div>
+        <div class="mc-emoji">🏆</div>
+        <div class="mc-tag">WA State Fair</div>
+        <div class="mc-title">1st Place</div>
+        <div class="mc-sub">Brain stroke ML</div>
+      </div>
+      <div class="moment-card">
+        <div class="mc-bg" style="background:linear-gradient(145deg,#1a1208,#2e2010)"></div>
+        <div class="mc-emoji">🎓</div>
+        <div class="mc-tag">Uplift Network</div>
+        <div class="mc-title">3,000+ Students</div>
+        <div class="mc-sub">CS education access</div>
+      </div>
+    </div>
+  </div>
+
   <!-- BENTO -->
   <section class="section-wrap">
     <div class="section-eyebrow">At a glance</div>
     <div class="bento">
-      <div class="bento-card bc-1 bc-accent reveal">
+      <div class="bento-card bc-1 bc-accent reveal" style="background:linear-gradient(135deg,rgba(184,255,87,0.04) 0%,rgba(8,8,8,0) 60%),var(--surface);overflow:hidden;position:relative;">
+        <div style="position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(184,255,87,0.08) 0%,transparent 70%);pointer-events:none"></div>
         <div class="bnum a">4.0</div>
         <div class="btitle">Carnegie Mellon University</div>
         <div class="bdesc">B.S. Computer Science · Class of 2030. Admitted out of high school to the #1 ranked CS program in the US — ~5% acceptance rate.</div>
@@ -733,7 +875,7 @@
     <h2 class="contact-title">Build something<br/>together.</h2>
     <p class="contact-sub">Research, AI, real estate, investing, or just a good conversation.</p>
     <div class="contact-ctas">
-      <a href="mailto:vihaanvshringi@gmail.com" class="btn-accent magnetic">vihaanvshringi@gmail.com →</a>
+      <a href="mailto:vihaans@andrew.cmu.edu" class="btn-accent magnetic">vihaans@andrew.cmu.edu →</a>
       <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" class="btn-outline magnetic">LinkedIn</a>
       <a href="https://github.com/v1hns" target="_blank" class="btn-outline magnetic">GitHub</a>
     </div>
@@ -981,8 +1123,19 @@
     function openModal(id) {
       body.innerHTML = buildModal(id);
       document.getElementById('modalPanel').scrollTop = 0;
+      overlay.classList.remove('closing');
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
+      // Stagger children in
+      const kids = Array.from(body.children);
+      kids.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(18px)';
+        el.style.transition = `opacity 0.4s ease ${0.18 + i * 0.055}s, transform 0.45s cubic-bezier(.16,1,.3,1) ${0.18 + i * 0.055}s`;
+      });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        kids.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+      }));
       // re-register hover on modal links
       overlay.querySelectorAll('a').forEach(el => {
         el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
@@ -991,7 +1144,8 @@
     }
     function closeModal() {
       overlay.classList.remove('open');
-      document.body.style.overflow = '';
+      overlay.classList.add('closing');
+      setTimeout(() => { overlay.classList.remove('closing'); document.body.style.overflow = ''; }, 300);
     }
 
     document.querySelectorAll('.proj[data-project]').forEach(card => {
