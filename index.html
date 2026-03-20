@@ -78,7 +78,7 @@
     .status-dot::before { content: ''; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s ease infinite; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    .hero-name { font-size: clamp(72px, 11vw, 144px); font-weight: 700; line-height: 0.88; letter-spacing: -0.03em; margin-bottom: 36px; overflow: hidden; }
+    .hero-name { font-size: clamp(80px, 13vw, 160px); font-weight: 700; line-height: 0.88; letter-spacing: -0.03em; margin-bottom: 36px; overflow: hidden; }
     .hero-name .line1 { display: block; clip-path: inset(0 0 -20px 0); animation: slideUp 0.8s cubic-bezier(.16,1,.3,1) 0.1s both; }
     .hero-name .line2 { display: block; color: var(--accent); clip-path: inset(0 0 -20px 0); animation: slideUp 0.8s cubic-bezier(.16,1,.3,1) 0.25s both; cursor: default; }
     @keyframes slideUp { from { transform: translateY(110%); } to { transform: translateY(0); } }
@@ -96,12 +96,13 @@
 
     .hero-desc { font-size: clamp(15px, 1.6vw, 19px); color: var(--muted); max-width: 500px; line-height: 1.75; margin-bottom: 48px; font-weight: 300; }
     .hero-desc strong { color: var(--text); font-weight: 500; }
+    .hero-rule { width: 48px; height: 2px; background: var(--accent); margin-bottom: 32px; box-shadow: 0 0 12px rgba(184,255,87,0.5); border-radius: 2px; }
     .word-reveal { display: inline-block; overflow: hidden; vertical-align: bottom; }
     .word-reveal span { display: inline-block; animation: wordUp 0.6s cubic-bezier(.16,1,.3,1) both; }
 
     .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn-accent { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #080808; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14px; padding: 14px 28px; border-radius: 8px; text-decoration: none; transition: box-shadow .2s; position: relative; }
-    .btn-accent:hover { box-shadow: 0 0 28px rgba(184,255,87,0.3); }
+    .btn-accent { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #080808; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; padding: 14px 30px; border-radius: 8px; text-decoration: none; transition: box-shadow .2s, transform .2s; position: relative; letter-spacing: 0.01em; }
+    .btn-accent:hover { box-shadow: 0 0 40px rgba(184,255,87,0.4), 0 4px 20px rgba(184,255,87,0.2); transform: translateY(-1px); }
     .btn-outline { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border2); color: var(--muted); font-size: 14px; font-weight: 400; padding: 14px 24px; border-radius: 8px; text-decoration: none; transition: color .2s, border-color .2s, background .2s; }
     .btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
 
@@ -209,7 +210,7 @@
     /* SECTION WRAPPER */
     .section-wrap { padding: 80px 48px; position: relative; }
     .section-wrap.ruled { border-top: 1px solid var(--border); }
-    .section-eyebrow { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; cursor: default; }
+    .section-eyebrow { font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; cursor: default; }
     .section-eyebrow::after { content: ''; flex: 1; max-width: 48px; height: 1px; background: var(--accent); opacity: 0.4; }
 
     /* BENTO */
@@ -217,12 +218,12 @@
     .bento-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: border-color .25s, transform .25s, box-shadow .25s; position: relative; overflow: hidden; }
     .bento-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(184,255,87,0.06) 0%, transparent 60%); opacity: 0; transition: opacity .3s; pointer-events: none; }
     .bento-card:hover::after { opacity: 1; }
-    .bento-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .bento-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.04); }
     .bc-1 { grid-column: span 5; } .bc-2 { grid-column: span 3; } .bc-3 { grid-column: span 4; }
     .bc-4 { grid-column: span 3; } .bc-5 { grid-column: span 3; } .bc-6 { grid-column: span 3; } .bc-7 { grid-column: span 3; }
     .bc-accent { border-color: rgba(184,255,87,0.15); background: rgba(184,255,87,0.03); }
-    .bc-accent:hover { border-color: rgba(184,255,87,0.3); }
-    .bnum { font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 700; line-height: 1; margin-bottom: 8px; transition: text-shadow .2s; }
+    .bc-accent:hover { border-color: rgba(184,255,87,0.4); box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 20px rgba(184,255,87,0.08); }
+    .bnum { font-family: 'Space Grotesk', sans-serif; font-size: 62px; font-weight: 700; line-height: 1; margin-bottom: 8px; transition: text-shadow .2s; }
     .bnum.a { color: var(--accent); }
     .blabel { color: var(--muted); font-size: 13px; line-height: 1.55; }
     .btitle { font-family: 'Space Grotesk', sans-serif; font-size: 21px; font-weight: 600; margin-bottom: 8px; }
@@ -445,11 +446,10 @@
       <span class="line1">Vihaan</span>
       <span class="line2" id="scramble-target">Shringi.</span>
     </h1>
+    <div class="hero-rule"></div>
     <p class="hero-desc" id="hero-desc">
-      Builder, researcher, connector.<br/>
-      <strong>Carnegie Mellon CS</strong> — one of the most selective programs in the world.
-      I make AI tools that matter, run a 7,000+ person AI community,
-      and believe the best engineers are also the best networked.
+      CMU CS. AI Valley. Nobel lab.<br/>
+      I build things that matter — and the <strong>network to make them real</strong>.
     </p>
     <div class="hero-ctas">
       <a href="mailto:vihaans@andrew.cmu.edu" class="btn-accent magnetic">Get in touch →</a>
@@ -551,62 +551,6 @@
     <div class="logos-more">+ many more</div>
   </div>
 
-  <!-- MOMENTS STRIP -->
-  <div class="moments-outer">
-    <div class="moments-label">moments &amp; milestones</div>
-    <div class="moments-strip">
-      <div class="moment-card">
-        <div class="mc-bg" style="background:linear-gradient(145deg,#0d1b2a,#1a2d4a)"></div>
-        <div class="mc-emoji">🏛️</div>
-        <div class="mc-tag">Carnegie Mellon</div>
-        <div class="mc-title">Pittsburgh, PA</div>
-        <div class="mc-sub">#1 CS program</div>
-      </div>
-      <div class="moment-card">
-        <div class="mc-bg" style="background:linear-gradient(145deg,#0a180a,#152a15)"></div>
-        <div class="mc-emoji">🤝</div>
-        <div class="mc-tag">AI Valley</div>
-        <div class="mc-title">7,000+ Builders</div>
-        <div class="mc-sub">Global community</div>
-      </div>
-      <div class="moment-card">
-        <div class="mc-bg" style="background:linear-gradient(145deg,#1a0f2e,#2d1b52)"></div>
-        <div class="mc-emoji">🧬</div>
-        <div class="mc-tag">ISB Research</div>
-        <div class="mc-title">Nobel Lab</div>
-        <div class="mc-sub">Baliga Lab · HIV & cancer</div>
-      </div>
-      <div class="moment-card">
-        <div class="mc-bg" style="background:linear-gradient(145deg,#1a0808,#2d1010)"></div>
-        <div class="mc-emoji">📈</div>
-        <div class="mc-tag">TopStep</div>
-        <div class="mc-title">$150K Funded</div>
-        <div class="mc-sub">Live trading capital</div>
-      </div>
-      <div class="moment-card">
-        <div class="mc-bg" style="background:linear-gradient(145deg,#111a0e,#1c2e18)"></div>
-        <div class="mc-emoji">🔬</div>
-        <div class="mc-tag">OncoScan AI</div>
-        <div class="mc-title">Patent Pending</div>
-        <div class="mc-sub">Oral cancer detection</div>
-      </div>
-      <div class="moment-card">
-        <div class="mc-bg" style="background:linear-gradient(145deg,#0e1528,#182338)"></div>
-        <div class="mc-emoji">🏆</div>
-        <div class="mc-tag">WA State Fair</div>
-        <div class="mc-title">1st Place</div>
-        <div class="mc-sub">Brain stroke ML</div>
-      </div>
-      <div class="moment-card">
-        <div class="mc-bg" style="background:linear-gradient(145deg,#1a1208,#2e2010)"></div>
-        <div class="mc-emoji">🎓</div>
-        <div class="mc-tag">Uplift Network</div>
-        <div class="mc-title">3,000+ Students</div>
-        <div class="mc-sub">CS education access</div>
-      </div>
-    </div>
-  </div>
-
   <!-- PHOTO STRIP -->
   <div class="photo-strip-outer">
     <div class="photo-strip-head">
@@ -687,52 +631,6 @@
       </div>
     </div>
   </section>
-
-  <!-- HORIZONTAL NUMBERS STRIP -->
-  <div class="hstrip-outer">
-    <div class="hstrip-label">
-      <span style="font-size:11px;font-weight:500;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;display:flex;align-items:center;gap:10px">by the numbers<span style="width:48px;height:1px;background:var(--accent);opacity:0.4;display:block"></span></span>
-      <span class="hstrip-hint"><span class="drag-hint-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>drag to explore</span>
-    </div>
-    <div class="hstrip" id="numStrip">
-      <div class="hcard accent">
-        <div class="hcard-num">#1</div>
-        <div class="hcard-label"><strong>CMU CS</strong>Best computer science program in the US. ~5% acceptance rate.</div>
-      </div>
-      <div class="hcard">
-        <div class="hcard-num">36</div>
-        <div class="hcard-label"><strong>Perfect ACT</strong>36/36 composite. Top 0.1% nationally.</div>
-      </div>
-      <div class="hcard">
-        <div class="hcard-num">7K+</div>
-        <div class="hcard-label"><strong>AI Network</strong>Builders, founders, and researchers via AI Valley.</div>
-      </div>
-      <div class="hcard">
-        <div class="hcard-num">$50K+</div>
-        <div class="hcard-label"><strong>Prizes Awarded</strong>Across 100+ projects at AI Valley events.</div>
-      </div>
-      <div class="hcard">
-        <div class="hcard-num">1st</div>
-        <div class="hcard-label"><strong>WA State Fair</strong>Brain Stroke diagnostic ML research.</div>
-      </div>
-      <div class="hcard">
-        <div class="hcard-num">$150K</div>
-        <div class="hcard-label"><strong>Funded Trader</strong>Live capital after $9K+ profit in one month.</div>
-      </div>
-      <div class="hcard">
-        <div class="hcard-num">3K+</div>
-        <div class="hcard-label"><strong>Students Taught</strong>CS education via The Uplift Network.</div>
-      </div>
-      <div class="hcard big">
-        <div class="hcard-num" style="font-size:36px">Nobel</div>
-        <div class="hcard-label"><strong>Nobel Prize-Winning Lab</strong>ML research intern at the Institute for Systems Biology · Baliga Lab.</div>
-      </div>
-      <div class="hcard">
-        <div class="hcard-num" style="font-size:36px">CMU + Stanford</div>
-        <div class="hcard-label"><strong>Summer Programs</strong>Both. GPA 4.0 and 3.85 respectively.</div>
-      </div>
-    </div>
-  </div>
 
   <!-- EXPERIENCE -->
   <section class="section-wrap ruled" id="work">
@@ -915,22 +813,6 @@
   </section>
   <script async src="//www.instagram.com/embed.js"></script>
 
-  <!-- AWARDS -->
-  <section class="section-wrap ruled" id="awards">
-    <div class="section-eyebrow">Awards &amp; Scores</div>
-    <div class="awards-grid">
-      <div class="award featured reveal"><div class="anum">36<span style="font-size:22px;opacity:0.5"> / 36</span></div><div class="alabel">ACT Composite · Perfect Score</div></div>
-      <div class="award reveal reveal-d1"><div class="anum">1st</div><div class="alabel">WA State Science &amp; Engineering Fair — Brain Stroke Diagnostic ML · State / Regional · Grade 11</div></div>
-      <div class="award reveal reveal-d2"><div class="anum" style="font-size:30px">AWS</div><div class="alabel">Incubated as startup · $1,000 AWS Credits · Computational Bio · International · Grade 11</div></div>
-      <div class="award reveal"><div class="anum" style="font-size:30px">Stanford</div><div class="alabel">Selected for Stanford Pre-Collegiate AI — ~60 students, ~5% acceptance · International · Grade 10</div></div>
-      <div class="award reveal reveal-d1"><div class="anum" style="font-size:30px">$150K</div><div class="alabel">TopStep Funded Trader — $9,000+ profits in 1 month · International · Grade 11</div></div>
-      <div class="award reveal reveal-d2"><div class="anum">5 × 5</div><div class="alabel">AP Stats · CS A · Physics · Physics C · Calc BC — all 5/5</div></div>
-      <div class="award reveal"><div class="anum">7/7</div><div class="alabel">IB Analysis &amp; Approaches · AP Scholar with Distinction · Grade 11</div></div>
-      <div class="award reveal reveal-d1"><div class="anum">CMU</div><div class="alabel">GPA 4.0 · Summer · Fundamentals of CS &amp; Reasoning with Data</div></div>
-      <div class="award reveal reveal-d2"><div class="anum" style="font-size:30px">Nobel</div><div class="alabel">ML Research at Nobel Prize-Winning Lab — Institute for Systems Biology</div></div>
-    </div>
-  </section>
-
   <!-- CONTACT -->
   <section class="contact reveal" id="contact">
     <div class="contact-glow"></div>
@@ -941,13 +823,18 @@
       <a href="mailto:vihaans@andrew.cmu.edu" class="btn-accent magnetic">vihaans@andrew.cmu.edu →</a>
       <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" class="btn-outline magnetic">LinkedIn</a>
       <a href="https://github.com/v1hns" target="_blank" class="btn-outline magnetic">GitHub</a>
+      <a href="https://instagram.com/vhn1squests" target="_blank" class="btn-outline magnetic">Instagram</a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
     <span>© 2026 Vihaan Shringi</span>
-    <span>CMU CS · really.ai · AI Valley</span>
+    <div style="display:flex;gap:24px;align-items:center">
+      <a href="https://instagram.com/vhn1squests" target="_blank" style="color:var(--muted);font-size:12px;transition:color .2s" onmouseenter="this.style.color='var(--text)'" onmouseleave="this.style.color='var(--muted)'">Instagram</a>
+      <a href="https://github.com/v1hns" target="_blank" style="color:var(--muted);font-size:12px;transition:color .2s" onmouseenter="this.style.color='var(--text)'" onmouseleave="this.style.color='var(--muted)'">GitHub</a>
+      <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" style="color:var(--muted);font-size:12px;transition:color .2s" onmouseenter="this.style.color='var(--text)'" onmouseleave="this.style.color='var(--muted)'">LinkedIn</a>
+    </div>
   </footer>
 
   <!-- MODAL -->
