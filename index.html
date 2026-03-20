@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
   <title>Vihaan Shringi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -12,6 +13,50 @@
       --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.13);
       --text: #ebebeb; --muted: #555; --accent: #b8ff57;
     }
+    /* LIGHT MODE */
+    [data-theme="light"] {
+      --bg: #f8f8f5; --surface: #efefec; --surface2: #e6e6e3;
+      --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.15);
+      --text: #0f0f0f; --muted: #888; --accent: #4a8000;
+    }
+    [data-theme="light"] body::before { background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); }
+    [data-theme="light"] nav::after { background: linear-gradient(to bottom, rgba(248,248,245,0.97) 65%, transparent); }
+    [data-theme="light"] .modal-panel { background: #f8f8f5; border-color: rgba(0,0,0,0.1); }
+    [data-theme="light"] .modal-stack-item { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
+    [data-theme="light"] .modal-award { border-color: rgba(74,128,0,0.2); background: rgba(74,128,0,0.05); }
+    [data-theme="light"] .bento-card { background: #fff; }
+    [data-theme="light"] .hcard { background: #fff; }
+    [data-theme="light"] .proj { background: #fff; }
+    [data-theme="light"] .sidebar-card { background: #fff; }
+    [data-theme="light"] .tl-dot { background: var(--bg); }
+    [data-theme="light"] .tl-item:hover { background: rgba(0,0,0,0.015); }
+    [data-theme="light"] .noise { opacity: 0.025; }
+    [data-theme="light"] .hero-aurora {
+      background: radial-gradient(ellipse 80% 60% at 78% 38%, rgba(74,128,0,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 45% at 90% 8%, rgba(99,102,241,0.05) 0%, transparent 50%),
+        radial-gradient(ellipse 45% 55% at 65% 85%, rgba(74,128,0,0.04) 0%, transparent 50%);
+    }
+    [data-theme="light"] .hero-gridlines {
+      background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    }
+    [data-theme="light"] .orb1 { background: radial-gradient(circle, rgba(74,128,0,0.08) 0%, transparent 70%); }
+    [data-theme="light"] .orb2 { background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%); }
+    [data-theme="light"] .orb3 { background: radial-gradient(circle, rgba(74,128,0,0.05) 0%, transparent 70%); }
+    [data-theme="light"] #cursor-ring { border-color: rgba(74,128,0,0.35); }
+    [data-theme="light"] body.hovered #cursor-ring { border-color: rgba(74,128,0,0.6); }
+    [data-theme="light"] #spotlight { background: radial-gradient(circle, rgba(74,128,0,0.04) 0%, transparent 70%); }
+    [data-theme="light"] .contact-glow { background: radial-gradient(ellipse, rgba(74,128,0,0.06) 0%, transparent 70%); }
+    [data-theme="light"] .hv-card { background: rgba(255,255,255,0.95); border-color: rgba(0,0,0,0.12); }
+    [data-theme="light"] .event-card { background: #fff; }
+    [data-theme="light"] .event-card.upcoming { background: rgba(74,128,0,0.03); }
+    [data-theme="light"] .logo-pill { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
+    [data-theme="light"] .logo-pill:hover { background: rgba(0,0,0,0.08); border-color: rgba(0,0,0,0.15); }
+    [data-theme="light"] .logo-pill span { color: #555; }
+    [data-theme="light"] .chip { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
+    [data-theme="light"] .award { background: #fff; }
+    [data-theme="light"] .award.featured { background: var(--accent); }
+    [data-theme="light"] .bento-card.bc-accent { background: rgba(74,128,0,0.05); border-color: rgba(74,128,0,0.2); }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none; }
 
@@ -34,11 +79,11 @@
     body.clicking #cursor { width: 12px; height: 12px; }
 
     /* CURSOR PARTICLE TRAIL */
-    .cp { position:fixed;width:4px;height:4px;background:#b8ff57;border-radius:50%;pointer-events:none;z-index:9996;transform:translate(-50%,-50%);animation:cpFade .7s ease forwards; }
+    .cp { position:fixed;width:4px;height:4px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9996;transform:translate(-50%,-50%);animation:cpFade .7s ease forwards; }
     @keyframes cpFade { 0%{opacity:.5;transform:translate(-50%,-50%) scale(1)} 100%{opacity:0;transform:translate(-50%,-220%) scale(.1)} }
 
     /* CLICK RIPPLE */
-    .ripple { position:fixed;border:1.5px solid #b8ff57;border-radius:50%;pointer-events:none;z-index:9995;transform:translate(-50%,-50%);animation:rOut .7s ease forwards; }
+    .ripple { position:fixed;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9995;transform:translate(-50%,-50%);animation:rOut .7s ease forwards; }
     @keyframes rOut { 0%{width:6px;height:6px;opacity:.7} 100%{width:90px;height:90px;opacity:0} }
 
     /* SPOTLIGHT */
@@ -54,6 +99,8 @@
     .nav-links { display: flex; gap: 36px; position: relative; z-index: 1; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color .2s; }
     .nav-links a:hover { color: var(--text); }
+    .theme-toggle { background:transparent; border:1px solid var(--border); border-radius:99px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:none; transition:border-color .2s, background .2s; color:var(--muted); padding:0; flex-shrink:0; }
+    .theme-toggle:hover { border-color:var(--border2); color:var(--text); }
 
     /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 130px 48px 90px; position: relative; overflow: hidden; }
@@ -293,12 +340,6 @@
     .tl-item { transition: opacity .3s ease, transform .3s ease; }
     .tl-item.hidden { opacity:0; pointer-events:none; height:0; padding:0; overflow:hidden; border:none; }
 
-    /* HERO DOG PHOTO */
-    .hero-dog { position:absolute; bottom:40px; right:48px; width:88px; height:88px; border-radius:50%; border:2px solid var(--border2); overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.5); transition:transform .3s ease, border-color .3s ease; }
-    .hero-dog:hover { transform:scale(1.06); border-color:rgba(184,255,87,0.4); }
-    .hero-dog img { width:100%; height:100%; object-fit:cover; }
-    @media(max-width:820px){ .hero-dog { display:none; } }
-
     /* PROJECTS HORIZONTAL */
     .proj-strip-outer { border-top: 1px solid var(--border); padding: 80px 0; }
     .proj-strip-head { padding: 0 48px; display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; }
@@ -444,6 +485,7 @@
       <a href="#projects">Projects</a>
       <a href="#awards">Awards</a>
       <a href="#contact">Contact</a>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
     </div>
   </nav>
 
@@ -477,9 +519,6 @@
       <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" class="btn-outline magnetic">LinkedIn</a>
     </div>
     <div class="scroll-hint"><div class="scroll-line"></div>scroll</div>
-    <div class="hero-dog">
-      <img src="media/photos/IMG_6629.JPG" alt="Vihaan">
-    </div>
     <div class="hero-visual">
       <div class="hv-dotgrid"></div>
       <div class="hv-card hv-c1">
@@ -883,6 +922,23 @@
         }
       });
     });
+
+    // ── THEME TOGGLE ──
+    (function() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const sunSVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>';
+      const moonSVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      function isDark() { return html.getAttribute('data-theme') === 'dark'; }
+      function updateIcon() { btn.innerHTML = isDark() ? sunSVG : moonSVG; }
+      btn.addEventListener('click', () => {
+        const next = isDark() ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateIcon();
+      });
+      updateIcon();
+    })();
 
     // ── SCROLL PROGRESS ──
     const prog = document.getElementById('progress');
