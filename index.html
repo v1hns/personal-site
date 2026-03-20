@@ -33,6 +33,17 @@
     body.hovered #cursor-ring { width: 52px; height: 52px; border-color: rgba(184,255,87,0.55); }
     body.clicking #cursor { width: 12px; height: 12px; }
 
+    /* CURSOR PARTICLE TRAIL */
+    .cp { position:fixed;width:4px;height:4px;background:#b8ff57;border-radius:50%;pointer-events:none;z-index:9996;transform:translate(-50%,-50%);animation:cpFade .7s ease forwards; }
+    @keyframes cpFade { 0%{opacity:.5;transform:translate(-50%,-50%) scale(1)} 100%{opacity:0;transform:translate(-50%,-220%) scale(.1)} }
+
+    /* CLICK RIPPLE */
+    .ripple { position:fixed;border:1.5px solid #b8ff57;border-radius:50%;pointer-events:none;z-index:9995;transform:translate(-50%,-50%);animation:rOut .7s ease forwards; }
+    @keyframes rOut { 0%{width:6px;height:6px;opacity:.7} 100%{width:90px;height:90px;opacity:0} }
+
+    /* SPOTLIGHT */
+    #spotlight { position:fixed; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(184,255,87,0.035) 0%, transparent 70%); pointer-events:none; z-index:1; transform:translate(-50%,-50%); transition:left .8s ease,top .8s ease; }
+
     h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; }
 
     /* NAV */
@@ -69,8 +80,19 @@
 
     .hero-name { font-size: clamp(72px, 11vw, 144px); font-weight: 700; line-height: 0.88; letter-spacing: -0.03em; margin-bottom: 36px; overflow: hidden; }
     .hero-name .line1 { display: block; clip-path: inset(0 0 -20px 0); animation: slideUp 0.8s cubic-bezier(.16,1,.3,1) 0.1s both; }
-    .hero-name .line2 { display: block; color: var(--accent); clip-path: inset(0 0 -20px 0); animation: slideUp 0.8s cubic-bezier(.16,1,.3,1) 0.25s both; }
+    .hero-name .line2 { display: block; color: var(--accent); clip-path: inset(0 0 -20px 0); animation: slideUp 0.8s cubic-bezier(.16,1,.3,1) 0.25s both; cursor: default; }
     @keyframes slideUp { from { transform: translateY(110%); } to { transform: translateY(0); } }
+
+    /* GLITCH HOVER */
+    .hero-name .line2:hover { animation: glitch .35s steps(3) forwards; }
+    @keyframes glitch {
+      0%   { text-shadow: 2px 0 cyan,  -2px 0 #ff0064; transform: skewX(0); }
+      25%  { text-shadow: -3px 0 #b8ff57, 3px 0 #ff0064; transform: skewX(-3deg); }
+      50%  { text-shadow: 3px 0 cyan, -3px 0 #b8ff57; transform: skewX(2deg); }
+      75%  { text-shadow: -2px 0 #ff0064, 2px 0 cyan; transform: skewX(-1deg); }
+      100% { text-shadow: none; transform: skewX(0); }
+    }
+    .section-eyebrow:hover { animation: glitch .35s steps(3) forwards; }
 
     .hero-desc { font-size: clamp(15px, 1.6vw, 19px); color: var(--muted); max-width: 500px; line-height: 1.75; margin-bottom: 48px; font-weight: 300; }
     .hero-desc strong { color: var(--text); font-weight: 500; }
@@ -88,6 +110,11 @@
     @keyframes sline { 0%,100% { transform: scaleX(1); opacity: 0.4; } 50% { transform: scaleX(0.5); opacity: 1; } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+    /* HERO PHOTO FRAME */
+    .hero-photo-frame { position:absolute; right:48px; top:50%; transform:translateY(-50%); width:260px; height:300px; border:2px dashed rgba(184,255,87,0.2); border-radius:20px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; background:rgba(184,255,87,0.02); opacity:.5; }
+    .hero-photo-frame span { font-size:12px; color:#444; text-align:center; }
+    @media(max-width:1000px){.hero-photo-frame{display:none}}
+
     /* MARQUEE */
     .marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; overflow: hidden; }
     .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
@@ -96,10 +123,22 @@
     .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+    /* COMPANIES / LOGOS SECTION */
+    .logos-section { border-top:1px solid rgba(255,255,255,0.07); padding:56px 0; overflow:hidden; }
+    .logos-heading { text-align:center; font-size:11px; font-weight:500; color:#555; letter-spacing:.14em; text-transform:uppercase; margin-bottom:32px; }
+    .logos-row { overflow:hidden; padding:4px 0; margin-bottom:10px; }
+    .logos-track { display:flex; gap:0; white-space:nowrap; animation:marquee 30s linear infinite; }
+    .logos-track.rev { animation-direction:reverse; animation-duration:24s; }
+    .logo-pill { display:inline-flex; align-items:center; gap:9px; padding:9px 20px; margin:0 5px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:99px; transition:border-color .2s,background .2s,transform .2s; }
+    .logo-pill:hover { border-color:rgba(255,255,255,0.16); background:rgba(255,255,255,0.08); transform:translateY(-2px); }
+    .logo-pill img { width:18px; height:18px; object-fit:contain; border-radius:3px; }
+    .logo-pill span { font-size:12px; font-weight:500; color:#555; }
+    .logos-more { text-align:center; margin-top:20px; font-size:12px; color:#444; letter-spacing:.08em; }
+
     /* SECTION WRAPPER */
     .section-wrap { padding: 80px 48px; position: relative; }
     .section-wrap.ruled { border-top: 1px solid var(--border); }
-    .section-eyebrow { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+    .section-eyebrow { font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; cursor: default; }
     .section-eyebrow::after { content: ''; flex: 1; max-width: 48px; height: 1px; background: var(--accent); opacity: 0.4; }
 
     /* BENTO */
@@ -112,11 +151,16 @@
     .bc-4 { grid-column: span 3; } .bc-5 { grid-column: span 3; } .bc-6 { grid-column: span 3; } .bc-7 { grid-column: span 3; }
     .bc-accent { border-color: rgba(184,255,87,0.15); background: rgba(184,255,87,0.03); }
     .bc-accent:hover { border-color: rgba(184,255,87,0.3); }
-    .bnum { font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+    .bnum { font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 700; line-height: 1; margin-bottom: 8px; transition: text-shadow .2s; }
     .bnum.a { color: var(--accent); }
     .blabel { color: var(--muted); font-size: 13px; line-height: 1.55; }
     .btitle { font-family: 'Space Grotesk', sans-serif; font-size: 21px; font-weight: 600; margin-bottom: 8px; }
     .bdesc { color: var(--muted); font-size: 13px; line-height: 1.65; margin-bottom: 14px; }
+
+    /* NEON GLOW on bento numbers and award numbers */
+    .bnum.a:hover, .anum:hover { text-shadow: 0 0 20px rgba(184,255,87,0.5), 0 0 40px rgba(184,255,87,0.2); }
+    .award.featured .anum:hover { text-shadow: 0 0 20px rgba(0,0,0,0.3); }
+    .anum { transition: text-shadow .2s; }
 
     /* HORIZONTAL STRIP */
     .hstrip-outer { border-top: 1px solid var(--border); padding: 64px 0; overflow: hidden; position: relative; }
@@ -133,6 +177,10 @@
     .hcard-num { font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 700; line-height: 1; color: var(--accent); margin-bottom: 10px; }
     .hcard-label { font-size: 14px; color: var(--muted); line-height: 1.55; }
     .hcard-label strong { color: var(--text); display: block; font-size: 16px; margin-bottom: 4px; }
+
+    /* DRAG HINT ARROW PULSE */
+    .drag-hint-arrow { animation: arrowPulse 1.5s ease infinite; display:inline-block; }
+    @keyframes arrowPulse { 0%,100%{transform:translateX(0);opacity:.5} 50%{transform:translateX(4px);opacity:1} }
 
     /* EXPERIENCE */
     .timeline { display: flex; flex-direction: column; }
@@ -233,7 +281,7 @@
     .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
     .award { border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: border-color .25s, transform .25s, box-shadow .25s; }
     .award:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
-    .award.featured { background: var(--accent); border-color: transparent; }
+    .award.featured { position:relative; background: var(--accent); border-color: transparent; }
     .award.featured .anum { color: #080808; }
     .award.featured .alabel { color: rgba(8,8,8,0.55); }
     .award.featured:hover { box-shadow: 0 8px 28px rgba(184,255,87,0.25); }
@@ -285,6 +333,7 @@
   <div id="progress"></div>
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
+  <div id="spotlight"></div>
 
   <!-- NAV -->
   <nav>
@@ -314,7 +363,7 @@
     <p class="hero-desc" id="hero-desc">
       Builder, researcher, connector.<br/>
       <strong>Carnegie Mellon CS</strong> — one of the most selective programs in the world.
-      I make AI tools that matter, run a 5,000+ person AI community,
+      I make AI tools that matter, run a 7,000+ person AI community,
       and believe the best engineers are also the best networked.
     </p>
     <div class="hero-ctas">
@@ -323,6 +372,10 @@
       <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" class="btn-outline magnetic">LinkedIn</a>
     </div>
     <div class="scroll-hint"><div class="scroll-line"></div>scroll</div>
+    <div class="hero-photo-frame">
+      <span style="font-size:28px">📸</span>
+      <span>photo coming soon</span>
+    </div>
   </section>
 
   <!-- MARQUEE -->
@@ -331,7 +384,7 @@
       <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · #1 Ranked</span>
       <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
       <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>5,000+ AI Builders in Network</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>7,000+ AI Builders in Network</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI</span>
       <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
       <span class="marquee-item"><span class="marquee-dot"></span>WA State Fair · 1st Place</span>
@@ -340,13 +393,57 @@
       <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · #1 Ranked</span>
       <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
       <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>5,000+ AI Builders in Network</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>7,000+ AI Builders in Network</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI</span>
       <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
       <span class="marquee-item"><span class="marquee-dot"></span>WA State Fair · 1st Place</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Google · AWS · OpenAI · AMD</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Nobel Prize-Winning Lab · ISB</span>
     </div>
+  </div>
+
+  <!-- COMPANIES SECTION -->
+  <div class="logos-section">
+    <div class="logos-heading">built with, researched at &amp; hosted by</div>
+    <!-- Row 1: Companies -->
+    <div class="logos-row">
+      <div class="logos-track">
+        <div class="logo-pill"><img src="https://logo.clearbit.com/openai.com" alt="OpenAI" onerror="this.style.display='none'"><span>OpenAI</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/google.com" alt="Google" onerror="this.style.display='none'"><span>Google</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/amd.com" alt="AMD" onerror="this.style.display='none'"><span>AMD</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/aws.amazon.com" alt="AWS" onerror="this.style.display='none'"><span>AWS</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/elevenlabs.io" alt="ElevenLabs" onerror="this.style.display='none'"><span>ElevenLabs</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/vapi.ai" alt="VAPI" onerror="this.style.display='none'"><span>VAPI</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/afore.vc" alt="Afore Capital" onerror="this.style.display='none'"><span>Afore Capital</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.style.display='none'"><span>TopStep</span></div>
+        <!-- doubled for seamless loop -->
+        <div class="logo-pill"><img src="https://logo.clearbit.com/openai.com" alt="OpenAI" onerror="this.style.display='none'"><span>OpenAI</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/google.com" alt="Google" onerror="this.style.display='none'"><span>Google</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/amd.com" alt="AMD" onerror="this.style.display='none'"><span>AMD</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/aws.amazon.com" alt="AWS" onerror="this.style.display='none'"><span>AWS</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/elevenlabs.io" alt="ElevenLabs" onerror="this.style.display='none'"><span>ElevenLabs</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/vapi.ai" alt="VAPI" onerror="this.style.display='none'"><span>VAPI</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/afore.vc" alt="Afore Capital" onerror="this.style.display='none'"><span>Afore Capital</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.style.display='none'"><span>TopStep</span></div>
+      </div>
+    </div>
+    <!-- Row 2: Institutions (reverse direction) -->
+    <div class="logos-row">
+      <div class="logos-track rev">
+        <div class="logo-pill"><img src="https://logo.clearbit.com/cmu.edu" alt="CMU" onerror="this.style.display='none'"><span>Carnegie Mellon</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/stanford.edu" alt="Stanford" onerror="this.style.display='none'"><span>Stanford</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/uw.edu" alt="UW" onerror="this.style.display='none'"><span>University of Washington</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/mbzuai.ac.ae" alt="MBZUAI" onerror="this.style.display='none'"><span>MBZUAI</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.style.display='none'"><span>ISB</span></div>
+        <!-- doubled for seamless loop -->
+        <div class="logo-pill"><img src="https://logo.clearbit.com/cmu.edu" alt="CMU" onerror="this.style.display='none'"><span>Carnegie Mellon</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/stanford.edu" alt="Stanford" onerror="this.style.display='none'"><span>Stanford</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/uw.edu" alt="UW" onerror="this.style.display='none'"><span>University of Washington</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/mbzuai.ac.ae" alt="MBZUAI" onerror="this.style.display='none'"><span>MBZUAI</span></div>
+        <div class="logo-pill"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.style.display='none'"><span>ISB</span></div>
+      </div>
+    </div>
+    <div class="logos-more">+ many more</div>
   </div>
 
   <!-- BENTO -->
@@ -364,7 +461,7 @@
         <div class="blabel">ACT Composite<br/>Perfect Score</div>
       </div>
       <div class="bento-card bc-3 reveal reveal-d2">
-        <div class="bnum" data-count="5000" data-suffix="+">0</div>
+        <div class="bnum" data-count="7000" data-suffix="+">0</div>
         <div class="blabel">AI builders in my network via AI Valley</div>
       </div>
       <div class="bento-card bc-4 reveal">
@@ -390,7 +487,7 @@
   <div class="hstrip-outer">
     <div class="hstrip-label">
       <span style="font-size:11px;font-weight:500;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;display:flex;align-items:center;gap:10px">by the numbers<span style="width:48px;height:1px;background:var(--accent);opacity:0.4;display:block"></span></span>
-      <span class="hstrip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>drag to explore</span>
+      <span class="hstrip-hint"><span class="drag-hint-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>drag to explore</span>
     </div>
     <div class="hstrip" id="numStrip">
       <div class="hcard accent">
@@ -402,7 +499,7 @@
         <div class="hcard-label"><strong>Perfect ACT</strong>36/36 composite. Top 0.1% nationally.</div>
       </div>
       <div class="hcard">
-        <div class="hcard-num">5K+</div>
+        <div class="hcard-num">7K+</div>
         <div class="hcard-label"><strong>AI Network</strong>Builders, founders, and researchers via AI Valley.</div>
       </div>
       <div class="hcard">
@@ -446,7 +543,7 @@
             <div><div class="tl-co">AI Valley</div></div>
           </div>
           <div class="tl-role">Director of Expansion</div>
-          <div class="tl-desc">Scaling a global community of 5,000+ first-gen AI builders across 12+ annual events and 100+ projects — with $50K+ in prizes awarded. Leading expansion into new cities and university campuses.</div>
+          <div class="tl-desc">Scaling a global community of 7,000+ first-gen AI builders across 12+ annual events and 100+ projects — with $50K+ in prizes awarded. Leading expansion into new cities and university campuses.</div>
           <div class="tl-subsection">
             <div class="tl-sublabel">Hosted with &amp; sponsored by</div>
             <div class="chips"><span class="chip a">OpenAI</span><span class="chip a">Google</span><span class="chip a">AMD</span><span class="chip a">AWS</span><span class="chip a">ElevenLabs</span><span class="chip a">VAPI</span><span class="chip a">Afore Capital</span></div>
@@ -548,7 +645,7 @@
     <div class="proj-strip-head">
       <div class="section-eyebrow">Projects</div>
       <span style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span class="drag-hint-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         drag to explore
       </span>
     </div>
@@ -680,6 +777,36 @@
     document.querySelectorAll('a, button, .proj, .bento-card, .award, .tl-item, .hcard').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
+    });
+
+    // ── CURSOR PARTICLE TRAIL ──
+    let moveCount = 0;
+    document.addEventListener('mousemove', e => {
+      moveCount++;
+      if (moveCount % 3 !== 0) return;
+      const p = document.createElement('div');
+      p.className = 'cp';
+      p.style.left = e.clientX + 'px';
+      p.style.top = e.clientY + 'px';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 700);
+    });
+
+    // ── CLICK RIPPLE ──
+    document.addEventListener('click', e => {
+      const r = document.createElement('div');
+      r.className = 'ripple';
+      r.style.left = e.clientX + 'px';
+      r.style.top = e.clientY + 'px';
+      document.body.appendChild(r);
+      setTimeout(() => r.remove(), 700);
+    });
+
+    // ── SPOTLIGHT ──
+    const spotlight = document.getElementById('spotlight');
+    document.addEventListener('mousemove', e => {
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top = e.clientY + 'px';
     });
 
     // ── TEXT SCRAMBLE ──
