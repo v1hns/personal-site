@@ -78,7 +78,7 @@
     .status-dot::before { content: ''; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s ease infinite; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    .hero-name { font-size: clamp(80px, 13vw, 160px); font-weight: 700; line-height: 0.88; letter-spacing: -0.03em; margin-bottom: 36px; overflow: hidden; }
+    .hero-name { font-size: clamp(80px, 13vw, 160px); font-weight: 700; line-height: 0.88; letter-spacing: -0.03em; margin-bottom: 36px; overflow: hidden; padding-bottom: 0.18em; }
     .hero-name .line1 { display: block; clip-path: inset(0 0 -20px 0); animation: slideUp 0.8s cubic-bezier(.16,1,.3,1) 0.1s both; }
     .hero-name .line2 { display: block; color: var(--accent); clip-path: inset(0 0 -20px 0); animation: slideUp 0.8s cubic-bezier(.16,1,.3,1) 0.25s both; cursor: default; }
     @keyframes slideUp { from { transform: translateY(110%); } to { transform: translateY(0); } }
@@ -615,8 +615,8 @@
         <div style="position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(184,255,87,0.08) 0%,transparent 70%);pointer-events:none"></div>
         <div class="bnum a">4.0</div>
         <div class="btitle">Carnegie Mellon University</div>
-        <div class="bdesc">B.S. Computer Science · Class of 2030. Admitted out of high school to the #1 ranked CS program in the US — ~5% acceptance rate.</div>
-        <div class="chips"><span class="chip a">#1 Ranked CS</span><span class="chip a">~5% Acceptance</span><span class="chip">Class of 2030</span></div>
+        <div class="bdesc">B.S. Computer Science · SCS · Class of 2030.</div>
+        <div class="chips"><span class="chip a">SCS</span><span class="chip">Class of 2030</span></div>
       </div>
       <div class="bento-card bc-2 reveal reveal-d1">
         <div class="bnum a" data-count="36">0</div>
@@ -659,7 +659,7 @@
             <div><div class="tl-co">AI Valley</div></div>
           </div>
           <div class="tl-role">Director of Expansion</div>
-          <div class="tl-desc">Scaling a global community of 7,000+ first-gen AI builders across 12+ annual events and 100+ projects — with $50K+ in prizes awarded. Leading expansion into new cities and university campuses.</div>
+          <div class="tl-desc">Running expansion for AI Valley — events at CMU, Stanford, and UW, 7,000+ builders, $50K+ in prizes across 100+ projects.</div>
           <div class="tl-subsection">
             <div class="tl-sublabel">Hosted with &amp; sponsored by</div>
             <div class="chips"><span class="chip a">OpenAI</span><span class="chip a">Google</span><span class="chip a">AMD</span><span class="chip a">AWS</span><span class="chip a">ElevenLabs</span><span class="chip a">VAPI</span><span class="chip a">Afore Capital</span></div>
@@ -692,7 +692,7 @@
             <div><div class="tl-co">OncoScan AI</div></div>
           </div>
           <div class="tl-role">CEO &amp; CTO</div>
-          <div class="tl-desc">Building an oral cancer detection model with leading cancer researchers in India. Incubated and scaling across the Indian market. Patent pending on the core detection model.</div>
+          <div class="tl-desc">Oral cancer detection model built with researchers in India. Patent pending. Incubated and scaling.</div>
           <div class="chips"><span class="chip a">Patent Pending</span><span class="chip">Computer Vision</span><span class="chip">Healthcare AI</span></div>
         </div>
       </div>
@@ -706,7 +706,7 @@
             <div><div class="tl-co">Institute for Systems Biology</div></div>
           </div>
           <div class="tl-role">ML Research Intern</div>
-          <div class="tl-desc">Predictive ML modeling for HIV and preeclampsia diagnosis at the Institute for Systems Biology — a Nobel Prize-winning research lab and one of the world's leading centers for systems biology.</div>
+          <div class="tl-desc">ML research at ISB under the Baliga Lab — building predictive models for HIV and preeclampsia diagnosis using multi-omic datasets.</div>
           <div class="chips"><span class="chip a">Nobel Prize-Winning Lab</span><span class="chip">Bioinformatics</span><span class="chip">Python · R</span></div>
         </div>
       </div>
@@ -748,7 +748,7 @@
             <div><div class="tl-co">TopStep</div></div>
           </div>
           <div class="tl-role">Funded Trader</div>
-          <div class="tl-desc">Qualified by demonstrating $9,000+ in verified profits over one month. Now managing $150,000 in live trading capital through TopStep's express funded account program.</div>
+          <div class="tl-desc">Passed the TopStep combine — $9K+ verified in one month. Managing $150K in live capital.</div>
           <div class="chips"><span class="chip">$150K Capital</span><span class="chip">Quant / Trading</span></div>
         </div>
       </div>
@@ -859,6 +859,16 @@
   </div>
 
   <script>
+    // ── HERO NAME: clear slideUp after it plays so hover doesn't retrigger it ──
+    document.querySelectorAll('.hero-name .line1, .hero-name .line2').forEach(el => {
+      el.addEventListener('animationend', e => {
+        if (e.animationName === 'slideUp') {
+          el.style.animation = 'none';
+          el.style.transform = 'translateY(0)';
+        }
+      });
+    });
+
     // ── SCROLL PROGRESS ──
     const prog = document.getElementById('progress');
     window.addEventListener('scroll', () => {
