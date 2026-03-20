@@ -174,7 +174,7 @@
       mask-image: radial-gradient(ellipse 50% 80% at 80% 50%, rgba(0,0,0,0.5) 0%, transparent 65%); }
 
     /* HERO VISUAL - floating stat cards */
-    .hero-visual { position:absolute; right:72px; top:50%; transform:translateY(-50%); width:290px; height:370px; pointer-events:none; }
+    .hero-visual { position:absolute; right:72px; top:50%; transform:translateY(-50%); width:290px; height:370px; }
     @media(max-width:1140px){.hero-visual{display:none}}
     .hv-card { position:absolute; background:rgba(12,12,12,0.92); border:1px solid var(--border2); border-radius:14px; padding:14px 20px; backdrop-filter:blur(16px); box-shadow:0 12px 40px rgba(0,0,0,0.55); pointer-events:all; transition:transform 0.3s ease, border-color 0.3s ease; }
     .hv-card:hover { border-color:rgba(184,255,87,0.35); }
@@ -196,6 +196,28 @@
       mask-image:radial-gradient(ellipse at 55% 50%, rgba(0,0,0,0.35) 0%, transparent 68%); }
     @keyframes hvFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
     @keyframes hvRingPulse { 0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.75;transform:scale(1.09)} }
+
+    /* HERO FLOWER */
+    .hero-flower { width:100%; height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
+    .flower-bg-ring { position:absolute; border-radius:50%; border:1px solid rgba(184,255,87,0.07); pointer-events:none; animation:hvRingPulse 4s ease infinite; }
+    .fbr1 { width:200px; height:200px; } .fbr2 { width:280px; height:280px; animation-delay:1.6s; }
+    .flower-dotgrid { position:absolute; inset:0; pointer-events:none;
+      background-image:radial-gradient(rgba(184,255,87,0.13) 1px, transparent 1px);
+      background-size:20px 20px;
+      mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, rgba(0,0,0,0.35) 0%, transparent 70%); }
+    .flower-center { position:absolute; width:58px; height:58px; border-radius:50%; background:var(--accent); color:#080808; display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:15px; z-index:5; box-shadow:0 0 30px rgba(184,255,87,0.5); pointer-events:none; letter-spacing:-0.01em; }
+    .petal { position:absolute; width:44px; height:82px; left:calc(50% - 22px); top:calc(50% - 82px); transform-origin:22px 82px; border-radius:50% 50% 22% 22% / 62% 62% 38% 38%; background:rgba(184,255,87,0.07); border:1px solid rgba(184,255,87,0.22); backdrop-filter:blur(8px); cursor:pointer; transition:background .25s, border-color .25s, box-shadow .25s; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; padding-top:8px; }
+    .petal:hover { background:rgba(184,255,87,0.16); border-color:rgba(184,255,87,0.45); box-shadow:0 0 20px rgba(184,255,87,0.22); }
+    .petal-inner { display:flex; flex-direction:column; align-items:center; gap:2px; width:36px; }
+    .petal-label { font-size:8px; font-weight:700; color:var(--accent); text-align:center; line-height:1.25; word-break:break-word; }
+    .petal-sublabel { font-size:6.5px; font-weight:500; color:var(--muted); text-align:center; line-height:1.2; }
+    .flower-hint { position:absolute; bottom:-30px; left:50%; transform:translateX(-50%); font-size:10px; color:var(--muted); white-space:nowrap; letter-spacing:0.08em; pointer-events:none; animation:fadeIn 1s ease 2s both; }
+    .flower-regen { position:absolute; font-size:11px; color:var(--accent); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; z-index:6; text-align:center; opacity:0; transition:opacity .5s; pointer-events:none; }
+    .flower-regen.visible { opacity:1; pointer-events:auto; }
+    [data-theme="light"] .petal { background:rgba(74,128,0,0.07); border-color:rgba(74,128,0,0.25); }
+    [data-theme="light"] .petal:hover { background:rgba(74,128,0,0.16); border-color:rgba(74,128,0,0.45); }
+    [data-theme="light"] .flower-bg-ring { border-color:rgba(74,128,0,0.1); }
+    [data-theme="light"] .flower-dotgrid { background-image:radial-gradient(rgba(74,128,0,0.14) 1px, transparent 1px); }
 
     /* EXTRA SHAPES */
     .shape5 { top:22%; right:38%; width:3px; height:3px; background:rgba(184,255,87,0.5); border-radius:50%; animation:blink 4.2s ease infinite 2.1s; }
@@ -483,7 +505,7 @@
     <div class="nav-links">
       <a href="#work">Work</a>
       <a href="#projects">Projects</a>
-      <a href="#awards">Awards</a>
+      <a href="hobbies.html">Hobbies</a>
       <a href="#contact">Contact</a>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
     </div>
@@ -520,28 +542,24 @@
     </div>
     <div class="scroll-hint"><div class="scroll-line"></div>scroll</div>
     <div class="hero-visual">
-      <div class="hv-dotgrid"></div>
-      <div class="hv-card hv-c1">
-        <div class="hv-label">Carnegie Mellon CS</div>
-        <div class="hv-val a">#1 Ranked</div>
-        <div class="hv-sub">Class of 2030 · ~5% admit</div>
+      <div class="hero-flower" id="heroFlower">
+        <div class="flower-dotgrid"></div>
+        <div class="flower-bg-ring fbr1"></div>
+        <div class="flower-bg-ring fbr2"></div>
+
+        <div class="petal" data-angle="0"><div class="petal-inner"><div class="petal-label">CMU CS</div><div class="petal-sublabel">#1 ranked</div></div></div>
+        <div class="petal" data-angle="45"><div class="petal-inner"><div class="petal-label">ACT</div><div class="petal-sublabel">36/36</div></div></div>
+        <div class="petal" data-angle="90"><div class="petal-inner"><div class="petal-label">7K+</div><div class="petal-sublabel">network</div></div></div>
+        <div class="petal" data-angle="135"><div class="petal-inner"><div class="petal-label">AI Valley</div><div class="petal-sublabel">director</div></div></div>
+        <div class="petal" data-angle="180"><div class="petal-inner"><div class="petal-label">$150K</div><div class="petal-sublabel">funded</div></div></div>
+        <div class="petal" data-angle="225"><div class="petal-inner"><div class="petal-label">Patent</div><div class="petal-sublabel">pending</div></div></div>
+        <div class="petal" data-angle="270"><div class="petal-inner"><div class="petal-label">Nobel</div><div class="petal-sublabel">ISB lab</div></div></div>
+        <div class="petal" data-angle="315"><div class="petal-inner"><div class="petal-label">WA State</div><div class="petal-sublabel">1st place</div></div></div>
+
+        <div class="flower-center">VS</div>
+        <div class="flower-regen" id="flowerRegen">✦ bloom</div>
+        <div class="flower-hint">click a petal</div>
       </div>
-      <div class="hv-card hv-c2">
-        <div class="hv-label">AI Valley Network</div>
-        <div class="hv-val">7,000+</div>
-        <div class="hv-sub">AI builders</div>
-      </div>
-      <div class="hv-card hv-c3">
-        <div class="hv-label">ACT Score</div>
-        <div class="hv-val a">36/36</div>
-      </div>
-      <div class="hv-card hv-c4">
-        <div class="hv-label">Funded Capital</div>
-        <div class="hv-val">$150K</div>
-        <div class="hv-sub">TopStep live account</div>
-      </div>
-      <div class="hv-ring hv-r1"></div>
-      <div class="hv-ring hv-r2"></div>
     </div>
   </section>
 
@@ -1215,6 +1233,57 @@
         });
       });
     });
+
+    // ── ACHIEVEMENT FLOWER ──
+    (function() {
+      const flower = document.getElementById('heroFlower');
+      if (!flower) return;
+      const regen = document.getElementById('flowerRegen');
+      let fallenCount = 0;
+      const petals = Array.from(flower.querySelectorAll('.petal'));
+
+      petals.forEach(petal => {
+        const angle = parseFloat(petal.dataset.angle);
+        petal.style.transform = `rotate(${angle}deg)`;
+        petal.querySelector('.petal-inner').style.transform = `rotate(${-angle}deg)`;
+
+        petal.addEventListener('click', () => {
+          if (petal.classList.contains('fallen')) return;
+          petal.classList.add('fallen');
+          petal.style.pointerEvents = 'none';
+
+          const rad = angle * Math.PI / 180;
+          const outX = Math.sin(rad) * 145 + (Math.random() - 0.5) * 40;
+          const outY = -Math.cos(rad) * 145 + 80 + Math.random() * 40;
+          const spin = (Math.random() - 0.5) * 260;
+
+          petal.animate([
+            { transform: `rotate(${angle}deg) scale(1)`, opacity: 1 },
+            { transform: `rotate(${angle}deg) scale(1.2) translateY(-6px)`, opacity: 1, offset: 0.1 },
+            { transform: `rotate(${angle + spin}deg) translate(${outX}px, ${outY}px) scale(0.05)`, opacity: 0 }
+          ], { duration: 880, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
+
+          fallenCount++;
+          if (fallenCount === petals.length) {
+            setTimeout(() => regen.classList.add('visible'), 700);
+          }
+        });
+        petal.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
+        petal.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
+      });
+
+      regen.addEventListener('click', () => {
+        regen.classList.remove('visible');
+        petals.forEach(petal => {
+          petal.classList.remove('fallen');
+          petal.style.pointerEvents = '';
+          petal.getAnimations().forEach(a => a.cancel());
+          const angle = parseFloat(petal.dataset.angle);
+          petal.style.transform = `rotate(${angle}deg)`;
+        });
+        fallenCount = 0;
+      });
+    })();
 
     // ── PARALLAX on orbs ──
     window.addEventListener('scroll', () => {
