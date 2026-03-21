@@ -283,17 +283,6 @@
     .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* COMPANIES / LOGOS SECTION */
-    .logos-section { border-top:1px solid rgba(255,255,255,0.07); padding:56px 0; overflow:hidden; }
-    .logos-heading { text-align:center; font-size:11px; font-weight:500; color:#555; letter-spacing:.14em; text-transform:uppercase; margin-bottom:32px; }
-    .logos-row { overflow:hidden; padding:4px 0; margin-bottom:10px; }
-    .logos-track { display:flex; gap:0; white-space:nowrap; animation:marquee 30s linear infinite; }
-    .logos-track.rev { animation-direction:reverse; animation-duration:24s; }
-    .logo-pill { display:inline-flex; align-items:center; gap:9px; padding:9px 20px; margin:0 5px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:99px; transition:border-color .2s,background .2s,transform .2s; }
-    .logo-pill:hover { border-color:rgba(255,255,255,0.16); background:rgba(255,255,255,0.08); transform:translateY(-2px); }
-    .logo-pill img { width:18px; height:18px; object-fit:contain; border-radius:3px; }
-    .logo-pill span { font-size:12px; font-weight:500; color:#555; }
-    .logos-more { text-align:center; margin-top:20px; font-size:12px; color:#444; letter-spacing:.08em; }
 
     /* MOMENTS STRIP */
     .moments-outer { overflow:hidden; border-top:1px solid var(--border); padding:56px 0; }
@@ -852,49 +841,6 @@
     </div>
   </div>
 
-  <!-- COMPANIES SECTION -->
-  <div class="logos-section">
-    <div class="logos-heading">built with, researched at &amp; hosted by</div>
-    <!-- Row 1: Companies -->
-    <div class="logos-row">
-      <div class="logos-track">
-        <div class="logo-pill"><img src="https://logo.clearbit.com/openai.com" alt="OpenAI" onerror="this.style.display='none'"><span>OpenAI</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/google.com" alt="Google" onerror="this.style.display='none'"><span>Google</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/amd.com" alt="AMD" onerror="this.style.display='none'"><span>AMD</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/aws.amazon.com" alt="AWS" onerror="this.style.display='none'"><span>AWS</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/elevenlabs.io" alt="ElevenLabs" onerror="this.style.display='none'"><span>ElevenLabs</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/vapi.ai" alt="VAPI" onerror="this.style.display='none'"><span>VAPI</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/afore.vc" alt="Afore Capital" onerror="this.style.display='none'"><span>Afore Capital</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.style.display='none'"><span>TopStep</span></div>
-        <!-- doubled for seamless loop -->
-        <div class="logo-pill"><img src="https://logo.clearbit.com/openai.com" alt="OpenAI" onerror="this.style.display='none'"><span>OpenAI</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/google.com" alt="Google" onerror="this.style.display='none'"><span>Google</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/amd.com" alt="AMD" onerror="this.style.display='none'"><span>AMD</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/aws.amazon.com" alt="AWS" onerror="this.style.display='none'"><span>AWS</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/elevenlabs.io" alt="ElevenLabs" onerror="this.style.display='none'"><span>ElevenLabs</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/vapi.ai" alt="VAPI" onerror="this.style.display='none'"><span>VAPI</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/afore.vc" alt="Afore Capital" onerror="this.style.display='none'"><span>Afore Capital</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.style.display='none'"><span>TopStep</span></div>
-      </div>
-    </div>
-    <!-- Row 2: Institutions (reverse direction) -->
-    <div class="logos-row">
-      <div class="logos-track rev">
-        <div class="logo-pill"><img src="https://logo.clearbit.com/cmu.edu" alt="CMU" onerror="this.style.display='none'"><span>Carnegie Mellon</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/stanford.edu" alt="Stanford" onerror="this.style.display='none'"><span>Stanford</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/uw.edu" alt="UW" onerror="this.style.display='none'"><span>University of Washington</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/mbzuai.ac.ae" alt="MBZUAI" onerror="this.style.display='none'"><span>MBZUAI</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.style.display='none'"><span>ISB</span></div>
-        <!-- doubled for seamless loop -->
-        <div class="logo-pill"><img src="https://logo.clearbit.com/cmu.edu" alt="CMU" onerror="this.style.display='none'"><span>Carnegie Mellon</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/stanford.edu" alt="Stanford" onerror="this.style.display='none'"><span>Stanford</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/uw.edu" alt="UW" onerror="this.style.display='none'"><span>University of Washington</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/mbzuai.ac.ae" alt="MBZUAI" onerror="this.style.display='none'"><span>MBZUAI</span></div>
-        <div class="logo-pill"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.style.display='none'"><span>ISB</span></div>
-      </div>
-    </div>
-    <div class="logos-more">+ many more</div>
-  </div>
 
   <!-- EVENTS -->
   <div class="events-outer">
