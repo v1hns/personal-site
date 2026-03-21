@@ -354,13 +354,16 @@
     .tl-person-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
     .tl-person-bio { font-size: 12px; color: var(--muted); line-height: 1.55; max-width: 500px; }
 
-    /* EXPERIENCE FILTERS */
-    .exp-filters { display:flex; gap:8px; flex-wrap:wrap; }
-    .exp-filter { background:transparent; border:1px solid var(--border); color:var(--muted); font-size:12px; font-weight:500; padding:6px 14px; border-radius:99px; cursor:none; transition:all .2s; font-family:'Inter',sans-serif; }
-    .exp-filter:hover { border-color:var(--border2); color:var(--text); }
-    .exp-filter.active { background:var(--accent); border-color:var(--accent); color:#080808; }
-    .tl-item { transition: opacity .3s ease, transform .3s ease; }
-    .tl-item.hidden { opacity:0; pointer-events:none; height:0; padding:0; overflow:hidden; border:none; }
+    /* AFFILIATIONS */
+    .aff-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .aff-card { display:flex; align-items:center; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:14px; transition:border-color .2s, transform .2s; }
+    .aff-card:hover { border-color:var(--border2); transform:translateY(-2px); }
+    [data-theme="light"] .aff-card { background:#fff; }
+    .aff-logo-wrap { width:40px; height:40px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; }
+    .aff-logo-wrap img { width:100%; height:100%; object-fit:contain; padding:6px; }
+    .aff-logo-wrap.fallback { font-family:'Space Grotesk',sans-serif; }
+    .aff-role { font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:var(--text); }
+    .aff-org { font-size:12px; color:var(--muted); margin-top:2px; }
 
     /* PROJECTS HORIZONTAL */
     .proj-strip-outer { border-top: 1px solid var(--border); padding: 80px 0; }
@@ -473,7 +476,7 @@
       .bc-1 { grid-column: span 2; } .bc-2,.bc-3,.bc-4,.bc-5,.bc-6,.bc-7 { grid-column: span 1; }
       .hstrip-label { padding: 0 24px; }
       .hstrip { padding: 8px 24px 20px; }
-      .tl-item { grid-template-columns: 90px 28px 1fr; }
+      .aff-grid { grid-template-columns: 1fr 1fr; }
       .proj-strip-head { padding: 0 24px; }
       .proj-strip { padding: 4px 24px 20px; }
       .proj { width: 280px; }
@@ -503,7 +506,6 @@
   <nav>
     <a href="#" class="nav-logo">V<span>S</span></a>
     <div class="nav-links">
-      <a href="#work">Work</a>
       <a href="#projects">Projects</a>
       <a href="hobbies.html">Hobbies</a>
       <a href="#contact">Contact</a>
@@ -723,127 +725,38 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section class="section-wrap ruled" id="work">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:12px">
-      <div class="section-eyebrow" style="margin-bottom:0">Experience</div>
-      <div class="exp-filters" id="expFilters">
-        <button class="exp-filter active" data-filter="all">All</button>
-        <button class="exp-filter" data-filter="community">Community</button>
-        <button class="exp-filter" data-filter="research">Research</button>
-        <button class="exp-filter" data-filter="startup">Startup</button>
-        <button class="exp-filter" data-filter="trading">Trading</button>
+  <!-- AFFILIATIONS -->
+  <section class="section-wrap ruled">
+    <div class="section-eyebrow">Where I've been</div>
+    <div class="aff-grid">
+      <div class="aff-card reveal">
+        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='AV'"></div>
+        <div class="aff-info"><div class="aff-role">Director of Expansion</div><div class="aff-org">AI Valley · 2025–now</div></div>
       </div>
-    </div>
-    <div class="timeline">
-
-      <div class="tl-item reveal" data-type="community">
-        <div class="tl-date">2025 – now</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
-        <div class="tl-content">
-          <div class="tl-header">
-            <div class="tl-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='AV'"></div>
-            <div><div class="tl-co">AI Valley</div></div>
-          </div>
-          <div class="tl-role">Director of Expansion</div>
-          <div class="tl-desc">Running expansion for AI Valley — events at CMU, Stanford, and UW, 7,000+ builders, $50K+ in prizes across 100+ projects.</div>
-          <div class="tl-subsection">
-            <div class="tl-sublabel">Hosted with &amp; sponsored by</div>
-            <div class="chips"><span class="chip a">OpenAI</span><span class="chip a">Google</span><span class="chip a">AMD</span><span class="chip a">AWS</span><span class="chip a">ElevenLabs</span><span class="chip a">VAPI</span><span class="chip a">Afore Capital</span></div>
-          </div>
-          <div class="tl-subsection">
-            <div class="tl-sublabel">Events hosted at</div>
-            <div class="chips"><span class="chip">Carnegie Mellon</span><span class="chip">Stanford</span><span class="chip">UW Seattle</span></div>
-          </div>
-          <div class="tl-subsection">
-            <div class="tl-sublabel">People I've connected with &amp; admire</div>
-            <div class="tl-people">
-              <div class="tl-person">
-                <div class="tl-person-avatar"><img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=x_waa8kAAAAJ" alt="Eric Xing" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='EX'"></div>
-                <div>
-                  <div class="tl-person-name">Eric Xing</div>
-                  <div class="tl-person-bio">Professor &amp; President, MBZUAI · CMU ML Dept founder · Pioneer in probabilistic graphical models &amp; genomic AI</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="aff-card reveal reveal-d1">
+        <div class="aff-logo-wrap fallback" style="font-size:13px;font-weight:700;color:var(--accent)">OS</div>
+        <div class="aff-info"><div class="aff-role">CEO &amp; CTO</div><div class="aff-org">OncoScan AI · 2025</div></div>
       </div>
-
-      <div class="tl-item reveal" data-type="startup">
-        <div class="tl-date">2025</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
-        <div class="tl-content">
-          <div class="tl-header">
-            <div class="tl-logo-wrap fallback">OS</div>
-            <div><div class="tl-co">OncoScan AI</div></div>
-          </div>
-          <div class="tl-role">CEO &amp; CTO</div>
-          <div class="tl-desc">Oral cancer detection model built with researchers in India. Patent pending. Incubated and scaling.</div>
-          <div class="chips"><span class="chip a">Patent Pending</span><span class="chip">Computer Vision</span><span class="chip">Healthcare AI</span></div>
-        </div>
+      <div class="aff-card reveal reveal-d2">
+        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='ISB'"></div>
+        <div class="aff-info"><div class="aff-role">ML Research Intern</div><div class="aff-org">ISB · Baliga Lab · 2025</div></div>
       </div>
-
-      <div class="tl-item reveal" data-type="research">
-        <div class="tl-date">2025</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
-        <div class="tl-content">
-          <div class="tl-header">
-            <div class="tl-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='ISB'"></div>
-            <div><div class="tl-co">Institute for Systems Biology</div></div>
-          </div>
-          <div class="tl-role">ML Research Intern</div>
-          <div class="tl-desc">ML research at ISB under the Baliga Lab — building predictive models for HIV and preeclampsia diagnosis using multi-omic datasets.</div>
-          <div class="chips"><span class="chip a">Nobel Prize-Winning Lab</span><span class="chip">Bioinformatics</span><span class="chip">Python · R</span></div>
-        </div>
+      <div class="aff-card reveal">
+        <div class="aff-logo-wrap fallback" style="font-size:16px">🧠</div>
+        <div class="aff-info"><div class="aff-role">Lead ML Researcher</div><div class="aff-org">Brain Stroke · 2023–2025</div></div>
       </div>
-
-      <div class="tl-item reveal" data-type="research">
-        <div class="tl-date">2023 – 2025</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
-        <div class="tl-content">
-          <div class="tl-header">
-            <div class="tl-logo-wrap fallback">🧠</div>
-            <div><div class="tl-co">Brain Stroke Research</div></div>
-          </div>
-          <div class="tl-role">Lead ML Researcher</div>
-          <div class="tl-desc">Built a 3D CNN to classify CT scans for stroke susceptibility. Won 1st Place at the Washington State Science and Engineering Fair.</div>
-          <div class="chips"><span class="chip a">1st Place — WA State Fair</span><span class="chip">3D CNN</span><span class="chip">Medical Imaging</span></div>
-        </div>
+      <div class="aff-card reveal reveal-d1">
+        <div class="aff-logo-wrap"><img src="tun.webp" alt="Uplift Network" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='UN'"></div>
+        <div class="aff-info"><div class="aff-role">Founder</div><div class="aff-org">The Uplift Network · 2024–2025</div></div>
       </div>
-
-      <div class="tl-item reveal" data-type="community">
-        <div class="tl-date">2024 – 2025</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
-        <div class="tl-content">
-          <div class="tl-header">
-            <div class="tl-logo-wrap"><img src="tun.webp" alt="The Uplift Network" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='UN'"></div>
-            <div><div class="tl-co">The Uplift Network</div></div>
-          </div>
-          <div class="tl-role">Founder</div>
-          <div class="tl-desc">Built CS education for underserved students from the ground up. Grew to 3,000+ students and 25+ teachers.</div>
-          <div class="chips"><span class="chip">3,000+ Students</span><span class="chip">25+ Teachers</span><span class="chip">EdTech</span></div>
-        </div>
+      <div class="aff-card reveal reveal-d2">
+        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='TS'"></div>
+        <div class="aff-info"><div class="aff-role">Funded Trader</div><div class="aff-org">TopStep · $150K · 2025</div></div>
       </div>
-
-      <div class="tl-item reveal" data-type="trading">
-        <div class="tl-date">2025</div>
-        <div class="tl-line"><div class="tl-dot"></div></div>
-        <div class="tl-content">
-          <div class="tl-header">
-            <div class="tl-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='TS'"></div>
-            <div><div class="tl-co">TopStep</div></div>
-          </div>
-          <div class="tl-role">Funded Trader</div>
-          <div class="tl-desc">Passed the TopStep combine — $9K+ verified in one month. Managing $150K in live capital.</div>
-          <div class="chips"><span class="chip">$150K Capital</span><span class="chip">Quant / Trading</span></div>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- PROJECTS HORIZONTAL SCROLL -->
+ <!-- PROJECTS HORIZONTAL SCROLL -->
   <div class="proj-strip-outer" id="projects">
     <div class="proj-strip-head">
       <div class="section-eyebrow">Projects</div>
@@ -1218,21 +1131,7 @@
     overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // ── EXPERIENCE FILTERS ──
-    document.querySelectorAll('.exp-filter').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.exp-filter').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        document.querySelectorAll('.tl-item').forEach(item => {
-          if (filter === 'all' || item.dataset.type === filter) {
-            item.classList.remove('hidden');
-          } else {
-            item.classList.add('hidden');
-          }
-        });
-      });
-    });
+
 
     // ── ACHIEVEMENT FLOWER ──
     (function() {
