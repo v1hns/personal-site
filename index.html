@@ -171,7 +171,7 @@
     .btn-outline { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border2); color: var(--muted); font-size: 14px; font-weight: 400; padding: 14px 24px; border-radius: 8px; text-decoration: none; transition: color .2s, border-color .2s, background .2s; }
     .btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
 
-    .scroll-hint { position: absolute; bottom: 40px; left: 48px; display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; animation: fadeIn 1s ease 1.2s both; }
+    .scroll-hint { display: none; }
     .scroll-line { width: 44px; height: 1px; background: var(--muted); animation: sline 2.5s ease infinite; }
     @keyframes sline { 0%,100% { transform: scaleX(1); opacity: 0.4; } 50% { transform: scaleX(0.5); opacity: 1; } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
