@@ -557,6 +557,45 @@
     .sf-l1 { animation:swimL 30s linear -5s infinite; }
     .sf-l2 { animation:swimL 24s linear -15s infinite; }
     
+  
+    /* ── HOBBIES SECTION ── */
+    .hobbies-section { padding:80px 72px 0; }
+    .hobbies-split { display:grid; grid-template-columns:320px 1fr; gap:56px; align-items:start; }
+    .hobbies-sticky { position:sticky; top:120px; }
+    .hobbies-tagline { font-size:15px; color:var(--muted); line-height:1.7; margin-top:14px; max-width:280px; }
+    .hobbies-pill { display:inline-flex; align-items:center; gap:8px; font-size:12px; color:var(--muted);
+      background:var(--surface); border:1px solid var(--border2); border-radius:99px; padding:7px 16px; margin-top:22px; }
+    .hobbies-pill .dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 2s ease infinite; flex-shrink:0; }
+
+    /* Reel */
+    .hobbies-reel { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+      gap:16px; padding-bottom:16px; -ms-overflow-style:none; scrollbar-width:none; }
+    .hobbies-reel::-webkit-scrollbar { display:none; }
+    .hobby-slide { min-width:320px; max-width:320px; scroll-snap-align:start; border:1px solid var(--border);
+      border-radius:20px; overflow:hidden; background:var(--surface); transition:border-color .25s; }
+    .hobby-slide:hover { border-color:var(--border2); }
+    [data-theme="light"] .hobby-slide { background:#fff; }
+    .hobby-photo { width:100%; height:220px; object-fit:cover; display:block; background:var(--surface2); }
+    .hobby-photo-placeholder { width:100%; height:220px; background:var(--surface2);
+      display:flex; align-items:center; justify-content:center; font-size:64px; }
+    .hobby-body { padding:22px 24px 26px; }
+    .hobby-tag { font-size:10px; font-weight:600; color:var(--accent); letter-spacing:0.14em;
+      text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+    .hobby-tag::before { content:''; width:16px; height:1.5px; background:var(--accent); opacity:0.7; }
+    .hobby-name { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:10px; }
+    .hobby-desc { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:14px; }
+    .hobby-stats { display:flex; flex-wrap:wrap; gap:6px; }
+    .hobby-stat { font-size:11px; font-weight:600; color:var(--text); background:var(--surface2);
+      border:1px solid var(--border2); border-radius:99px; padding:4px 11px; }
+    .hobby-stat.hi { color:var(--accent); border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.06); }
+    [data-theme="light"] .hobby-stat.hi { background:rgba(2,132,199,0.07); border-color:rgba(2,132,199,0.25); }
+    @media(max-width:900px){
+      .hobbies-section { padding:60px 24px 0; }
+      .hobbies-split { grid-template-columns:1fr; gap:28px; }
+      .hobbies-sticky { position:static; }
+      .hobby-slide { min-width:280px; max-width:280px; }
+    }
+    
   </style>
 </head>
 <body>
@@ -571,7 +610,7 @@
     <a href="#" class="nav-logo">V<span>S</span></a>
     <div class="nav-links">
       <a href="#projects">Projects</a>
-      <a href="hobbies.html">Hobbies</a>
+      <a href="#hobbies">Hobbies</a>
       <a href="#contact">Contact</a>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
     </div>
@@ -970,6 +1009,68 @@
   </div>
 
 
+  <!-- HOBBIES -->
+  <section class="section-wrap" id="hobbies" style="padding-bottom:0">
+    <div class="section-eyebrow">Beyond the screen</div>
+    <div class="hobbies-split" style="margin-top:40px">
+      <div class="hobbies-sticky">
+        <h2 style="font-size:clamp(32px,4vw,48px);font-weight:700;line-height:0.95;letter-spacing:-0.02em">Life<br/>outside<br/>the lab.</h2>
+        <p class="hobbies-tagline">All hours not spent coding, fully accounted for.</p>
+        <div class="hobbies-pill"><span class="dot"></span>all efforts funding the next ski pass</div>
+      </div>
+      <div class="hobbies-reel" id="hobbiesReel">
+
+        <!-- Scuba -->
+        <div class="hobby-slide">
+          <img class="hobby-photo" src="media/photos/IMG_3423.jpg" alt="Scuba diving" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="hobby-photo-placeholder" style="display:none">🤿</div>
+          <div class="hobby-body">
+            <div class="hobby-tag">Underwater</div>
+            <div class="hobby-name">Scuba Diving</div>
+            <div class="hobby-desc">Exploring reef systems and wrecks. This is me doing math 100ft underwater with full gas narcosis — the deepest peer review process.</div>
+            <div class="hobby-stats">
+              <span class="hobby-stat hi">PADI Advanced Open Water</span>
+              <span class="hobby-stat">Pacific · Caribbean</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skiing -->
+        <div class="hobby-slide">
+          <div class="hobby-photo-placeholder">⛷️</div>
+          <div class="hobby-body">
+            <div class="hobby-tag">Mountain</div>
+            <div class="hobby-name">Skiing</div>
+            <div class="hobby-desc">Grew up in the Cascades. Snoqualmie, Mt Hood, wherever there's a black diamond and fresh snow.</div>
+            <div class="hobby-stats">
+              <span class="hobby-stat hi">Black Diamond</span>
+              <span class="hobby-stat">Mt Hood</span>
+              <span class="hobby-stat">Snoqualmie</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Climbing -->
+        <div class="hobby-slide">
+          <img class="hobby-photo" src="media/photos/IMG_6629.JPG" alt="Bouldering in SF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="hobby-photo-placeholder" style="display:none">🧗</div>
+          <div class="hobby-body">
+            <div class="hobby-tag">Vertical</div>
+            <div class="hobby-name">Rock Climbing</div>
+            <div class="hobby-desc">Problem solving at height. Bouldering in San Francisco, sport and trad outdoor. Every route is a puzzle.</div>
+            <div class="hobby-stats">
+              <span class="hobby-stat hi">V5 Boulder</span>
+              <span class="hobby-stat">Sport + Trad</span>
+              <span class="hobby-stat">San Francisco</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
   <!-- CONTACT -->
   <section class="contact reveal" id="contact">
     <div class="contact-glow"></div>
@@ -1190,7 +1291,7 @@
           'really.ai replaces cold, transactional real estate search with a warm, AI-driven matching experience. Users submit only their phone number — an AI calls them immediately, learns their situation in a 2-minute conversation, and automatically matches them with compatible counterparties.',
           'When a match is found, both parties receive an AI consent call. If both agree, each gets the other\'s number directly — no agent middleman, no forms, no friction.'
         ],
-        stack: [['AI Calls', 'VAPI'], ['LLM', 'Groq · LLaMA-3.3-70b'], ['Backend', 'FastAPI · Python'], ['Database', 'SQLite · SQLModel'], ['Messaging', 'WhatsApp Cloud API'], ['Hosting', 'ngrok / Railway']],
+        stack: [['Platform', 'VAPI'], ['AI Infra', 'Groq']],
         awards: [],
         mentors: []
       },
@@ -1202,19 +1303,19 @@
           'Developed a 3D convolutional neural network to classify brain CT scans for stroke susceptibility. Unlike 2D models that process individual slices, this 3D architecture captures volumetric spatial relationships across the full scan — enabling far more accurate diagnosis.',
           'The model uses volumetric convolutions, batch normalization, and max-pooling across three spatial dimensions. Data augmentation (random flipping, rotation, intensity jitter) improved generalization on the limited medical imaging dataset.'
         ],
-        stack: [['Model', '3D CNN'], ['Framework', 'PyTorch'], ['Domain', 'Medical Imaging'], ['Language', 'Python']],
+        stack: [],
         awards: [{ num: '1st', title: 'WA State Science & Engineering Fair', sub: 'Brain Stroke Diagnostic ML · State/Regional · Grade 11' }],
         mentors: []
       },
       'oncoscan': {
         icon: '🔬', type: 'Startup · CEO & CTO · 2025', title: 'OncoScan AI',
-        tagline: 'Early oral cancer detection powered by computer vision — built with leading researchers in India, VC funded, and scaling nationally.',
+        tagline: 'Early oral cancer detection powered by computer vision — worked with leading researchers in India, VC funded, and scaling nationally.',
         links: [],
         desc: [
           'OncoScan AI builds a computer vision model for oral cancer detection. Oral cancer has very high survival rates when caught early, but early-stage lesions are easy to miss without specialist imaging — and specialists are concentrated in urban India while the disease burden is national.',
           'Led both the technical model development and a national physician outreach effort — connecting doctors across India to contribute clinician-annotated imaging data. Early contributors become early adopters, seeding the go-to-market.'
         ],
-        stack: [['Model', 'Computer Vision'], ['Framework', 'PyTorch'], ['Cloud', 'AWS'], ['Language', 'Python']],
+        stack: [['Cloud', 'AWS'], ['Funding', 'VC Backed']],
         awards: [
           { num: '📄', title: 'Patent Pending', sub: 'Core detection model architecture' },
           { num: 'AWS', title: 'Incubated Startup · $1,000 AWS Credits', sub: 'International · Grade 11' },
@@ -1230,7 +1331,7 @@
           'Conducted ML research at the Institute for Systems Biology (ISB) — a Nobel Prize-winning research institution known for pioneering work in network-based approaches to disease and P4 Medicine (predictive, preventive, personalized, participatory).',
           'Working under the Baliga Lab, developed predictive models for HIV diagnosis and preeclampsia risk — integrating multi-omic datasets to surface biomarker signatures enabling earlier, more accurate clinical detection.'
         ],
-        stack: [['Languages', 'Python · R'], ['Methods', 'Multi-omics ML'], ['Domain', 'Bioinformatics'], ['Lab', 'Baliga Lab · ISB']],
+        stack: [['Lab', 'ISB · Baliga Lab']],
         awards: [{ num: '🏆', title: 'Nobel Prize-Winning Institution', sub: 'Institute for Systems Biology' }],
         mentors: [{ initials: 'MA', name: 'Mario Arrieta Ortiz', role: 'Research Scientist · Baliga Lab, ISB', bio: 'Expert in systems biology and regulatory network modeling. Core member of the Baliga Lab — a world leader in network-based multi-omic research.' }]
       },
@@ -1242,7 +1343,7 @@
           'Minecraft is a uniquely hard environment for AI agents — open-ended, partially observable, requiring long-horizon planning across thousands of sequential decisions. Bots must combine low-level behavioral programming with higher-level goal decomposition.',
           'This project explores autonomous agent architectures: pathfinding in procedurally generated terrain, resource gathering via state machines, LLM-driven task decomposition, and multi-agent coordination experiments.'
         ],
-        stack: [['Agents', 'RL + LLM Planning'], ['API', 'Mineflayer / Mods'], ['Language', 'Python / JS'], ['Status', 'In Progress']],
+        stack: [],
         awards: [],
         mentors: []
       }
@@ -1255,7 +1356,7 @@
       const stack = p.stack.map(([k,v]) => `<div class="modal-stack-item"><div class="modal-stack-key">${k}</div><div class="modal-stack-val">${v}</div></div>`).join('');
       const awards = p.awards.length ? `<div class="modal-divider"></div><div class="modal-section-label">Awards & Recognition</div><div class="modal-awards">${p.awards.map(a => `<div class="modal-award"><div class="modal-award-num">${a.num}</div><div class="modal-award-text"><strong>${a.title}</strong>${a.sub}</div></div>`).join('')}</div>` : '';
       const mentors = p.mentors.length ? `<div class="modal-divider"></div><div class="modal-section-label">Mentor</div>${p.mentors.map(m => `<div class="modal-person"><div class="modal-person-avatar">${m.img ? `<img src="${m.img}" onerror="this.parentElement.textContent='${m.initials}'">` : m.initials}</div><div><div class="modal-person-name">${m.name}</div><div class="modal-person-role">${m.role}</div><div class="modal-person-bio">${m.bio}</div></div></div>`).join('')}` : '';
-      return `<div class="modal-icon">${p.icon}</div><div class="modal-eyebrow">${p.type}</div><div class="modal-title">${p.title}</div><p class="modal-tagline">${p.tagline}</p>${links.length ? `<div class="modal-links">${links}</div>` : ''}<div class="modal-divider"></div><div class="modal-section-label">Overview</div>${desc}<div class="modal-divider"></div><div class="modal-section-label">Stack</div><div class="modal-stack">${stack}</div>${awards}${mentors}`;
+      return `<div class="modal-icon">${p.icon}</div><div class="modal-eyebrow">${p.type}</div><div class="modal-title">${p.title}</div><p class="modal-tagline">${p.tagline}</p>${links.length ? `<div class="modal-links">${links}</div>` : ''}<div class="modal-divider"></div><div class="modal-section-label">Overview</div>${desc}<div class="modal-divider"></div>${stack ? `<div class="modal-divider"></div><div class="modal-section-label">Worked with</div><div class="modal-stack">${stack}</div>` : ""}${awards}${mentors}`;
     }
 
     const overlay = document.getElementById('modalOverlay');
@@ -1322,6 +1423,17 @@
       });
       fish.style.cursor = 'pointer';
     });
+
+    // Hobbies reel: convert vertical wheel scroll to horizontal
+    const reel = document.getElementById('hobbiesReel');
+    if (reel) {
+      reel.addEventListener('wheel', e => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          reel.scrollLeft += e.deltaY * 1.2;
+        }
+      }, { passive: false });
+    }
 </script>
 </body>
 </html>
