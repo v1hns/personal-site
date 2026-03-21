@@ -15,15 +15,15 @@
     }
     /* LIGHT MODE */
     [data-theme="light"] {
-      --bg: #f8f8f5; --surface: #efefec; --surface2: #e6e6e3;
-      --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.15);
-      --text: #0f0f0f; --muted: #888; --accent: #4a8000;
+      --bg: #fff5f7; --surface: #fff0f4; --surface2: #fde8ee;
+      --border: rgba(210,99,138,0.1); --border2: rgba(210,99,138,0.22);
+      --text: #1a0812; --muted: #9a6070; --accent: #d4638a;
     }
-    [data-theme="light"] body::before { background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); }
-    [data-theme="light"] nav::after { background: linear-gradient(to bottom, rgba(248,248,245,0.97) 65%, transparent); }
-    [data-theme="light"] .modal-panel { background: #f8f8f5; border-color: rgba(0,0,0,0.1); }
+    [data-theme="light"] body::before { background-image: radial-gradient(rgba(212,99,138,0.06) 1px, transparent 1px); }
+    [data-theme="light"] nav::after { background: linear-gradient(to bottom, rgba(255,245,247,0.97) 65%, transparent); }
+    [data-theme="light"] .modal-panel { background: #fff5f7; border-color: rgba(0,0,0,0.1); }
     [data-theme="light"] .modal-stack-item { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
-    [data-theme="light"] .modal-award { border-color: rgba(74,128,0,0.2); background: rgba(74,128,0,0.05); }
+    [data-theme="light"] .modal-award { border-color: rgba(212,99,138,0.2); background: rgba(212,99,138,0.05); }
     [data-theme="light"] .bento-card { background: #fff; }
     [data-theme="light"] .hcard { background: #fff; }
     [data-theme="light"] .proj { background: #fff; }
@@ -32,31 +32,31 @@
     [data-theme="light"] .tl-item:hover { background: rgba(0,0,0,0.015); }
     [data-theme="light"] .noise { opacity: 0.025; }
     [data-theme="light"] .hero-aurora {
-      background: radial-gradient(ellipse 80% 60% at 78% 38%, rgba(74,128,0,0.07) 0%, transparent 55%),
+      background: radial-gradient(ellipse 80% 60% at 78% 38%, rgba(212,99,138,0.07) 0%, transparent 55%),
         radial-gradient(ellipse 55% 45% at 90% 8%, rgba(99,102,241,0.05) 0%, transparent 50%),
-        radial-gradient(ellipse 45% 55% at 65% 85%, rgba(74,128,0,0.04) 0%, transparent 50%);
+        radial-gradient(ellipse 45% 55% at 65% 85%, rgba(212,99,138,0.04) 0%, transparent 50%);
     }
     [data-theme="light"] .hero-gridlines {
       background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
     }
-    [data-theme="light"] .orb1 { background: radial-gradient(circle, rgba(74,128,0,0.08) 0%, transparent 70%); }
+    [data-theme="light"] .orb1 { background: radial-gradient(circle, rgba(212,99,138,0.08) 0%, transparent 70%); }
     [data-theme="light"] .orb2 { background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%); }
-    [data-theme="light"] .orb3 { background: radial-gradient(circle, rgba(74,128,0,0.05) 0%, transparent 70%); }
-    [data-theme="light"] #cursor-ring { border-color: rgba(74,128,0,0.35); }
-    [data-theme="light"] body.hovered #cursor-ring { border-color: rgba(74,128,0,0.6); }
-    [data-theme="light"] #spotlight { background: radial-gradient(circle, rgba(74,128,0,0.04) 0%, transparent 70%); }
-    [data-theme="light"] .contact-glow { background: radial-gradient(ellipse, rgba(74,128,0,0.06) 0%, transparent 70%); }
+    [data-theme="light"] .orb3 { background: radial-gradient(circle, rgba(212,99,138,0.05) 0%, transparent 70%); }
+    [data-theme="light"] #cursor-ring { border-color: rgba(212,99,138,0.35); }
+    [data-theme="light"] body.hovered #cursor-ring { border-color: rgba(212,99,138,0.6); }
+    [data-theme="light"] #spotlight { background: radial-gradient(circle, rgba(212,99,138,0.04) 0%, transparent 70%); }
+    [data-theme="light"] .contact-glow { background: radial-gradient(ellipse, rgba(212,99,138,0.06) 0%, transparent 70%); }
     [data-theme="light"] .hv-card { background: rgba(255,255,255,0.95); border-color: rgba(0,0,0,0.12); }
     [data-theme="light"] .event-card { background: #fff; }
-    [data-theme="light"] .event-card.upcoming { background: rgba(74,128,0,0.03); }
+    [data-theme="light"] .event-card.upcoming { background: rgba(212,99,138,0.03); }
     [data-theme="light"] .logo-pill { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
     [data-theme="light"] .logo-pill:hover { background: rgba(0,0,0,0.08); border-color: rgba(0,0,0,0.15); }
     [data-theme="light"] .logo-pill span { color: #555; }
     [data-theme="light"] .chip { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
     [data-theme="light"] .award { background: #fff; }
     [data-theme="light"] .award.featured { background: var(--accent); }
-    [data-theme="light"] .bento-card.bc-accent { background: rgba(74,128,0,0.05); border-color: rgba(74,128,0,0.2); }
+    [data-theme="light"] .bento-card.bc-accent { background: rgba(212,99,138,0.05); border-color: rgba(212,99,138,0.2); }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none; }
 
@@ -69,7 +69,7 @@
     body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.022) 1px, transparent 1px); background-size: 36px 36px; pointer-events: none; z-index: 0; }
 
     /* SCROLL PROGRESS */
-    #progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); z-index: 999; width: 0%; transition: width 0.05s linear; box-shadow: 0 0 8px rgba(184,255,87,0.6); }
+    #progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); z-index: 999; width: 0%; transition: width 0.05s linear; box-shadow: 0 0 8px rgba(184,255,87,0.6); /* dark */  }
 
     /* CURSOR */
     #cursor { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: difference; transition: width .15s, height .15s; }
@@ -174,7 +174,7 @@
       mask-image: radial-gradient(ellipse 50% 80% at 80% 50%, rgba(0,0,0,0.5) 0%, transparent 65%); }
 
     /* HERO VISUAL - floating stat cards */
-    .hero-visual { position:absolute; right:72px; top:50%; transform:translateY(-50%); width:290px; height:370px; }
+    .hero-visual { position:absolute; right:32px; top:50%; transform:translateY(-50%); width:360px; height:520px; overflow:visible; }
     @media(max-width:1140px){.hero-visual{display:none}}
     .hv-card { position:absolute; background:rgba(12,12,12,0.92); border:1px solid var(--border2); border-radius:14px; padding:14px 20px; backdrop-filter:blur(16px); box-shadow:0 12px 40px rgba(0,0,0,0.55); pointer-events:all; transition:transform 0.3s ease, border-color 0.3s ease; }
     .hv-card:hover { border-color:rgba(184,255,87,0.35); }
@@ -197,27 +197,27 @@
     @keyframes hvFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
     @keyframes hvRingPulse { 0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.75;transform:scale(1.09)} }
 
-    /* HERO FLOWER */
-    .hero-flower { width:100%; height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
-    .flower-bg-ring { position:absolute; border-radius:50%; border:1px solid rgba(184,255,87,0.07); pointer-events:none; animation:hvRingPulse 4s ease infinite; }
-    .fbr1 { width:200px; height:200px; } .fbr2 { width:280px; height:280px; animation-delay:1.6s; }
-    .flower-dotgrid { position:absolute; inset:0; pointer-events:none;
-      background-image:radial-gradient(rgba(184,255,87,0.13) 1px, transparent 1px);
-      background-size:20px 20px;
-      mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, rgba(0,0,0,0.35) 0%, transparent 70%); }
-    .flower-center { position:absolute; width:58px; height:58px; border-radius:50%; background:var(--accent); color:#080808; display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:15px; z-index:5; box-shadow:0 0 30px rgba(184,255,87,0.5); pointer-events:none; letter-spacing:-0.01em; }
-    .petal { position:absolute; width:44px; height:82px; left:calc(50% - 22px); top:calc(50% - 82px); transform-origin:22px 82px; border-radius:50% 50% 22% 22% / 62% 62% 38% 38%; background:rgba(184,255,87,0.07); border:1px solid rgba(184,255,87,0.22); backdrop-filter:blur(8px); cursor:pointer; transition:background .25s, border-color .25s, box-shadow .25s; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; padding-top:8px; }
-    .petal:hover { background:rgba(184,255,87,0.16); border-color:rgba(184,255,87,0.45); box-shadow:0 0 20px rgba(184,255,87,0.22); }
-    .petal-inner { display:flex; flex-direction:column; align-items:center; gap:2px; width:36px; }
-    .petal-label { font-size:8px; font-weight:700; color:var(--accent); text-align:center; line-height:1.25; word-break:break-word; }
-    .petal-sublabel { font-size:6.5px; font-weight:500; color:var(--muted); text-align:center; line-height:1.2; }
-    .flower-hint { position:absolute; bottom:-30px; left:50%; transform:translateX(-50%); font-size:10px; color:var(--muted); white-space:nowrap; letter-spacing:0.08em; pointer-events:none; animation:fadeIn 1s ease 2s both; }
-    .flower-regen { position:absolute; font-size:11px; color:var(--accent); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; z-index:6; text-align:center; opacity:0; transition:opacity .5s; pointer-events:none; }
-    .flower-regen.visible { opacity:1; pointer-events:auto; }
-    [data-theme="light"] .petal { background:rgba(74,128,0,0.07); border-color:rgba(74,128,0,0.25); }
-    [data-theme="light"] .petal:hover { background:rgba(74,128,0,0.16); border-color:rgba(74,128,0,0.45); }
-    [data-theme="light"] .flower-bg-ring { border-color:rgba(74,128,0,0.1); }
-    [data-theme="light"] .flower-dotgrid { background-image:radial-gradient(rgba(74,128,0,0.14) 1px, transparent 1px); }
+    /* SAKURA FLOWER */
+    .hero-flower { width:100%; height:100%; position:relative; }
+    .flower-svg { width:100%; height:100%; overflow:visible; }
+    .stem { stroke:#5a8a3a; fill:none; stroke-linecap:round; }
+    [data-theme="light"] .stem { stroke:#4a7a2a; }
+    .leaf-shape { opacity:0.9; }
+    .petal-group { cursor:pointer; transition:filter .25s; }
+    .petal-group:hover .petal-shape { filter:brightness(1.15) drop-shadow(0 0 14px rgba(212,99,138,0.55)); }
+    .petal-shape { transition:filter .25s; }
+    .flower-hint-svg { font-family:'Inter',sans-serif; font-size:10px; fill:var(--muted); text-anchor:middle; letter-spacing:0.08em; opacity:0; animation:fadeIn 1s ease 2.2s forwards; }
+    /* PETAL OVERLAY */
+    .petal-overlay { position:fixed; border-radius:50%; z-index:8500; pointer-events:none; display:flex; align-items:center; justify-content:center; overflow:hidden; transform:translate(-50%,-50%) scale(0); transition:transform 0.72s cubic-bezier(.34,1.15,.64,1); }
+    .petal-overlay.open { transform:translate(-50%,-50%) scale(40); pointer-events:all; }
+    .petal-overlay-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.025) rotate(-5deg); width:min(600px,80vw); text-align:center; opacity:0; transition:opacity .35s ease .5s, transform .45s cubic-bezier(.16,1,.3,1) .45s; pointer-events:none; }
+    .petal-overlay.open .petal-overlay-content { opacity:1; transform:translate(-50%,-50%) scale(0.025) rotate(0deg); pointer-events:all; }
+    .pov-eyebrow { font-size:10px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:12px; }
+    .pov-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.5vw,48px); font-weight:800; color:#fff; line-height:1.05; letter-spacing:-0.02em; margin-bottom:8px; }
+    .pov-sub { font-size:clamp(13px,1.4vw,17px); color:rgba(255,255,255,0.8); margin-bottom:20px; line-height:1.5; }
+    .pov-detail { font-size:clamp(12px,1.1vw,15px); color:rgba(255,255,255,0.65); max-width:400px; margin:0 auto 28px; line-height:1.7; }
+    .pov-close { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.35); color:#fff; font-size:13px; font-weight:600; padding:10px 28px; border-radius:99px; cursor:pointer; font-family:'Space Grotesk',sans-serif; transition:background .2s; }
+    .pov-close:hover { background:rgba(255,255,255,0.28); }
 
     /* EXTRA SHAPES */
     .shape5 { top:22%; right:38%; width:3px; height:3px; background:rgba(184,255,87,0.5); border-radius:50%; animation:blink 4.2s ease infinite 2.1s; }
@@ -545,22 +545,49 @@
     <div class="scroll-hint"><div class="scroll-line"></div>scroll</div>
     <div class="hero-visual">
       <div class="hero-flower" id="heroFlower">
-        <div class="flower-dotgrid"></div>
-        <div class="flower-bg-ring fbr1"></div>
-        <div class="flower-bg-ring fbr2"></div>
-
-        <div class="petal" data-angle="0"><div class="petal-inner"><div class="petal-label">CMU CS</div><div class="petal-sublabel">#1 ranked</div></div></div>
-        <div class="petal" data-angle="45"><div class="petal-inner"><div class="petal-label">ACT</div><div class="petal-sublabel">36/36</div></div></div>
-        <div class="petal" data-angle="90"><div class="petal-inner"><div class="petal-label">7K+</div><div class="petal-sublabel">network</div></div></div>
-        <div class="petal" data-angle="135"><div class="petal-inner"><div class="petal-label">AI Valley</div><div class="petal-sublabel">director</div></div></div>
-        <div class="petal" data-angle="180"><div class="petal-inner"><div class="petal-label">$150K</div><div class="petal-sublabel">funded</div></div></div>
-        <div class="petal" data-angle="225"><div class="petal-inner"><div class="petal-label">Patent</div><div class="petal-sublabel">pending</div></div></div>
-        <div class="petal" data-angle="270"><div class="petal-inner"><div class="petal-label">Nobel</div><div class="petal-sublabel">ISB lab</div></div></div>
-        <div class="petal" data-angle="315"><div class="petal-inner"><div class="petal-label">WA State</div><div class="petal-sublabel">1st place</div></div></div>
-
-        <div class="flower-center">VS</div>
-        <div class="flower-regen" id="flowerRegen">✦ bloom</div>
-        <div class="flower-hint">click a petal</div>
+        <svg class="flower-svg" viewBox="0 0 360 520" xmlns="http://www.w3.org/2000/svg" id="flowerSVG">
+          <defs>
+            <radialGradient id="pg0" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#c2185b"/><stop offset="45%" stop-color="#e8527a"/><stop offset="100%" stop-color="#ffb7c5"/></radialGradient>
+            <radialGradient id="pg1" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#ad1457"/><stop offset="45%" stop-color="#d4638a"/><stop offset="100%" stop-color="#f9a8c0"/></radialGradient>
+            <radialGradient id="pg2" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#c2185b"/><stop offset="45%" stop-color="#ec6b8a"/><stop offset="100%" stop-color="#ffc2d1"/></radialGradient>
+            <radialGradient id="pg3" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#b5174d"/><stop offset="45%" stop-color="#e05c82"/><stop offset="100%" stop-color="#ffb0c4"/></radialGradient>
+            <radialGradient id="pg4" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#c91d61"/><stop offset="45%" stop-color="#f06090"/><stop offset="100%" stop-color="#ffc5d4"/></radialGradient>
+            <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9e6"/><stop offset="55%" stop-color="#ffe0b2"/><stop offset="100%" stop-color="#ffca28"/></radialGradient>
+            <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5a9e2a"/><stop offset="100%" stop-color="#2d5a00"/></linearGradient>
+            <filter id="ps" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#e8527a" flood-opacity="0.32"/></filter>
+            <filter id="leafSh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#2d5a00" flood-opacity="0.3"/></filter>
+          </defs>
+          <!-- STEM -->
+          <path class="stem" d="M 180 515 C 178 478 174 438 177 396 C 180 355 173 316 178 282 C 181 256 180 232 180 212" stroke="#5a8a3a" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+          <path d="M 180 515 C 179 468 177 428 179 388 C 180 358 178 328 180 293" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- LEAVES -->
+          <g filter="url(#leafSh)">
+            <path class="leaf-shape" d="M 177 398 C 128 382 104 342 128 310 C 143 292 174 324 177 398" fill="url(#leafGrad)"/>
+            <path d="M 177 398 C 154 362 138 332 128 310" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"/>
+          </g>
+          <g filter="url(#leafSh)">
+            <path class="leaf-shape" d="M 183 350 C 234 328 257 286 229 258 C 215 244 188 270 183 350" fill="url(#leafGrad)"/>
+            <path d="M 183 350 C 212 318 226 288 229 258" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"/>
+          </g>
+          <!-- PETALS — 5 petals, scaleY(0.78) for angled perspective -->
+          <g transform="translate(180,208) scale(1,0.78)">
+            <g class="petal-group" data-idx="0"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg0)" filter="url(#ps)"/></g>
+            <g class="petal-group" data-idx="1" transform="rotate(72)"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg1)" filter="url(#ps)"/></g>
+            <g class="petal-group" data-idx="2" transform="rotate(144)"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg2)" filter="url(#ps)"/></g>
+            <g class="petal-group" data-idx="3" transform="rotate(216)"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg3)" filter="url(#ps)"/></g>
+            <g class="petal-group" data-idx="4" transform="rotate(288)"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg4)" filter="url(#ps)"/></g>
+          </g>
+          <!-- CENTER / STAMENS -->
+          <circle cx="180" cy="208" r="24" fill="url(#centerGrad)"/>
+          <circle cx="180" cy="198" r="5.5" fill="#ffca28"/>
+          <circle cx="171" cy="205" r="4.5" fill="#ffca28"/>
+          <circle cx="189" cy="205" r="4.5" fill="#ffca28"/>
+          <circle cx="174" cy="216" r="3.5" fill="#ffa000"/>
+          <circle cx="186" cy="216" r="3.5" fill="#ffa000"/>
+          <circle cx="180" cy="220" r="3" fill="#ffa000"/>
+          <!-- HINT -->
+          <text class="flower-hint-svg" x="180" y="505">click a petal</text>
+        </svg>
       </div>
     </div>
   </section>
@@ -1133,58 +1160,104 @@
 
 
 
-    // ── ACHIEVEMENT FLOWER ──
+    // ── SAKURA FLOWER ──
     (function() {
-      const flower = document.getElementById('heroFlower');
-      if (!flower) return;
-      const regen = document.getElementById('flowerRegen');
-      let fallenCount = 0;
-      const petals = Array.from(flower.querySelectorAll('.petal'));
+      const PETALS_DATA = [
+        { idx:0, angle:0,   label:'CMU CS',      sub:'#1 Ranked · Class of 2030', detail:'Admitted to Carnegie Mellon's School of Computer Science — the #1 ranked CS program, at roughly 5% acceptance.' },
+        { idx:1, angle:72,  label:'ACT 36/36',   sub:'Perfect Score — Top 0.1%',  detail:'Perfect composite on the ACT. Nationally top 0.1% — one of fewer than 5,000 students each year.' },
+        { idx:2, angle:144, label:'7,000+',       sub:'AI Builders in Network',    detail:'Director of Expansion at AI Valley — the largest student AI community in the US. Events at CMU, Stanford, and UW.' },
+        { idx:3, angle:216, label:'Nobel Lab',    sub:'ISB · Baliga Lab',          detail:'ML Research at the Institute for Systems Biology — HIV and preeclampsia predictive models under Mario Arrieta Ortiz.' },
+        { idx:4, angle:288, label:'$150K',        sub:'Live Funded Capital',       detail:'Passed the TopStep combine in one month ($9K+ verified). Now managing $150K in live futures capital.' },
+      ];
 
-      petals.forEach(petal => {
-        const angle = parseFloat(petal.dataset.angle);
-        petal.style.transform = `rotate(${angle}deg)`;
-        petal.querySelector('.petal-inner').style.transform = `rotate(${-angle}deg)`;
+      // Update SVG gradient colors on theme change
+      function syncFlowerTheme() {
+        const light = document.documentElement.getAttribute('data-theme') === 'light';
+        const lightStops = [
+          ['#d4638a','#f08fac','#ffd6e4'],
+          ['#c2185b','#e8527a','#ffc2d1'],
+          ['#d4638a','#ed82a0','#ffdae5'],
+          ['#be1558','#e0608a','#ffbfcf'],
+          ['#d46388','#f095ac','#ffd9e6'],
+        ];
+        const darkStops = [
+          ['#c2185b','#e8527a','#ffb7c5'],
+          ['#ad1457','#d4638a','#f9a8c0'],
+          ['#c2185b','#ec6b8a','#ffc2d1'],
+          ['#b5174d','#e05c82','#ffb0c4'],
+          ['#c91d61','#f06090','#ffc5d4'],
+        ];
+        const stops = light ? lightStops : darkStops;
+        stops.forEach((s, i) => {
+          const g = document.getElementById('pg' + i);
+          if (!g) return;
+          const ss = g.querySelectorAll('stop');
+          ss[0].setAttribute('stop-color', s[0]);
+          ss[1].setAttribute('stop-color', s[1]);
+          ss[2].setAttribute('stop-color', s[2]);
+        });
+        // Stem
+        const stem = document.querySelector('.stem');
+        if (stem) stem.setAttribute('stroke', light ? '#4a7a2a' : '#5a8a3a');
+      }
+      syncFlowerTheme();
+      // Hook into theme toggle
+      const origToggle = document.getElementById('themeToggle');
+      if (origToggle) {
+        origToggle.addEventListener('click', () => setTimeout(syncFlowerTheme, 50));
+      }
 
-        petal.addEventListener('click', () => {
-          if (petal.classList.contains('fallen')) return;
-          petal.classList.add('fallen');
-          petal.style.pointerEvents = 'none';
+      // Petal click → full screen overlay
+      document.querySelectorAll('.petal-group').forEach(pg => {
+        const idx = parseInt(pg.dataset.idx);
+        const data = PETALS_DATA[idx];
+        if (!data) return;
 
-          const rad = angle * Math.PI / 180;
-          const outX = Math.sin(rad) * 145 + (Math.random() - 0.5) * 40;
-          const outY = -Math.cos(rad) * 145 + 80 + Math.random() * 40;
-          const spin = (Math.random() - 0.5) * 260;
+        pg.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
+        pg.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
 
-          petal.animate([
-            { transform: `rotate(${angle}deg) scale(1)`, opacity: 1 },
-            { transform: `rotate(${angle}deg) scale(1.2) translateY(-6px)`, opacity: 1, offset: 0.1 },
-            { transform: `rotate(${angle + spin}deg) translate(${outX}px, ${outY}px) scale(0.05)`, opacity: 0 }
-          ], { duration: 880, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' });
+        pg.addEventListener('click', (e) => {
+          const rect = pg.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
 
-          fallenCount++;
-          if (fallenCount === petals.length) {
-            setTimeout(() => regen.classList.add('visible'), 700);
+          const overlay = document.createElement('div');
+          overlay.className = 'petal-overlay';
+          overlay.style.left = cx + 'px';
+          overlay.style.top = cy + 'px';
+          overlay.style.width = '60px';
+          overlay.style.height = '80px';
+          overlay.style.background = `radial-gradient(ellipse at 50% 40%, #f8a5bf 0%, #e8527a 45%, #b5174d 100%)`;
+
+          const content = document.createElement('div');
+          content.className = 'petal-overlay-content';
+          content.innerHTML = `
+            <div class="pov-eyebrow">achievement</div>
+            <div class="pov-title">${data.label}</div>
+            <div class="pov-sub">${data.sub}</div>
+            <div class="pov-detail">${data.detail}</div>
+            <button class="pov-close" id="povClose">close ✕</button>
+          `;
+          overlay.appendChild(content);
+          document.body.appendChild(overlay);
+
+          requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('open')));
+
+          function closeOverlay() {
+            overlay.classList.remove('open');
+            overlay.style.transition = 'transform 0.45s cubic-bezier(.4,0,.6,1)';
+            setTimeout(() => overlay.remove(), 500);
           }
+          content.querySelector('#povClose').addEventListener('click', closeOverlay);
+          overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
+          document.addEventListener('keydown', function esc(e) {
+            if (e.key === 'Escape') { closeOverlay(); document.removeEventListener('keydown', esc); }
+          });
         });
-        petal.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
-        petal.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
-      });
-
-      regen.addEventListener('click', () => {
-        regen.classList.remove('visible');
-        petals.forEach(petal => {
-          petal.classList.remove('fallen');
-          petal.style.pointerEvents = '';
-          petal.getAnimations().forEach(a => a.cancel());
-          const angle = parseFloat(petal.dataset.angle);
-          petal.style.transform = `rotate(${angle}deg)`;
-        });
-        fallenCount = 0;
       });
     })();
 
-    // ── PARALLAX on orbs ──
+    // ── PARALLAX on orbs ──    // ── PARALLAX on orbs ──
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       const o1 = document.querySelector('.orb1'), o2 = document.querySelector('.orb2');
