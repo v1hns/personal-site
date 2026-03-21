@@ -462,7 +462,7 @@
     .modal-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
     .modal-desc strong { color: var(--text); font-weight: 500; }
     .modal-stack { display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
-    .modal-stack-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 10px 16px; display: flex; flex-direction: column; }
+    .modal-stack-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 99px; padding: 7px 16px; font-size: 13px; font-weight: 600; color: var(--text); }
     .modal-stack-key { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
     .modal-stack-val { font-size: 13px; font-weight: 500; color: var(--text); }
     .modal-awards { display: flex; flex-direction: column; gap: 8px; }
@@ -1291,7 +1291,7 @@
           'really.ai replaces cold, transactional real estate search with a warm, AI-driven matching experience. Users submit only their phone number — an AI calls them immediately, learns their situation in a 2-minute conversation, and automatically matches them with compatible counterparties.',
           'When a match is found, both parties receive an AI consent call. If both agree, each gets the other\'s number directly — no agent middleman, no forms, no friction.'
         ],
-        stack: [['VAPI', 'AI Phone Platform'], ['Groq', 'AI Inference']],
+        stack: ['VAPI', 'Groq'],
         awards: [],
         mentors: []
       },
@@ -1315,7 +1315,7 @@
           'OncoScan AI builds a computer vision model for oral cancer detection. Oral cancer has very high survival rates when caught early, but early-stage lesions are easy to miss without specialist imaging — and specialists are concentrated in urban India while the disease burden is national.',
           'Led both the technical model development and a national physician outreach effort — connecting doctors across India to contribute clinician-annotated imaging data. Early contributors become early adopters, seeding the go-to-market.'
         ],
-        stack: [['AWS', 'Cloud Sponsor']],
+        stack: ['AWS'],
         awards: [
           { num: '📄', title: 'Patent Pending', sub: 'Core detection model architecture' },
           { num: 'AWS', title: 'Incubated Startup · $1,000 AWS Credits', sub: 'International · Grade 11' },
@@ -1331,7 +1331,7 @@
           'Conducted ML research at the Institute for Systems Biology (ISB) — a Nobel Prize-winning research institution known for pioneering work in network-based approaches to disease and P4 Medicine (predictive, preventive, personalized, participatory).',
           'Working under the Baliga Lab, developed predictive models for HIV diagnosis and preeclampsia risk — integrating multi-omic datasets to surface biomarker signatures enabling earlier, more accurate clinical detection.'
         ],
-        stack: [['ISB', 'Research Internship'], ['Baliga Lab', 'Nobel Lab']],
+        stack: ['ISB', 'Baliga Lab'],
         awards: [{ num: '🏆', title: 'Nobel Prize-Winning Institution', sub: 'Institute for Systems Biology' }],
         mentors: [{ initials: 'MA', name: 'Mario Arrieta Ortiz', role: 'Research Scientist · Baliga Lab, ISB', bio: 'Expert in systems biology and regulatory network modeling. Core member of the Baliga Lab — a world leader in network-based multi-omic research.' }]
       },
@@ -1353,7 +1353,7 @@
       const p = PROJECTS[id]; if (!p) return '';
       const links = p.links.map(l => `<a href="${l.url}" target="_blank" class="modal-link ${l.cls}">${l.label}</a>`).join('');
       const desc = p.desc.map(d => `<p class="modal-desc">${d}</p>`).join('');
-      const stack = p.stack.map(([k,v]) => `<div class="modal-stack-item"><div class="modal-stack-key">${k}</div><div class="modal-stack-val">${v}</div></div>`).join('');
+      const stack = p.stack.map(s => `<div class="modal-stack-item">${s}</div>`).join('');
       const awards = p.awards.length ? `<div class="modal-divider"></div><div class="modal-section-label">Awards & Recognition</div><div class="modal-awards">${p.awards.map(a => `<div class="modal-award"><div class="modal-award-num">${a.num}</div><div class="modal-award-text"><strong>${a.title}</strong>${a.sub}</div></div>`).join('')}</div>` : '';
       const mentors = p.mentors.length ? `<div class="modal-divider"></div><div class="modal-section-label">Mentor</div>${p.mentors.map(m => `<div class="modal-person"><div class="modal-person-avatar">${m.img ? `<img src="${m.img}" onerror="this.parentElement.textContent='${m.initials}'">` : m.initials}</div><div><div class="modal-person-name">${m.name}</div><div class="modal-person-role">${m.role}</div><div class="modal-person-bio">${m.bio}</div></div></div>`).join('')}` : '';
       return `<div class="modal-icon">${p.icon}</div><div class="modal-eyebrow">${p.type}</div><div class="modal-title">${p.title}</div><p class="modal-tagline">${p.tagline}</p>${links.length ? `<div class="modal-links">${links}</div>` : ''}<div class="modal-divider"></div><div class="modal-section-label">Overview</div>${desc}<div class="modal-divider"></div>${stack ? `<div class="modal-divider"></div><div class="modal-section-label">Worked with</div><div class="modal-stack">${stack}</div>` : ""}${awards}${mentors}`;
