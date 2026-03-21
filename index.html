@@ -559,9 +559,9 @@
     
   
     /* ── HOBBIES SECTION ── */
-    .hobbies-section { padding:80px 72px 0; }
-    .hobbies-split { display:grid; grid-template-columns:320px 1fr; gap:56px; align-items:start; }
-    .hobbies-sticky { position:sticky; top:120px; }
+    .hobbies-fullscreen { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:100px 72px 72px !important; }
+    .hobbies-split { display:grid; grid-template-columns:300px 1fr; gap:56px; align-items:center; height:100%; }
+    .hobbies-sticky { position:static; }
     .hobbies-tagline { font-size:15px; color:var(--muted); line-height:1.7; margin-top:14px; max-width:280px; }
     .hobbies-pill { display:inline-flex; align-items:center; gap:8px; font-size:12px; color:var(--muted);
       background:var(--surface); border:1px solid var(--border2); border-radius:99px; padding:7px 16px; margin-top:22px; }
@@ -575,8 +575,8 @@
       border-radius:20px; overflow:hidden; background:var(--surface); transition:border-color .25s; }
     .hobby-slide:hover { border-color:var(--border2); }
     [data-theme="light"] .hobby-slide { background:#fff; }
-    .hobby-photo { width:100%; height:220px; object-fit:cover; display:block; background:var(--surface2); }
-    .hobby-photo-placeholder { width:100%; height:220px; background:var(--surface2);
+    .hobby-photo { width:100%; height:clamp(200px,28vh,280px); object-fit:cover; display:block; background:var(--surface2); }
+    .hobby-photo-placeholder { width:100%; height:clamp(200px,28vh,280px); background:var(--surface2);
       display:flex; align-items:center; justify-content:center; font-size:64px; }
     .hobby-body { padding:22px 24px 26px; }
     .hobby-tag { font-size:10px; font-weight:600; color:var(--accent); letter-spacing:0.14em;
@@ -590,9 +590,8 @@
     .hobby-stat.hi { color:var(--accent); border-color:rgba(56,189,248,0.25); background:rgba(56,189,248,0.06); }
     [data-theme="light"] .hobby-stat.hi { background:rgba(2,132,199,0.07); border-color:rgba(2,132,199,0.25); }
     @media(max-width:900px){
-      .hobbies-section { padding:60px 24px 0; }
+      .hobbies-fullscreen { padding:100px 24px 60px !important; min-height:auto; }
       .hobbies-split { grid-template-columns:1fr; gap:28px; }
-      .hobbies-sticky { position:static; }
       .hobby-slide { min-width:280px; max-width:280px; }
     }
     
@@ -1010,7 +1009,7 @@
 
 
   <!-- HOBBIES -->
-  <section class="section-wrap" id="hobbies" style="padding-bottom:0">
+  <section class="section-wrap hobbies-fullscreen" id="hobbies">
     <div class="section-eyebrow">Beyond the screen</div>
     <div class="hobbies-split" style="margin-top:40px">
       <div class="hobbies-sticky">
@@ -1022,7 +1021,7 @@
 
         <!-- Scuba -->
         <div class="hobby-slide">
-          <img class="hobby-photo" src="media/photos/IMG_3423.jpg" alt="Scuba diving" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img class="hobby-photo" src="media/photos/drawing.jpg" alt="Drawing underwater with gas narcosis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="hobby-photo-placeholder" style="display:none">🤿</div>
           <div class="hobby-body">
             <div class="hobby-tag">Underwater</div>
@@ -1037,7 +1036,8 @@
 
         <!-- Skiing -->
         <div class="hobby-slide">
-          <div class="hobby-photo-placeholder">⛷️</div>
+          <img class="hobby-photo" src="media/photos/mthood.jpg" alt="Skiing at Mt Hood" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="hobby-photo-placeholder" style="display:none">⛷️</div>
           <div class="hobby-body">
             <div class="hobby-tag">Mountain</div>
             <div class="hobby-name">Skiing</div>
@@ -1052,7 +1052,7 @@
 
         <!-- Climbing -->
         <div class="hobby-slide">
-          <img class="hobby-photo" src="media/photos/IMG_6629.JPG" alt="Bouldering in SF" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img class="hobby-photo" src="media/photos/climb.jpg" alt="Bouldering in San Francisco" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="hobby-photo-placeholder" style="display:none">🧗</div>
           <div class="hobby-body">
             <div class="hobby-tag">Vertical</div>
