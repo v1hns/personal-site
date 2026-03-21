@@ -461,8 +461,8 @@
     .modal-section-label { font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
     .modal-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
     .modal-desc strong { color: var(--text); font-weight: 500; }
-    .modal-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
-    .modal-stack-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 12px 14px; }
+    .modal-stack { display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+    .modal-stack-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 10px 16px; display: flex; flex-direction: column; }
     .modal-stack-key { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
     .modal-stack-val { font-size: 13px; font-weight: 500; color: var(--text); }
     .modal-awards { display: flex; flex-direction: column; gap: 8px; }
@@ -1291,7 +1291,7 @@
           'really.ai replaces cold, transactional real estate search with a warm, AI-driven matching experience. Users submit only their phone number — an AI calls them immediately, learns their situation in a 2-minute conversation, and automatically matches them with compatible counterparties.',
           'When a match is found, both parties receive an AI consent call. If both agree, each gets the other\'s number directly — no agent middleman, no forms, no friction.'
         ],
-        stack: [['Platform', 'VAPI'], ['AI Infra', 'Groq']],
+        stack: [['VAPI', 'AI Phone Platform'], ['Groq', 'AI Inference']],
         awards: [],
         mentors: []
       },
@@ -1315,7 +1315,7 @@
           'OncoScan AI builds a computer vision model for oral cancer detection. Oral cancer has very high survival rates when caught early, but early-stage lesions are easy to miss without specialist imaging — and specialists are concentrated in urban India while the disease burden is national.',
           'Led both the technical model development and a national physician outreach effort — connecting doctors across India to contribute clinician-annotated imaging data. Early contributors become early adopters, seeding the go-to-market.'
         ],
-        stack: [['Cloud', 'AWS'], ['Funding', 'VC Backed']],
+        stack: [['AWS', 'Cloud Sponsor']],
         awards: [
           { num: '📄', title: 'Patent Pending', sub: 'Core detection model architecture' },
           { num: 'AWS', title: 'Incubated Startup · $1,000 AWS Credits', sub: 'International · Grade 11' },
@@ -1331,7 +1331,7 @@
           'Conducted ML research at the Institute for Systems Biology (ISB) — a Nobel Prize-winning research institution known for pioneering work in network-based approaches to disease and P4 Medicine (predictive, preventive, personalized, participatory).',
           'Working under the Baliga Lab, developed predictive models for HIV diagnosis and preeclampsia risk — integrating multi-omic datasets to surface biomarker signatures enabling earlier, more accurate clinical detection.'
         ],
-        stack: [['Lab', 'ISB · Baliga Lab']],
+        stack: [['ISB', 'Research Internship'], ['Baliga Lab', 'Nobel Lab']],
         awards: [{ num: '🏆', title: 'Nobel Prize-Winning Institution', sub: 'Institute for Systems Biology' }],
         mentors: [{ initials: 'MA', name: 'Mario Arrieta Ortiz', role: 'Research Scientist · Baliga Lab, ISB', bio: 'Expert in systems biology and regulatory network modeling. Core member of the Baliga Lab — a world leader in network-based multi-omic research.' }]
       },
