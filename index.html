@@ -595,6 +595,19 @@
       .hobby-slide { min-width:280px; max-width:280px; }
     }
     
+  
+    /* BUILT WITH STRIP */
+    .built-with { padding:22px 48px; border-top:1px solid var(--border); display:flex; align-items:center; gap:32px; flex-wrap:wrap; }
+    .bw-label { font-size:11px; font-weight:500; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
+    .bw-logos { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .bw-pill { display:inline-flex; align-items:center; gap:8px; padding:7px 16px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:99px; transition:border-color .2s, background .2s; text-decoration:none; }
+    .bw-pill:hover { border-color:rgba(255,255,255,0.18); background:rgba(255,255,255,0.08); }
+    .bw-pill img { width:16px; height:16px; object-fit:contain; border-radius:3px; }
+    .bw-pill span { font-size:12px; font-weight:500; color:var(--muted); }
+    [data-theme="light"] .bw-pill { background:rgba(0,0,0,0.03); border-color:rgba(0,0,0,0.09); }
+    [data-theme="light"] .bw-pill:hover { background:rgba(0,0,0,0.07); }
+    @media(max-width:820px){ .built-with { padding:18px 24px; gap:16px; } }
+    
   </style>
 </head>
 <body>
@@ -761,6 +774,19 @@
   </section>
 
 
+
+  <!-- BUILT WITH -->
+  <div class="built-with">
+    <span class="bw-label">Built &amp; worked with</span>
+    <div class="bw-logos">
+      <div class="bw-pill"><img src="https://logo.clearbit.com/openai.com" alt="OpenAI" onerror="this.style.display='none'"><span>OpenAI</span></div>
+      <div class="bw-pill"><img src="https://logo.clearbit.com/amd.com" alt="AMD" onerror="this.style.display='none'"><span>AMD</span></div>
+      <div class="bw-pill"><img src="https://logo.clearbit.com/minimaxi.com" alt="MiniMax" onerror="this.style.display='none'"><span>MiniMax</span></div>
+      <div class="bw-pill"><img src="https://logo.clearbit.com/uw.edu" alt="UW" onerror="this.style.display='none'"><span>University of Washington</span></div>
+      <div class="bw-pill"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.style.display='none'"><span>Baliga Lab · ISB</span></div>
+      <div class="bw-pill"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.style.display='none'"><span>TopStep</span></div>
+    </div>
+  </div>
 
   <!-- MARQUEE -->
   <div class="marquee-wrap">
@@ -1291,7 +1317,7 @@
           'really.ai replaces cold, transactional real estate search with a warm, AI-driven matching experience. Users submit only their phone number — an AI calls them immediately, learns their situation in a 2-minute conversation, and automatically matches them with compatible counterparties.',
           'When a match is found, both parties receive an AI consent call. If both agree, each gets the other\'s number directly — no agent middleman, no forms, no friction.'
         ],
-        stack: ['OpenAI', 'AMD', 'MiniMax', 'University of Washington'],
+        stack: [],
         awards: [],
         mentors: []
       },
@@ -1315,7 +1341,7 @@
           'OncoScan AI builds a computer vision model for oral cancer detection. Oral cancer has very high survival rates when caught early, but early-stage lesions are easy to miss without specialist imaging — and specialists are concentrated in urban India while the disease burden is national.',
           'Led both the technical model development and a national physician outreach effort — connecting doctors across India to contribute clinician-annotated imaging data. Early contributors become early adopters, seeding the go-to-market.'
         ],
-        stack: ['AWS'],
+        stack: [],
         awards: [
           { num: '📄', title: 'Patent Pending', sub: 'Core detection model architecture' },
           { num: 'AWS', title: 'Incubated Startup · $1,000 AWS Credits', sub: 'International · Grade 11' },
@@ -1331,7 +1357,7 @@
           'Conducted ML research at the Institute for Systems Biology (ISB) — a Nobel Prize-winning research institution known for pioneering work in network-based approaches to disease and P4 Medicine (predictive, preventive, personalized, participatory).',
           'Working under the Baliga Lab, developed predictive models for HIV diagnosis and preeclampsia risk — integrating multi-omic datasets to surface biomarker signatures enabling earlier, more accurate clinical detection.'
         ],
-        stack: ['ISB', 'University of Washington'],
+        stack: [],
         awards: [{ num: '🏆', title: 'Nobel Prize-Winning Institution', sub: 'Institute for Systems Biology' }],
         mentors: [{ initials: 'MA', name: 'Mario Arrieta Ortiz', role: 'Research Scientist · Baliga Lab, ISB', bio: 'Expert in systems biology and regulatory network modeling. Core member of the Baliga Lab — a world leader in network-based multi-omic research.' }]
       },
@@ -1356,7 +1382,7 @@
       const stack = p.stack.map(s => `<div class="modal-stack-item">${s}</div>`).join('');
       const awards = p.awards.length ? `<div class="modal-divider"></div><div class="modal-section-label">Awards & Recognition</div><div class="modal-awards">${p.awards.map(a => `<div class="modal-award"><div class="modal-award-num">${a.num}</div><div class="modal-award-text"><strong>${a.title}</strong>${a.sub}</div></div>`).join('')}</div>` : '';
       const mentors = p.mentors.length ? `<div class="modal-divider"></div><div class="modal-section-label">Mentor</div>${p.mentors.map(m => `<div class="modal-person"><div class="modal-person-avatar">${m.img ? `<img src="${m.img}" onerror="this.parentElement.textContent='${m.initials}'">` : m.initials}</div><div><div class="modal-person-name">${m.name}</div><div class="modal-person-role">${m.role}</div><div class="modal-person-bio">${m.bio}</div></div></div>`).join('')}` : '';
-      return `<div class="modal-icon">${p.icon}</div><div class="modal-eyebrow">${p.type}</div><div class="modal-title">${p.title}</div><p class="modal-tagline">${p.tagline}</p>${links.length ? `<div class="modal-links">${links}</div>` : ''}<div class="modal-divider"></div><div class="modal-section-label">Overview</div>${desc}<div class="modal-divider"></div>${stack ? `<div class="modal-divider"></div><div class="modal-section-label">Worked with</div><div class="modal-stack">${stack}</div>` : ""}${awards}${mentors}`;
+      return `<div class="modal-icon">${p.icon}</div><div class="modal-eyebrow">${p.type}</div><div class="modal-title">${p.title}</div><p class="modal-tagline">${p.tagline}</p>${links.length ? `<div class="modal-links">${links}</div>` : ''}<div class="modal-divider"></div><div class="modal-section-label">Overview</div>${desc}<div class="modal-divider"></div>${awards}${mentors}`;
     }
 
     const overlay = document.getElementById('modalOverlay');
