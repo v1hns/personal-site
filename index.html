@@ -58,7 +58,9 @@
     [data-theme="light"] .award.featured { background: var(--accent); }
     [data-theme="light"] .bento-card.bc-accent { background: rgba(212,99,138,0.05); border-color: rgba(212,99,138,0.2); }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none; }
+    * { cursor: none !important; }
+    @media(max-width:820px){ * { cursor: auto !important; } }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
     /* NOISE GRAIN */
     .noise { position: fixed; inset: 0; z-index: 200; pointer-events: none; opacity: 0.04;
@@ -174,7 +176,7 @@
       mask-image: radial-gradient(ellipse 50% 80% at 80% 50%, rgba(0,0,0,0.5) 0%, transparent 65%); }
 
     /* HERO VISUAL - floating stat cards */
-    .hero-visual { position:absolute; right:32px; top:50%; transform:translateY(-50%); width:360px; height:520px; overflow:visible; }
+    .hero-visual { position:absolute; right:24px; top:50%; transform:translateY(-50%); width:380px; height:520px; overflow:visible; }
     @media(max-width:1140px){.hero-visual{display:none}}
     .hv-card { position:absolute; background:rgba(12,12,12,0.92); border:1px solid var(--border2); border-radius:14px; padding:14px 20px; backdrop-filter:blur(16px); box-shadow:0 12px 40px rgba(0,0,0,0.55); pointer-events:all; transition:transform 0.3s ease, border-color 0.3s ease; }
     .hv-card:hover { border-color:rgba(184,255,87,0.35); }
@@ -197,26 +199,56 @@
     @keyframes hvFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
     @keyframes hvRingPulse { 0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.75;transform:scale(1.09)} }
 
-    /* SAKURA FLOWER */
+    /* SAILBOAT SCENE */
     .hero-flower { width:100%; height:100%; position:relative; }
     .flower-svg { width:100%; height:100%; overflow:visible; }
-    .stem { stroke:#5a8a3a; fill:none; stroke-linecap:round; }
-    [data-theme="light"] .stem { stroke:#4a7a2a; }
-    .leaf-shape { opacity:0.9; }
-    .petal-group { cursor:pointer; transition:filter .25s; }
-    .petal-group:hover .petal-shape { filter:brightness(1.15) drop-shadow(0 0 14px rgba(212,99,138,0.55)); }
-    .petal-shape { transition:filter .25s; }
-    .flower-hint-svg { font-family:'Inter',sans-serif; font-size:10px; fill:var(--muted); text-anchor:middle; letter-spacing:0.08em; opacity:0; animation:fadeIn 1s ease 2.2s forwards; }
-    /* PETAL OVERLAY */
+    /* SVG element theming */
+    .sb-sky { fill: transparent; }
+    .sb-sun { fill: var(--accent); opacity:0.85; filter:blur(0px); }
+    .sb-sun-glow { fill: var(--accent); opacity:0.12; }
+    .sb-star { fill: var(--text); opacity:0.45; }
+    .sb-horizon { stroke: var(--border2); stroke-width:1.5; }
+    .sb-water { fill: var(--accent); fill-opacity:0.05; }
+    .sb-wave { stroke: var(--accent); stroke-width:1.5; fill:none; opacity:0.22; }
+    .sb-hull { fill: var(--surface2); stroke: var(--border2); stroke-width:2; }
+    .sb-mast { stroke: var(--muted); stroke-width:2.5; stroke-linecap:round; fill:none; }
+    .sb-sail-main { fill: var(--text); fill-opacity:0.08; stroke: var(--text); stroke-width:1.2; stroke-opacity:0.4; }
+    .sb-sail-jib  { fill: var(--text); fill-opacity:0.05; stroke: var(--text); stroke-width:1; stroke-opacity:0.3; }
+    .sb-sail-accent { fill: var(--accent); fill-opacity:0.18; stroke:none; }
+    .sb-reflection { opacity:0.07; }
+    .sb-flag { fill: var(--accent); }
+    [data-theme="light"] .sb-wave { opacity:0.35; }
+    [data-theme="light"] .sb-hull { fill: #1a2a40; stroke: #0d1a2e; }
+    [data-theme="light"] .sb-mast { stroke: #1a2a40; }
+    [data-theme="light"] .sb-sail-main { fill-opacity:0.06; stroke-opacity:0.5; }
+    [data-theme="light"] .sb-sun { opacity:1; }
+    [data-theme="light"] .sb-water { fill: #b2dce8; fill-opacity:0.25; }
+    [data-theme="light"] .sb-star { opacity:0; }
+    /* animations */
+    .boat-group { animation: boatBob 5s ease-in-out infinite; transform-origin: 170px 278px; }
+    @keyframes boatBob { 0%,100%{transform:translateY(0) rotate(0deg)} 30%{transform:translateY(-7px) rotate(0.5deg)} 70%{transform:translateY(-4px) rotate(-0.4deg)} }
+    .wave-1 { animation: waveShift 4s ease-in-out infinite; }
+    .wave-2 { animation: waveShift 5.5s ease-in-out 0.7s infinite reverse; }
+    .wave-3 { animation: waveShift 6.2s ease-in-out 1.4s infinite; }
+    .wave-4 { animation: waveShift 4.8s ease-in-out 2s infinite reverse; }
+    @keyframes waveShift { 0%,100%{d:path("M 0,0 C 56,-7 113,7 170,0 C 227,-7 284,7 340,0")} 50%{d:path("M 0,0 C 56,7 113,-7 170,0 C 227,7 284,-7 340,0")} }
+    .sun-pulse { animation: sunPulse 4s ease-in-out infinite; transform-origin:268px 68px; }
+    @keyframes sunPulse { 0%,100%{transform:scale(1);opacity:0.12} 50%{transform:scale(1.15);opacity:0.2} }
+    .star-1 { animation: starBlink 3.2s ease-in-out infinite; }
+    .star-2 { animation: starBlink 2.8s ease-in-out 0.9s infinite; }
+    .star-3 { animation: starBlink 4.1s ease-in-out 1.7s infinite; }
+    @keyframes starBlink { 0%,100%{opacity:0.45} 50%{opacity:0.1} }
+    .flower-hint-svg { font-family:'Inter',sans-serif; font-size:10px; fill:var(--muted); text-anchor:middle; letter-spacing:0.08em; }
+    /* PETAL OVERLAY (kept for possible reuse) */
     .petal-overlay { position:fixed; border-radius:50%; z-index:8500; pointer-events:none; display:flex; align-items:center; justify-content:center; overflow:hidden; transform:translate(-50%,-50%) scale(0); transition:transform 0.72s cubic-bezier(.34,1.15,.64,1); }
     .petal-overlay.open { transform:translate(-50%,-50%) scale(40); pointer-events:all; }
-    .petal-overlay-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.025) rotate(-5deg); width:min(600px,80vw); text-align:center; opacity:0; transition:opacity .35s ease .5s, transform .45s cubic-bezier(.16,1,.3,1) .45s; pointer-events:none; }
-    .petal-overlay.open .petal-overlay-content { opacity:1; transform:translate(-50%,-50%) scale(0.025) rotate(0deg); pointer-events:all; }
+    .petal-overlay-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.025); width:min(600px,80vw); text-align:center; opacity:0; transition:opacity .35s ease .5s, transform .45s cubic-bezier(.16,1,.3,1) .45s; }
+    .petal-overlay.open .petal-overlay-content { opacity:1; transform:translate(-50%,-50%) scale(0.025); pointer-events:all; }
     .pov-eyebrow { font-size:10px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:12px; }
     .pov-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.5vw,48px); font-weight:800; color:#fff; line-height:1.05; letter-spacing:-0.02em; margin-bottom:8px; }
-    .pov-sub { font-size:clamp(13px,1.4vw,17px); color:rgba(255,255,255,0.8); margin-bottom:20px; line-height:1.5; }
+    .pov-sub { font-size:clamp(13px,1.4vw,17px); color:rgba(255,255,255,0.8); margin-bottom:20px; }
     .pov-detail { font-size:clamp(12px,1.1vw,15px); color:rgba(255,255,255,0.65); max-width:400px; margin:0 auto 28px; line-height:1.7; }
-    .pov-close { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.35); color:#fff; font-size:13px; font-weight:600; padding:10px 28px; border-radius:99px; cursor:pointer; font-family:'Space Grotesk',sans-serif; transition:background .2s; }
+    .pov-close { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.35); color:#fff; font-size:13px; font-weight:600; padding:10px 28px; border-radius:99px; font-family:'Space Grotesk',sans-serif; transition:background .2s; }
     .pov-close:hover { background:rgba(255,255,255,0.28); }
 
     /* EXTRA SHAPES */
@@ -465,7 +497,6 @@
 
     /* MOBILE */
     @media (max-width: 820px) {
-      body { cursor: auto; }
       #cursor, #cursor-ring { display: none; }
       nav { padding: 16px 24px; }
       .nav-links { gap: 20px; }
@@ -545,48 +576,58 @@
     <div class="scroll-hint"><div class="scroll-line"></div>scroll</div>
     <div class="hero-visual">
       <div class="hero-flower" id="heroFlower">
-        <svg class="flower-svg" viewBox="0 0 360 520" xmlns="http://www.w3.org/2000/svg" id="flowerSVG">
-          <defs>
-            <radialGradient id="pg0" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#c2185b"/><stop offset="45%" stop-color="#e8527a"/><stop offset="100%" stop-color="#ffb7c5"/></radialGradient>
-            <radialGradient id="pg1" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#ad1457"/><stop offset="45%" stop-color="#d4638a"/><stop offset="100%" stop-color="#f9a8c0"/></radialGradient>
-            <radialGradient id="pg2" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#c2185b"/><stop offset="45%" stop-color="#ec6b8a"/><stop offset="100%" stop-color="#ffc2d1"/></radialGradient>
-            <radialGradient id="pg3" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#b5174d"/><stop offset="45%" stop-color="#e05c82"/><stop offset="100%" stop-color="#ffb0c4"/></radialGradient>
-            <radialGradient id="pg4" cx="50%" cy="75%" r="65%"><stop offset="0%" stop-color="#c91d61"/><stop offset="45%" stop-color="#f06090"/><stop offset="100%" stop-color="#ffc5d4"/></radialGradient>
-            <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9e6"/><stop offset="55%" stop-color="#ffe0b2"/><stop offset="100%" stop-color="#ffca28"/></radialGradient>
-            <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5a9e2a"/><stop offset="100%" stop-color="#2d5a00"/></linearGradient>
-            <filter id="ps" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#e8527a" flood-opacity="0.32"/></filter>
-            <filter id="leafSh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#2d5a00" flood-opacity="0.3"/></filter>
-          </defs>
-          <!-- STEM -->
-          <path class="stem" d="M 180 515 C 178 478 174 438 177 396 C 180 355 173 316 178 282 C 181 256 180 232 180 212" stroke="#5a8a3a" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-          <path d="M 180 515 C 179 468 177 428 179 388 C 180 358 178 328 180 293" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <!-- LEAVES -->
-          <g filter="url(#leafSh)">
-            <path class="leaf-shape" d="M 177 398 C 128 382 104 342 128 310 C 143 292 174 324 177 398" fill="url(#leafGrad)"/>
-            <path d="M 177 398 C 154 362 138 332 128 310" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"/>
+        <svg class="flower-svg" viewBox="0 0 380 500" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- SUN GLOW -->
+          <circle class="sb-sun-glow sun-pulse" cx="268" cy="68" r="58"/>
+          <!-- SUN -->
+          <circle class="sb-sun" cx="268" cy="68" r="28"/>
+
+          <!-- STARS -->
+          <circle class="sb-star star-1" cx="60" cy="55" r="2"/>
+          <circle class="sb-star star-2" cx="140" cy="30" r="1.5"/>
+          <circle class="sb-star star-3" cx="310" cy="42" r="1.8"/>
+          <circle class="sb-star" cx="44" cy="110" r="1.2" style="animation:starBlink 5s ease-in-out 0.4s infinite"/>
+          <circle class="sb-star" cx="200" cy="22" r="1.3" style="animation:starBlink 3.8s ease-in-out 2.2s infinite"/>
+
+          <!-- HORIZON LINE -->
+          <line class="sb-horizon" x1="0" y1="282" x2="380" y2="282"/>
+
+          <!-- WATER FILL -->
+          <rect class="sb-water" x="0" y="282" width="380" height="218"/>
+
+          <!-- WAVES -->
+          <g transform="translate(0,295)"><path class="sb-wave wave-1" d="M 0,0 C 56,-7 113,7 170,0 C 227,-7 284,7 340,0"/></g>
+          <g transform="translate(0,318)"><path class="sb-wave wave-2" d="M 0,0 C 56,-7 113,7 190,0 C 247,-7 314,7 380,0"/></g>
+          <g transform="translate(0,344)"><path class="sb-wave wave-3" d="M 0,0 C 47,-6 94,6 160,0 C 236,-7 300,7 380,0"/></g>
+          <g transform="translate(0,374)"><path class="sb-wave wave-4" d="M 0,0 C 66,-6 133,6 190,0 C 257,-7 318,7 380,0"/></g>
+
+          <!-- BOAT GROUP (animated bob) -->
+          <g class="boat-group">
+            <!-- Hull -->
+            <path class="sb-hull" d="M 108,278 L 232,278 Q 248,298 190,308 Q 170,312 150,308 Q 112,298 108,278 Z"/>
+            <!-- Hull highlight line -->
+            <line stroke="var(--text)" stroke-opacity="0.08" stroke-width="1" x1="115" y1="284" x2="225" y2="284"/>
+            <!-- Mast -->
+            <line class="sb-mast" x1="170" y1="278" x2="170" y2="132"/>
+            <!-- Boom -->
+            <line class="sb-mast" stroke-width="1.5" x1="170" y1="272" x2="234" y2="282" stroke-opacity="0.5"/>
+            <!-- Main sail -->
+            <path class="sb-sail-main" d="M 174,140 L 236,275 L 174,275 Z"/>
+            <!-- Sail accent strip (top third, accent color) -->
+            <path class="sb-sail-accent" d="M 174,140 L 201,196 L 174,196 Z"/>
+            <!-- Jib -->
+            <path class="sb-sail-jib" d="M 166,168 L 110,273 L 166,273 Z"/>
+            <!-- Flag -->
+            <path class="sb-flag" d="M 170,132 L 185,139 L 170,146 Z"/>
           </g>
-          <g filter="url(#leafSh)">
-            <path class="leaf-shape" d="M 183 350 C 234 328 257 286 229 258 C 215 244 188 270 183 350" fill="url(#leafGrad)"/>
-            <path d="M 183 350 C 212 318 226 288 229 258" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"/>
+
+          <!-- BOAT REFLECTION (subtle, below horizon) -->
+          <g class="sb-reflection" transform="translate(170,282) scale(1,-0.3) translate(-170,-282)">
+            <path class="sb-hull" d="M 108,278 L 232,278 Q 248,298 190,308 Q 170,312 150,308 Q 112,298 108,278 Z"/>
+            <path class="sb-sail-main" d="M 174,140 L 236,275 L 174,275 Z"/>
           </g>
-          <!-- PETALS — 5 petals, scaleY(0.78) for angled perspective -->
-          <g transform="translate(180,208) scale(1,0.78)">
-            <g class="petal-group" data-idx="0"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg0)" filter="url(#ps)"/></g>
-            <g class="petal-group" data-idx="1" transform="rotate(72)"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg1)" filter="url(#ps)"/></g>
-            <g class="petal-group" data-idx="2" transform="rotate(144)"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg2)" filter="url(#ps)"/></g>
-            <g class="petal-group" data-idx="3" transform="rotate(216)"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg3)" filter="url(#ps)"/></g>
-            <g class="petal-group" data-idx="4" transform="rotate(288)"><path class="petal-shape" d="M 0,26 C -30,15 -38,-44 -15,-80 C -6,-95 6,-95 15,-80 C 38,-44 30,15 0,26" fill="url(#pg4)" filter="url(#ps)"/></g>
-          </g>
-          <!-- CENTER / STAMENS -->
-          <circle cx="180" cy="208" r="24" fill="url(#centerGrad)"/>
-          <circle cx="180" cy="198" r="5.5" fill="#ffca28"/>
-          <circle cx="171" cy="205" r="4.5" fill="#ffca28"/>
-          <circle cx="189" cy="205" r="4.5" fill="#ffca28"/>
-          <circle cx="174" cy="216" r="3.5" fill="#ffa000"/>
-          <circle cx="186" cy="216" r="3.5" fill="#ffa000"/>
-          <circle cx="180" cy="220" r="3" fill="#ffa000"/>
-          <!-- HINT -->
-          <text class="flower-hint-svg" x="180" y="505">click a petal</text>
+
         </svg>
       </div>
     </div>
@@ -756,18 +797,18 @@
   <section class="section-wrap ruled">
     <div class="section-eyebrow">Where I've been</div>
     <div class="aff-grid">
-      <div class="aff-card reveal">
+      <a class="aff-card reveal" href="https://aivalley.io" target="_blank" style="text-decoration:none;color:inherit">
         <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='AV'"></div>
         <div class="aff-info"><div class="aff-role">Director of Expansion</div><div class="aff-org">AI Valley · 2025–now</div></div>
-      </div>
+      </a>
       <div class="aff-card reveal reveal-d1">
         <div class="aff-logo-wrap fallback" style="font-size:13px;font-weight:700;color:var(--accent)">OS</div>
         <div class="aff-info"><div class="aff-role">CEO &amp; CTO</div><div class="aff-org">OncoScan AI · 2025</div></div>
       </div>
-      <div class="aff-card reveal reveal-d2">
+      <a class="aff-card reveal reveal-d2" href="https://systemsbiology.org" target="_blank" style="text-decoration:none;color:inherit">
         <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='ISB'"></div>
         <div class="aff-info"><div class="aff-role">ML Research Intern</div><div class="aff-org">ISB · Baliga Lab · 2025</div></div>
-      </div>
+      </a>
       <div class="aff-card reveal">
         <div class="aff-logo-wrap fallback" style="font-size:16px">🧠</div>
         <div class="aff-info"><div class="aff-role">Lead ML Researcher</div><div class="aff-org">Brain Stroke · 2023–2025</div></div>
@@ -776,10 +817,10 @@
         <div class="aff-logo-wrap"><img src="tun.webp" alt="Uplift Network" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='UN'"></div>
         <div class="aff-info"><div class="aff-role">Founder</div><div class="aff-org">The Uplift Network · 2024–2025</div></div>
       </div>
-      <div class="aff-card reveal reveal-d2">
+      <a class="aff-card reveal reveal-d2" href="https://topstep.com" target="_blank" style="text-decoration:none;color:inherit">
         <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='TS'"></div>
         <div class="aff-info"><div class="aff-role">Funded Trader</div><div class="aff-org">TopStep · $150K · 2025</div></div>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -999,11 +1040,12 @@
 
     // ── COUNT-UP ──
     function countUp(el, target, suffix = '', dur = 1100) {
+      el.dataset.running = '1';
       let v = 0; const step = target / (dur / 16);
       const t = setInterval(() => {
         v = Math.min(v + step, target);
         el.textContent = Math.floor(v).toLocaleString() + suffix;
-        if (v >= target) clearInterval(t);
+        if (v >= target) { clearInterval(t); el.dataset.running = ''; }
       }, 16);
     }
     const cobs = new IntersectionObserver(entries => {
@@ -1013,7 +1055,12 @@
         cobs.unobserve(e.target);
       });
     }, { threshold: 0.5 });
-    document.querySelectorAll('[data-count]').forEach(el => cobs.observe(el));
+    document.querySelectorAll('[data-count]').forEach(el => {
+      cobs.observe(el);
+      el.closest('.bento-card')?.addEventListener('click', () => {
+        if (!el.dataset.running) countUp(el, +el.dataset.count, el.dataset.suffix || '');
+      });
+    });
 
     // ── DRAG SCROLL (projects + numbers strip) ──
     function makeDraggable(el) {
@@ -1160,103 +1207,9 @@
 
 
 
-    // ── SAKURA FLOWER ──
-    (function() {
-      const PETALS_DATA = [
-        { idx:0, angle:0,   label:'CMU CS',      sub:'#1 Ranked · Class of 2030', detail:'Admitted to Carnegie Mellon's School of Computer Science — the #1 ranked CS program, at roughly 5% acceptance.' },
-        { idx:1, angle:72,  label:'ACT 36/36',   sub:'Perfect Score — Top 0.1%',  detail:'Perfect composite on the ACT. Nationally top 0.1% — one of fewer than 5,000 students each year.' },
-        { idx:2, angle:144, label:'7,000+',       sub:'AI Builders in Network',    detail:'Director of Expansion at AI Valley — the largest student AI community in the US. Events at CMU, Stanford, and UW.' },
-        { idx:3, angle:216, label:'Nobel Lab',    sub:'ISB · Baliga Lab',          detail:'ML Research at the Institute for Systems Biology — HIV and preeclampsia predictive models under Mario Arrieta Ortiz.' },
-        { idx:4, angle:288, label:'$150K',        sub:'Live Funded Capital',       detail:'Passed the TopStep combine in one month ($9K+ verified). Now managing $150K in live futures capital.' },
-      ];
+    // ── (no flower JS needed — pure CSS animation) ──
 
-      // Update SVG gradient colors on theme change
-      function syncFlowerTheme() {
-        const light = document.documentElement.getAttribute('data-theme') === 'light';
-        const lightStops = [
-          ['#d4638a','#f08fac','#ffd6e4'],
-          ['#c2185b','#e8527a','#ffc2d1'],
-          ['#d4638a','#ed82a0','#ffdae5'],
-          ['#be1558','#e0608a','#ffbfcf'],
-          ['#d46388','#f095ac','#ffd9e6'],
-        ];
-        const darkStops = [
-          ['#c2185b','#e8527a','#ffb7c5'],
-          ['#ad1457','#d4638a','#f9a8c0'],
-          ['#c2185b','#ec6b8a','#ffc2d1'],
-          ['#b5174d','#e05c82','#ffb0c4'],
-          ['#c91d61','#f06090','#ffc5d4'],
-        ];
-        const stops = light ? lightStops : darkStops;
-        stops.forEach((s, i) => {
-          const g = document.getElementById('pg' + i);
-          if (!g) return;
-          const ss = g.querySelectorAll('stop');
-          ss[0].setAttribute('stop-color', s[0]);
-          ss[1].setAttribute('stop-color', s[1]);
-          ss[2].setAttribute('stop-color', s[2]);
-        });
-        // Stem
-        const stem = document.querySelector('.stem');
-        if (stem) stem.setAttribute('stroke', light ? '#4a7a2a' : '#5a8a3a');
-      }
-      syncFlowerTheme();
-      // Hook into theme toggle
-      const origToggle = document.getElementById('themeToggle');
-      if (origToggle) {
-        origToggle.addEventListener('click', () => setTimeout(syncFlowerTheme, 50));
-      }
-
-      // Petal click → full screen overlay
-      document.querySelectorAll('.petal-group').forEach(pg => {
-        const idx = parseInt(pg.dataset.idx);
-        const data = PETALS_DATA[idx];
-        if (!data) return;
-
-        pg.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
-        pg.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
-
-        pg.addEventListener('click', (e) => {
-          const rect = pg.getBoundingClientRect();
-          const cx = rect.left + rect.width / 2;
-          const cy = rect.top + rect.height / 2;
-
-          const overlay = document.createElement('div');
-          overlay.className = 'petal-overlay';
-          overlay.style.left = cx + 'px';
-          overlay.style.top = cy + 'px';
-          overlay.style.width = '60px';
-          overlay.style.height = '80px';
-          overlay.style.background = `radial-gradient(ellipse at 50% 40%, #f8a5bf 0%, #e8527a 45%, #b5174d 100%)`;
-
-          const content = document.createElement('div');
-          content.className = 'petal-overlay-content';
-          content.innerHTML = `
-            <div class="pov-eyebrow">achievement</div>
-            <div class="pov-title">${data.label}</div>
-            <div class="pov-sub">${data.sub}</div>
-            <div class="pov-detail">${data.detail}</div>
-            <button class="pov-close" id="povClose">close ✕</button>
-          `;
-          overlay.appendChild(content);
-          document.body.appendChild(overlay);
-
-          requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('open')));
-
-          function closeOverlay() {
-            overlay.classList.remove('open');
-            overlay.style.transition = 'transform 0.45s cubic-bezier(.4,0,.6,1)';
-            setTimeout(() => overlay.remove(), 500);
-          }
-          content.querySelector('#povClose').addEventListener('click', closeOverlay);
-          overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
-          document.addEventListener('keydown', function esc(e) {
-            if (e.key === 'Escape') { closeOverlay(); document.removeEventListener('keydown', esc); }
-          });
-        });
-      });
-    })();
-
+    
     // ── PARALLAX on orbs ──    // ── PARALLAX on orbs ──
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
