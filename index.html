@@ -596,7 +596,99 @@
     [data-theme="light"] .bw-pill { background:rgba(0,0,0,0.03); border-color:rgba(0,0,0,0.09); }
     [data-theme="light"] .bw-pill:hover { background:rgba(0,0,0,0.07); }
     @media(max-width:820px){ .built-with { padding:18px 24px; gap:16px; } }
-    
+
+    /* ── HERO PHOTO BACKGROUND ── */
+    .hero {
+      background-image: url('media/photos/hero.jpg'); /* Add your photo here */
+      background-size: cover; background-position: center 20%;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, rgba(8,8,8,0.3) 35%, rgba(8,8,8,0.6) 65%, rgba(8,8,8,0.97) 100%);
+    }
+    [data-theme="light"] .hero::before { background: linear-gradient(to bottom, rgba(255,245,247,0.45) 0%, rgba(255,245,247,0.2) 35%, rgba(255,245,247,0.55) 65%, rgba(255,245,247,0.97) 100%); }
+    .hero-aurora, .hero-gridlines, .hero-orb, .shape { z-index: 1; }
+    .hero-visual { z-index: 1 !important; }
+    .hero-content { z-index: 3; }
+
+    /* ── LYNK FEATURED ── */
+    .lynk-outer { padding: 0 48px 64px; border-top: 1px solid var(--border); }
+    .lynk-card {
+      position: relative; border-radius: 20px; overflow: hidden;
+      min-height: 500px; display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 64px; border: 1px solid var(--border);
+      background-image: url('media/photos/AMDevent.JPG');
+      background-size: cover; background-position: center;
+    }
+    .lynk-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.72) 50%, rgba(8,8,8,0.35) 100%);
+    }
+    [data-theme="light"] .lynk-card::before { background: linear-gradient(135deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.7) 55%, rgba(10,10,10,0.4) 100%); }
+    .lynk-content { position: relative; z-index: 1; max-width: 640px; }
+    .lynk-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); border: 1px solid rgba(56,189,248,0.3); border-radius: 99px; padding: 5px 14px; margin-bottom: 22px;
+    }
+    .lynk-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease infinite; }
+    .lynk-title { font-size: clamp(60px, 9vw, 104px); font-weight: 700; letter-spacing: -0.03em; line-height: 0.88; color: #fff; margin-bottom: 20px; }
+    .lynk-desc { font-size: 17px; color: rgba(255,255,255,0.58); line-height: 1.75; max-width: 520px; margin-bottom: 36px; }
+    .lynk-links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .lynk-links .btn-accent { box-shadow: 0 0 32px rgba(56,189,248,0.2); }
+
+    /* ── SKILLS: TECHNICAL ── */
+    .skills-tech-grid { display: grid; grid-template-columns: 1fr 300px; gap: 64px; align-items: start; margin-top: 8px; }
+    .skills-col-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+    /* EDUCATION CARDS */
+    .edu-cards { display: flex; flex-direction: column; gap: 12px; }
+    .edu-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; transition: border-color .2s; }
+    .edu-card:hover { border-color: var(--border2); }
+    .edu-inst { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .edu-degree { font-size: 13px; color: var(--accent); margin-bottom: 6px; }
+    .edu-period { font-size: 12px; color: var(--muted); }
+    .edu-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+    /* ── SKILLS: NON-TECHNICAL ── */
+    .nontech-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .nt-card {
+      position: relative; border-radius: 18px; overflow: hidden;
+      min-height: 300px; border: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 30px; transition: border-color .25s, transform .3s; text-decoration: none; color: inherit;
+    }
+    .nt-card:hover { border-color: rgba(56,189,248,0.3); transform: translateY(-4px); }
+    .nt-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .4s ease; }
+    .nt-card:hover .nt-bg { transform: scale(1.04); }
+    .nt-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.94) 40%, rgba(8,8,8,0.45) 100%); }
+    .nt-content { position: relative; z-index: 1; }
+    .nt-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .nt-title { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.1; }
+    .nt-desc { font-size: 13px; color: rgba(255,255,255,0.52); line-height: 1.65; }
+    .nt-stat { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: var(--accent); background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.2); border-radius: 99px; padding: 4px 11px; margin-top: 14px; }
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip-outer { border-top: 1px solid var(--border); padding: 56px 0; overflow: hidden; }
+    .photo-strip-head { padding: 0 48px; margin-bottom: 24px; font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+    .photo-strip-head::after { content: ''; flex: 0 0 48px; height: 1px; background: var(--accent); opacity: .4; }
+    .photo-strip { display: flex; gap: 12px; overflow-x: auto; padding: 4px 48px 16px; scrollbar-width: none; cursor: grab; }
+    .photo-strip:active { cursor: grabbing; }
+    .photo-strip::-webkit-scrollbar { display: none; }
+    .photo-frame { flex-shrink: 0; width: 220px; height: 280px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+    .photo-frame:hover img { transform: scale(1.05); }
+
+    @media(max-width:820px) {
+      .lynk-outer { padding: 0 24px 48px; }
+      .lynk-card { padding: 40px 28px; min-height: 380px; }
+      .lynk-title { font-size: 52px; }
+      .skills-tech-grid { grid-template-columns: 1fr; gap: 32px; }
+      .nontech-cards { grid-template-columns: 1fr; }
+      .photo-strip-head { padding: 0 24px; }
+      .photo-strip { padding: 4px 24px 16px; }
+    }
+
   </style>
 </head>
 <body>
@@ -610,9 +702,9 @@
   <nav>
     <a href="#" class="nav-logo">V<span>S</span></a>
     <div class="nav-links">
-      <a href="#affiliations">Where I've Been</a>
-      <a href="#projects">Projects</a>
-      <a href="#hobbies">Beyond the Screen</a>
+      <a href="#technical">Technical</a>
+      <a href="#nontechnical">Non-Technical</a>
+      <a href="#lynk">Lynk</a>
       <a href="#contact">Connect</a>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
     </div>
@@ -704,15 +796,15 @@
 
         
           <!-- CLICKABLE FISH (swim behind everything) -->
-          <!-- Fish 2: Where I've Been → yellow, swims right, y=660 -->
-          <g class="sf-r2 hero-fish" data-target="affiliations" transform="translate(0,660)" style="opacity:0.85">
+          <!-- Fish 2: Technical → yellow, swims right, y=660 -->
+          <g class="sf-r2 hero-fish" data-target="technical" transform="translate(0,660)" style="opacity:0.85">
             <path d="M-24,0 L-36,-13 L-36,13 Z" fill="#fbbf24"/>
             <ellipse cx="0" cy="0" rx="28" ry="12" fill="#fbbf24"/>
             <ellipse cx="1" cy="3" rx="18" ry="7" fill="rgba(255,255,255,0.2)"/>
             <path d="M -5,-12 C 2,-22 16,-21 18,-12" fill="#fbbf24" opacity="0.6"/>
             <circle cx="18" cy="-4" r="3.5" fill="white"/><circle cx="19" cy="-4" r="2" fill="#0a1a2e"/>
             <rect x="-22" y="-34" width="108" height="18" rx="9" fill="rgba(4,13,30,0.8)"/>
-            <text x="32" y="-21" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fbbf24" letter-spacing="0.3">Where I've Been ↓</text>
+            <text x="32" y="-21" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fbbf24" letter-spacing="0.3">Technical ↓</text>
           </g>
           <!-- Fish 3: Projects → green, swims right, y=720 -->
           <g class="sf-r3 hero-fish" data-target="projects" transform="translate(0,720)" style="opacity:0.85">
@@ -759,22 +851,22 @@
   <div class="marquee-wrap">
     <div class="marquee-track">
       <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · #1 Ranked</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Founder · Lynk — Luma Reimagined</span>
       <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
       <span class="marquee-item"><span class="marquee-dot"></span>7,000+ AI Builders in Network</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI</span>
       <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
       <span class="marquee-item"><span class="marquee-dot"></span>WA State Fair · 1st Place</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Google · AWS · OpenAI · AMD</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Nobel Prize-Winning Lab · ISB</span>
       <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · #1 Ranked</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Founder · Lynk — Luma Reimagined</span>
       <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
       <span class="marquee-item"><span class="marquee-dot"></span>7,000+ AI Builders in Network</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI</span>
       <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
       <span class="marquee-item"><span class="marquee-dot"></span>WA State Fair · 1st Place</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Google · AWS · OpenAI · AMD</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Nobel Prize-Winning Lab · ISB</span>
     </div>
   </div>
@@ -798,41 +890,170 @@
     </div>
   </div>
 
-  <!-- BENTO -->
-  <section class="section-wrap ruled" id="affiliations">
-    <div class="section-eyebrow">Work & Research</div>
-    <div class="aff-grid">
-      <a class="aff-card reveal" href="https://aivalley.io" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='AV'"></div>
-        <div class="aff-info"><div class="aff-role">Director of Expansion</div><div class="aff-org">AI Valley · 2025–now</div></div>
-      </a>
-      <a class="aff-card reveal reveal-d1" href="https://oncoscan.ai" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap fallback" style="font-size:13px;font-weight:700;color:var(--accent)">OS</div>
-        <div class="aff-info"><div class="aff-role">CEO &amp; CTO</div><div class="aff-org">OncoScan AI · 2025</div></div>
-      </a>
-      <a class="aff-card reveal reveal-d2" href="https://systemsbiology.org" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='ISB'"></div>
-        <div class="aff-info"><div class="aff-role">ML Research Intern</div><div class="aff-org">ISB · Baliga Lab · 2025</div></div>
-      </a>
-      <div class="aff-card reveal">
-        <div class="aff-logo-wrap fallback" style="font-size:16px">🧠</div>
-        <div class="aff-info"><div class="aff-role">Lead ML Researcher</div><div class="aff-org">Brain Stroke · 2023–2025</div></div>
+  <!-- LYNK FEATURED STARTUP -->
+  <div class="lynk-outer" id="lynk">
+    <div class="lynk-card reveal">
+      <div class="lynk-content">
+        <div class="lynk-badge">Currently Building</div>
+        <div class="lynk-title">Lynk</div>
+        <p class="lynk-desc">Luma, reimagined with data. Lynk gives event hosts data-driven invitee lists, helps attendees find the most interesting people to target conversations with, and suggests events worth going to — based on who'll be there, not just what's happening.</p>
+        <div class="lynk-links">
+          <a href="https://github.com/v1hns" target="_blank" class="btn-accent magnetic">View on GitHub →</a>
+          <a href="#contact" class="btn-outline magnetic">Get Early Access</a>
+        </div>
       </div>
-      <a class="aff-card reveal reveal-d1" href="https://theupliftnetwork.org" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="tun.webp" alt="Uplift Network" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='UN'"></div>
-        <div class="aff-info"><div class="aff-role">Founder</div><div class="aff-org">The Uplift Network · 2024–2025</div></div>
-      </a>
-      <a class="aff-card reveal reveal-d2" href="https://topstep.com" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='TS'"></div>
-        <div class="aff-info"><div class="aff-role">Funded Trader</div><div class="aff-org">TopStep · $150K · 2025</div></div>
-      </a>
+    </div>
+  </div>
+
+  <!-- SKILLS: TECHNICAL -->
+  <section class="section-wrap ruled" id="technical">
+    <div class="section-eyebrow">Skills — Technical</div>
+    <div class="skills-tech-grid">
+
+      <!-- Work Experience -->
+      <div>
+        <div class="skills-col-label">Work Experience</div>
+        <div class="timeline">
+
+          <div class="tl-item reveal">
+            <div class="tl-date">2025 – now</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-logo-wrap fallback" style="font-size:14px;font-weight:700;color:var(--accent)">LK</div>
+                <div><div class="tl-co">Lynk</div><div class="tl-role">Founder &amp; CEO</div></div>
+              </div>
+              <div class="tl-desc">Building a data-driven event platform. Hosts get AI-curated invitee lists; attendees get matched to the most valuable conversations at each event.</div>
+              <div class="chips"><span class="chip a">Currently Building</span><span class="chip">Full-Stack</span><span class="chip">AI/ML</span></div>
+            </div>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="tl-date">2025</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-logo-wrap fallback" style="font-size:13px;font-weight:700;color:var(--accent)">OS</div>
+                <div><div class="tl-co">OncoScan AI</div><div class="tl-role">CEO &amp; CTO</div></div>
+              </div>
+              <div class="tl-desc">Oral cancer detection startup. Patent-pending CV model for early screening in low-resource settings. VC funded, AWS incubated, scaling nationally across India.</div>
+              <div class="chips"><span class="chip a">Patent Pending</span><span class="chip">Computer Vision</span><span class="chip">AWS</span></div>
+            </div>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="tl-date">2025</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='ISB'"></div>
+                <div><div class="tl-co">ISB · Baliga Lab</div><div class="tl-role">ML Research Intern</div></div>
+              </div>
+              <div class="tl-desc">Predictive ML models for HIV and preeclampsia at the Nobel Prize-winning Institute for Systems Biology under Mario Arrieta Ortiz.</div>
+              <div class="chips"><span class="chip">Bioinformatics</span><span class="chip">Python · R</span><span class="chip">Multi-omics</span></div>
+            </div>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="tl-date">2023–2025</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-logo-wrap fallback" style="font-size:16px">🧠</div>
+                <div><div class="tl-co">Independent Research</div><div class="tl-role">Lead ML Researcher</div></div>
+              </div>
+              <div class="tl-desc">3D CNN for brain CT scan stroke classification. 1st Place WA State Science &amp; Engineering Fair.</div>
+              <div class="chips"><span class="chip a">🏆 1st Place — WA State</span><span class="chip">3D CNN</span><span class="chip">PyTorch</span></div>
+            </div>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="tl-date">2025</div>
+            <div class="tl-line"><div class="tl-dot"></div></div>
+            <div class="tl-content">
+              <div class="tl-header">
+                <div class="tl-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='TS'"></div>
+                <div><div class="tl-co">TopStep</div><div class="tl-role">Funded Trader</div></div>
+              </div>
+              <div class="tl-desc">$150K funded account. Systematic trading strategies — where pattern recognition meets position sizing.</div>
+              <div class="chips"><span class="chip a">$150K Funded</span><span class="chip">Quant</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div>
+        <div class="skills-col-label">Education</div>
+        <div class="edu-cards">
+          <div class="edu-card reveal">
+            <div class="edu-inst">Carnegie Mellon University</div>
+            <div class="edu-degree">B.S. Computer Science</div>
+            <div class="edu-period">2024 – 2028 · Pittsburgh, PA</div>
+            <div class="edu-chips">
+              <span class="chip a">CS #1 Ranked</span>
+              <span class="chip">AI / ML</span>
+              <span class="chip">IFM</span>
+            </div>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-inst">WA State Science Fair</div>
+            <div class="edu-degree">1st Place · Computer Science</div>
+            <div class="edu-period">2023 · Regional + State</div>
+            <div class="edu-chips">
+              <span class="chip a">🏆 1st Place</span>
+              <span class="chip">Brain Stroke ML</span>
+            </div>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-inst">ACT</div>
+            <div class="edu-degree">Perfect Score · 36 / 36</div>
+            <div class="edu-period">2023</div>
+            <div class="edu-chips">
+              <span class="chip a">Top 0.1%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- EVENTS -->
-  <div class="events-outer">
+  <!-- SKILLS: NON-TECHNICAL -->
+  <section class="section-wrap ruled" id="nontechnical">
+    <div class="section-eyebrow">Skills — Non-Technical</div>
+    <div class="nontech-cards">
+
+      <a class="nt-card reveal" href="https://aivalley.io" target="_blank">
+        <div class="nt-bg" style="background-image:url('media/photos/IMG_6629.JPG')"></div>
+        <div class="nt-overlay"></div>
+        <div class="nt-content">
+          <div class="nt-label">Community · Leadership</div>
+          <div class="nt-title">AI Valley</div>
+          <div class="nt-desc">Director of Expansion. Growing a network of 7,000+ AI builders — connecting researchers, founders, and engineers across the country.</div>
+          <div class="nt-stat">7,000+ builders</div>
+        </div>
+      </a>
+
+      <a class="nt-card reveal reveal-d1" href="https://theupliftnetwork.org" target="_blank">
+        <div class="nt-bg" style="background-image:url('media/photos/IMG_3423.jpg')"></div>
+        <div class="nt-overlay"></div>
+        <div class="nt-content">
+          <div class="nt-label">Nonprofit · Founder</div>
+          <div class="nt-title">The Uplift Network</div>
+          <div class="nt-desc">Founded a network to empower the next generation of ambitious students — mentorship, resources, and high-signal community.</div>
+          <div class="nt-stat">Founder · 2024–2025</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- EVENTS (part of Non-Technical) -->
+  <div class="events-outer" id="events">
     <div class="events-head">
-      <div class="section-eyebrow" style="margin-bottom:0">events I've hosted</div>
+      <div class="section-eyebrow" style="margin-bottom:0">Events I've Hosted</div>
     </div>
     <div class="events-grid">
 
@@ -883,6 +1104,20 @@
     </div>
   </div>
 
+  <!-- PHOTO STRIP -->
+  <div class="photo-strip-outer">
+    <div class="photo-strip-head">In the field</div>
+    <div class="photo-strip" id="photoStrip">
+      <div class="photo-frame"><img src="media/photos/AMDevent.JPG" alt="Event" loading="lazy"></div>
+      <div class="photo-frame"><img src="media/photos/IMG_6629.JPG" alt="" loading="lazy"></div>
+      <div class="photo-frame"><img src="media/photos/IMG_3423.jpg" alt="" loading="lazy"></div>
+      <div class="photo-frame"><img src="media/photos/mixer.png" alt="" loading="lazy"></div>
+      <div class="photo-frame"><img src="media/photos/climb.jpg" alt="Climbing" loading="lazy"></div>
+      <div class="photo-frame"><img src="media/photos/mthood.jpg" alt="Mt Hood" loading="lazy"></div>
+      <!-- Add more photos: media/photos/cmu-event.jpg, media/photos/dev.jpg, etc. -->
+    </div>
+  </div>
+
  <!-- PROJECTS HORIZONTAL SCROLL -->
   <div class="proj-strip-outer" id="projects">
     <div class="proj-strip-head">
@@ -893,6 +1128,14 @@
       </span>
     </div>
     <div class="proj-strip" id="projStrip">
+
+      <div class="proj" data-project="lynk" style="border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.03)">
+        <div class="proj-header"><div class="proj-icon">🔗</div><span class="proj-type-badge award-badge-sm">⚡ Building Now</span></div>
+        <div class="proj-name">Lynk</div>
+        <div class="proj-desc">Data-driven event platform. AI invitee curation for hosts, conversation targeting for attendees, and event discovery based on who'll be there.</div>
+        <div class="chips" style="margin-bottom:22px"><span class="chip a">Luma Competitor</span><span class="chip">AI/ML</span><span class="chip">Full-Stack</span></div>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
 
       <div class="proj" data-project="really-ai">
         <div class="proj-header"><div class="proj-icon">🏡</div><span class="proj-type-badge">Product</span></div>
@@ -1081,7 +1324,7 @@
       ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
       requestAnimationFrame(tick);
     })();
-    document.querySelectorAll('a, button, .proj, .bento-card, .award, .tl-item, .hcard').forEach(el => {
+    document.querySelectorAll('a, button, .proj, .bento-card, .award, .tl-item, .hcard, .nt-card, .edu-card').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
     });
@@ -1198,7 +1441,7 @@
       });
       el.addEventListener('click', e => { if (dragged) e.stopPropagation(); }, true);
     }
-    ['projStrip'].forEach(id => { const el = document.getElementById(id); if (el) makeDraggable(el); });
+    ['projStrip', 'photoStrip'].forEach(id => { const el = document.getElementById(id); if (el) makeDraggable(el); });
 
     // ── 3D TILT on project cards ──
     document.querySelectorAll('.proj').forEach(card => {
@@ -1213,6 +1456,18 @@
 
     // ── PROJECT MODALS ──
     const PROJECTS = {
+      'lynk': {
+        icon: '🔗', type: 'Startup · Founder & CEO · 2025', title: 'Lynk',
+        tagline: 'Luma, reimagined with data. The smarter event platform — AI invitee curation for hosts, conversation targeting for attendees.',
+        links: [{ label: 'GitHub →', url: 'https://github.com/v1hns', cls: 'primary' }, { label: 'Get Early Access →', url: '#contact', cls: 'ghost' }],
+        desc: [
+          'Lynk is an events platform built around one insight: the best events aren\'t defined by what\'s happening — they\'re defined by who\'s there. Hosts waste hours manually curating guest lists. Attendees leave without talking to the 3 people who could change their trajectory.',
+          'Lynk fixes this. For hosts: data-driven invitee lists generated from structured signals — industry, company stage, interests, mutual connections. For attendees: a ranked view of who to target conversations with, pre-event. For everyone: event suggestions based on the people you should meet, not just topics you follow.'
+        ],
+        stack: [],
+        awards: [{ num: '⚡', title: 'Currently Building', sub: 'Solo founder · Luma competitor' }],
+        mentors: []
+      },
       'really-ai': {
         icon: '🏡', type: 'Product · 2025', title: 'really.ai',
         tagline: 'AI real estate superconnecter. Drop your number, get called by AI, get matched with buyers, sellers, and agents — automatically.',
