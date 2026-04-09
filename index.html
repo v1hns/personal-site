@@ -91,6 +91,12 @@
     /* SPOTLIGHT */
     #spotlight { position:fixed; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(56,189,248,0.035) 0%, transparent 70%); pointer-events:none; z-index:1; transform:translate(-50%,-50%); transition:left .8s ease,top .8s ease; }
 
+    /* HERO CANVAS */
+    #hero-canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+
+    /* CHAR REPEL */
+    .char-repel { display:inline-block; will-change:transform; }
+
     h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; }
 
     /* NAV */
@@ -622,6 +628,7 @@
 
   <!-- HERO -->
   <section class="hero">
+    <canvas id="hero-canvas"></canvas>
     <div class="hero-aurora"></div>
     <div class="hero-gridlines"></div>
     <div class="hero-orb orb1"></div>
@@ -1072,6 +1079,154 @@
       prog.style.width = (s / h * 100) + '%';
     });
 
+    // ── HERO CANVAS REAL-TIME RENDERING ──
+    const hCanvas = document.getElementById('hero-canvas');
+    const hCtx = hCanvas.getContext('2d');
+    let heroCacheRect = null;
+
+    function resizeHeroCanvas() {
+      const hero = document.querySelector('.hero');
+      hCanvas.width = hero.offsetWidth;
+      hCanvas.height = hero.offsetHeight;
+      heroCacheRect = null;
+      initParticles();
+    }
+
+    const PCOUNT = 72;
+    const pArr = Array.from({ length: PCOUNT }, () => ({
+      x: 0, y: 0, ox: 0, oy: 0, vx: 0, vy: 0,
+      size: Math.random() * 1.4 + 0.4,
+      alpha: Math.random() * 0.3 + 0.06,
+    }));
+
+    function initParticles() {
+      pArr.forEach(p => {
+        p.x = p.ox = Math.random() * hCanvas.width;
+        p.y = p.oy = Math.random() * hCanvas.height;
+        p.vx = p.vy = 0;
+      });
+    }
+
+    resizeHeroCanvas();
+    window.addEventListener('resize', resizeHeroCanvas);
+
+    function drawHeroCanvas() {
+      hCtx.clearRect(0, 0, hCanvas.width, hCanvas.height);
+      if (!heroCacheRect) heroCacheRect = hCanvas.getBoundingClientRect();
+
+      const lmx = mx - heroCacheRect.left;
+      const lmy = my - heroCacheRect.top;
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const r = isLight ? 212 : 56, g = isLight ? 99 : 189, b = isLight ? 138 : 248;
+
+      const P_REPEL_R = 200, P_REPEL_S = 2.4, P_SPRING = 0.016, P_DAMP = 0.87;
+
+      pArr.forEach(p => {
+        const dxC = lmx - p.x, dyC = lmy - p.y;
+        const dist = Math.sqrt(dxC * dxC + dyC * dyC);
+        let fx = (p.ox - p.x) * P_SPRING;
+        let fy = (p.oy - p.y) * P_SPRING;
+        if (dist < P_REPEL_R && dist > 0) {
+          const f = (1 - dist / P_REPEL_R) * P_REPEL_S;
+          fx -= (dxC / dist) * f;
+          fy -= (dyC / dist) * f;
+        }
+        p.vx = p.vx * P_DAMP + fx;
+        p.vy = p.vy * P_DAMP + fy;
+        p.x += p.vx;
+        p.y += p.vy;
+      });
+
+      // Lines between close particles
+      hCtx.lineWidth = 0.5;
+      for (let i = 0; i < pArr.length; i++) {
+        for (let j = i + 1; j < pArr.length; j++) {
+          const dx = pArr[i].x - pArr[j].x, dy = pArr[i].y - pArr[j].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 130) {
+            hCtx.beginPath();
+            hCtx.strokeStyle = `rgba(${r},${g},${b},${(1 - d / 130) * 0.08})`;
+            hCtx.moveTo(pArr[i].x, pArr[i].y);
+            hCtx.lineTo(pArr[j].x, pArr[j].y);
+            hCtx.stroke();
+          }
+        }
+      }
+
+      // Particles
+      pArr.forEach(p => {
+        hCtx.beginPath();
+        hCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        hCtx.fillStyle = `rgba(${r},${g},${b},${p.alpha})`;
+        hCtx.fill();
+      });
+    }
+
+    // Invalidate cached hero rect on scroll/resize
+    window.addEventListener('scroll', () => { heroCacheRect = null; });
+
+    // ── TEXT CHAR REPULSION ──
+    let charData = [];
+    const CHAR_REPEL_R = 110, CHAR_REPEL_S = 55, CHAR_SPRING = 0.14, CHAR_DAMP = 0.76;
+
+    function splitToChars(el) {
+      const text = el.textContent;
+      el.innerHTML = '';
+      for (const ch of text) {
+        const s = document.createElement('span');
+        s.className = 'char-repel';
+        s.textContent = ch;
+        el.appendChild(s);
+      }
+      return Array.from(el.querySelectorAll('.char-repel'));
+    }
+
+    function captureCharPositions() {
+      charData.forEach(c => {
+        const r = c.el.getBoundingClientRect();
+        c.ox = r.left + r.width / 2;
+        c.oy = r.top + r.height / 2;
+      });
+    }
+
+    // Wait for slideUp animation + scramble effect to finish
+    setTimeout(() => {
+      const line1 = document.querySelector('.hero-name .line1');
+      const line2 = document.querySelector('.hero-name .line2');
+      // Remove clip-path so chars can move freely
+      if (line1) line1.style.clipPath = 'none';
+      if (line2) line2.style.clipPath = 'none';
+      const chars1 = line1 ? splitToChars(line1) : [];
+      const chars2 = line2 ? splitToChars(line2) : [];
+      charData = [...chars1, ...chars2].map(el => ({
+        el, ox: 0, oy: 0, vx: 0, vy: 0, dx: 0, dy: 0,
+      }));
+      captureCharPositions();
+      window.addEventListener('resize', captureCharPositions);
+      window.addEventListener('scroll', captureCharPositions);
+    }, 2200); // after scramble (~1800ms) + buffer
+
+    function updateCharRepulsion() {
+      if (!charData.length) return;
+      charData.forEach(c => {
+        const dxC = mx - (c.ox + c.dx);
+        const dyC = my - (c.oy + c.dy);
+        const dist = Math.sqrt(dxC * dxC + dyC * dyC);
+        let fx = -c.dx * CHAR_SPRING;
+        let fy = -c.dy * CHAR_SPRING;
+        if (dist < CHAR_REPEL_R && dist > 0) {
+          const force = (1 - dist / CHAR_REPEL_R) * CHAR_REPEL_S;
+          fx -= (dxC / dist) * force;
+          fy -= (dyC / dist) * force;
+        }
+        c.vx = c.vx * CHAR_DAMP + fx;
+        c.vy = c.vy * CHAR_DAMP + fy;
+        c.dx += c.vx;
+        c.dy += c.vy;
+        c.el.style.transform = `translate(${c.dx}px,${c.dy}px)`;
+      });
+    }
+
     // ── CURSOR ──
     const cur = document.getElementById('cursor'), ring = document.getElementById('cursor-ring');
     let mx = -200, my = -200, rx = -200, ry = -200;
@@ -1082,6 +1237,8 @@
       cur.style.left = mx + 'px'; cur.style.top = my + 'px';
       rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
       ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      drawHeroCanvas();
+      updateCharRepulsion();
       requestAnimationFrame(tick);
     })();
     document.querySelectorAll('a, button, .proj, .bento-card, .award, .tl-item, .hcard').forEach(el => {
