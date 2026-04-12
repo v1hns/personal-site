@@ -934,6 +934,30 @@
         <div class="proj-link gl">Open project ↗</div>
       </div>
 
+      <div class="proj" data-project="medsim">
+        <div class="proj-header"><div class="proj-icon">🏥</div><span class="proj-type-badge award-badge-sm">🏆 Most Innovative</span></div>
+        <div class="proj-name">MedSim</div>
+        <div class="proj-desc">Agent swarm simulations on world model reconstructions for trauma center optimization. Most Innovative — 2026 Harvard Health Systems Innovation Lab Hackathon.</div>
+        <div class="chips" style="margin-bottom:22px"><span class="chip">Agent Swarms</span><span class="chip">World Models</span><span class="chip">Python</span></div>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
+
+      <div class="proj" data-project="pixel-agents">
+        <div class="proj-header"><div class="proj-icon">🖥️</div><span class="proj-type-badge">Open Source</span></div>
+        <div class="proj-name">pixel-agents</div>
+        <div class="proj-desc">Pixel office — a multiplayer virtual workspace rendered in pixel art. Real-time presence, built for remote teams.</div>
+        <div class="chips" style="margin-bottom:22px"><span class="chip">TypeScript</span><span class="chip">Electron</span></div>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
+
+      <div class="proj" data-project="whatsappbot2">
+        <div class="proj-header"><div class="proj-icon">💬</div><span class="proj-type-badge">Open Source</span></div>
+        <div class="proj-name">WhatsApp Bot</div>
+        <div class="proj-desc">A WhatsApp automation bot anyone can clone and deploy — for personal workflows, communities, or products.</div>
+        <div class="chips" style="margin-bottom:22px"><span class="chip">JavaScript</span><span class="chip">WhatsApp API</span></div>
+        <div class="proj-link gl">Open project ↗</div>
+      </div>
+
     </div>
   </div>
 
@@ -1437,6 +1461,42 @@
         desc: [
           'Minecraft is a uniquely hard environment for AI agents — open-ended, partially observable, requiring long-horizon planning across thousands of sequential decisions. Bots must combine low-level behavioral programming with higher-level goal decomposition.',
           'This project explores autonomous agent architectures: pathfinding in procedurally generated terrain, resource gathering via state machines, LLM-driven task decomposition, and multi-agent coordination experiments.'
+        ],
+        stack: [],
+        awards: [],
+        mentors: []
+      },
+      'medsim': {
+        icon: '🏥', type: 'Hackathon · 2026', title: 'MedSim',
+        tagline: 'Agent swarm simulations on world model reconstructions for trauma center optimization.',
+        links: [{ label: 'GitHub →', url: 'https://github.com/v1hns/medsim', cls: 'primary' }],
+        desc: [
+          'MedSim layers agent swarm simulations over learned world model reconstructions of real trauma centers — letting healthcare systems stress-test patient routing, resource allocation, and staff deployment before implementing any real changes.',
+          'By simulating thousands of scenarios against the world model, MedSim surfaces bottlenecks and failure modes invisible to human planners. The goal: fewer preventable deaths through better system design.'
+        ],
+        stack: [],
+        awards: [{ num: '🏆', title: 'Most Innovative', sub: '2026 Harvard Health Systems Innovation Lab Hackathon' }],
+        mentors: []
+      },
+      'pixel-agents': {
+        icon: '🖥️', type: 'Open Source · 2025', title: 'pixel-agents',
+        tagline: 'A pixel art virtual office — real-time multiplayer workspace for remote teams.',
+        links: [{ label: 'GitHub →', url: 'https://github.com/v1hns/pixel-agents', cls: 'primary' }],
+        desc: [
+          'pixel-agents is a multiplayer virtual workspace rendered in retro pixel art. Team members have persistent avatars, can move through a shared office, and see each other in real time — built for async-first remote teams who want a sense of place.',
+          'Built with TypeScript and wrapped in Electron for cross-platform desktop use. The pixel rendering engine handles real-time multiplayer state sync while the Electron shell provides a native app feel.'
+        ],
+        stack: [],
+        awards: [],
+        mentors: []
+      },
+      'whatsappbot2': {
+        icon: '💬', type: 'Open Source · 2025', title: 'WhatsApp Bot',
+        tagline: 'A WhatsApp automation bot anyone can clone, configure, and deploy — no technical background required.',
+        links: [{ label: 'GitHub →', url: 'https://github.com/v1hns/whatsappbot2', cls: 'primary' }],
+        desc: [
+          'Designed for real usability: clone the repo, drop in your credentials, and run. No backend infra, no complicated setup. Actively deployed across personal workflows and group communities.',
+          'Built on WhatsApp Web JS, it supports automated message responses, webhook triggers, and a plugin-style command architecture. Intentionally kept minimal so anyone can extend it without wading through a large codebase.'
         ],
         stack: [],
         awards: [],
