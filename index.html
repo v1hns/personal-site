@@ -611,6 +611,10 @@
     .feat-eyebrow .feat-status { font-size:10px; font-weight:600; padding:3px 9px; border-radius:99px; background:rgba(74,222,128,0.1); color:#4ade80; border:1px solid rgba(74,222,128,0.3); letter-spacing:0.08em; }
     .feat-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(44px, 6vw, 80px); font-weight:700; letter-spacing:-0.03em; line-height:0.9; margin-bottom:14px; }
     .feat-title .feat-grad { background: linear-gradient(135deg, var(--accent) 0%, #a855f7 60%, #ec4899 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .feat-title-link { text-decoration:none; color:inherit; display:inline-block; transition:transform 0.2s ease; }
+    .feat-title-link:hover { transform: translateX(4px); }
+    .feat-title-link .feat-arrow { font-size:0.5em; color:var(--muted); vertical-align:super; margin-left:8px; transition:color 0.2s ease, transform 0.2s ease; display:inline-block; }
+    .feat-title-link:hover .feat-arrow { color:var(--accent); transform:translate(2px,-2px); }
     .feat-role { font-size:14px; color:var(--accent); font-weight:600; letter-spacing:0.04em; margin-bottom:22px; text-transform:uppercase; }
     .feat-desc { font-size:16px; color:var(--text); line-height:1.7; margin-bottom:18px; max-width:580px; }
     .feat-desc strong { color:var(--text); font-weight:600; }
@@ -650,24 +654,15 @@
     @media(max-width:980px){ .featured-grid { grid-template-columns:1fr; gap:32px; } .feat-right { min-height:auto; } }
     @media(max-width:820px){ .featured-outer { padding:60px 24px; } .feat-stats { grid-template-columns:1fr 1fr; } }
 
-    /* CREDENTIALS STRIP */
-    .creds-outer { padding:64px 48px; border-top:1px solid var(--border); position:relative; }
-    .creds-head { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:32px; flex-wrap:wrap; gap:14px; }
-    .creds-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3.4vw,42px); font-weight:700; letter-spacing:-0.02em; max-width:520px; line-height:1.05; }
-    .creds-title .a { color:var(--accent); }
-    .creds-sub { font-size:13px; color:var(--muted); max-width:340px; line-height:1.65; }
-    .creds-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
-    .cred-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 20px; transition:border-color .2s, transform .2s, box-shadow .2s; position:relative; overflow:hidden; }
-    .cred-card:hover { border-color:var(--border2); transform:translateY(-3px); box-shadow:0 12px 32px rgba(0,0,0,0.3); }
-    [data-theme="light"] .cred-card { background:#fff; }
-    .cred-card.hi { background: linear-gradient(180deg, rgba(56,189,248,0.06), rgba(56,189,248,0.02)); border-color:rgba(56,189,248,0.22); }
-    [data-theme="light"] .cred-card.hi { background:linear-gradient(180deg, rgba(212,99,138,0.06), #fff); border-color:rgba(212,99,138,0.25); }
-    .cred-num { font-family:'Space Grotesk',sans-serif; font-size:32px; font-weight:700; line-height:1; color:var(--text); margin-bottom:6px; letter-spacing:-0.02em; }
-    .cred-card.hi .cred-num { color:var(--accent); }
-    .cred-label { font-size:11px; color:var(--muted); line-height:1.5; }
-    .cred-label strong { color:var(--text); font-weight:600; display:block; margin-bottom:2px; font-size:12px; }
-    @media(max-width:980px){ .creds-grid { grid-template-columns:repeat(3,1fr); } }
-    @media(max-width:600px){ .creds-grid { grid-template-columns:repeat(2,1fr); } .creds-outer { padding:48px 24px; } }
+    /* QUICK FACTS — quiet strip */
+    .qf-outer { padding:48px 48px 56px; border-top:1px solid var(--border); position:relative; }
+    .qf-eyebrow { font-size:11px; font-weight:500; color:var(--muted); letter-spacing:0.14em; text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+    .qf-eyebrow::after { content:''; flex:1; max-width:48px; height:1px; background:var(--border2); }
+    .qf-row { display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; }
+    .qf-item { font-size:13px; color:var(--muted); display:inline-flex; align-items:center; gap:8px; padding:6px 0; }
+    .qf-item strong { color:var(--text); font-weight:500; }
+    .qf-sep { color:var(--border2); user-select:none; }
+    @media(max-width:600px){ .qf-outer { padding:36px 24px 44px; } }
 
     /* BUILT WITH STRIP */
     .built-with { padding:22px 48px; border-top:1px solid var(--border); display:flex; align-items:center; gap:32px; flex-wrap:wrap; }
@@ -719,7 +714,7 @@
     <div class="shape shape6"></div>
     <div class="shape shape7"></div>
     <div class="hero-content">
-    <div class="hero-eyebrow">Bellevue · CMU CS '30 · 4.0 GPA<span class="status-dot">building Presonance</span></div>
+    <div class="hero-eyebrow">Bellevue · CMU CS<span class="status-dot">building Presonance</span></div>
     <div class="dock-sign-wrap"><div class="dock-sign-rope"></div>
       <h1 class="hero-name">
         <span class="line1">Vihaan</span>
@@ -728,9 +723,8 @@
     </div>
     <div class="hero-rule"></div>
     <p class="hero-desc" id="hero-desc">
-      Founder of <strong>Presonance</strong> — the comp-neuro ad-prediction platform replacing A/B testing.<br/>
-      In active partnership talks with <strong>Meta</strong>; pilots with 100K+ creators.<br/>
-      ML at the <strong>Nobel-Prize-winning Baliga Lab</strong> · patent at <strong>OncoScan AI</strong> · scaling <strong>AI Valley</strong> to 7,000+ builders.
+      Mostly heads-down on <strong><a href="https://presonance.tech" target="_blank" style="color:var(--accent);text-decoration:none">Presonance</a></strong> — a small comp-neuro lab predicting how people actually respond to ads.<br/>
+      Also: ML at the Baliga Lab, a patent at OncoScan, and a community of builders at AI Valley.
     </p>
     <div class="hero-ctas">
       <a href="mailto:vihaans@andrew.cmu.edu" class="btn-accent magnetic">Get in touch →</a>
@@ -845,33 +839,18 @@
   <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span class="marquee-item"><span class="marquee-dot"></span>Founder · Presonance · Comp-Neuro Ad Prediction</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Partnership Talks · Meta</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Inbound · YouTube · Walmart</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Team · MIT · NeurIPS Authors</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · 4.0 / 4.0 GPA</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Stanford Summer Session · DATASCI 112</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Most Innovative · Harvard HSIL Hackathon</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion · 7K+ Builders</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI · VC Backed</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>1st Place · WA State Science Fair</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Nobel-Prize-Winning Baliga Lab · ISB</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>OpenAI · Google · AWS · AMD · Nvidia · MBZUAI</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Founder · Presonance · Comp-Neuro Ad Prediction</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Partnership Talks · Meta</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Inbound · YouTube · Walmart</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Team · MIT · NeurIPS Authors</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · 4.0 / 4.0 GPA</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>ACT 36 / 36 · Perfect Score</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Stanford Summer Session · DATASCI 112</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Most Innovative · Harvard HSIL Hackathon</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion · 7K+ Builders</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Patent Pending · OncoScan AI · VC Backed</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>$150K Funded Trader · TopStep</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Nobel-Prize-Winning Baliga Lab · ISB</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>OpenAI · Google · AWS · AMD · Nvidia · MBZUAI</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Presonance · presonance.tech</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>ML research · Baliga Lab · ISB</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>OncoScan AI · patent pending</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · '30</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Bellevue · Pittsburgh · SF</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Presonance · presonance.tech</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>ML research · Baliga Lab · ISB</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>OncoScan AI · patent pending</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · '30</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Bellevue · Pittsburgh · SF</span>
     </div>
   </div>
 
@@ -909,85 +888,60 @@
       <div class="feat-left reveal">
         <div class="feat-eyebrow">
           <span class="live-dot"></span>
-          Building Now
-          <span class="feat-status">Pilots Live</span>
+          What I'm building
         </div>
-        <h2 class="feat-title"><span class="feat-grad">Presonance.</span></h2>
-        <div class="feat-role">Founder & CEO · 2025 — Present</div>
+        <a href="https://presonance.tech" target="_blank" class="feat-title-link"><h2 class="feat-title"><span class="feat-grad">Presonance.</span> <span class="feat-arrow">↗</span></h2></a>
+        <div class="feat-role">Founder · 2025 — present · <a href="https://presonance.tech" target="_blank" style="color:var(--accent);text-decoration:none">presonance.tech</a></div>
         <p class="feat-desc">
-          The <strong>comp-neuro ad prediction platform</strong> that kills A/B testing and LLM feedback — neither simulates real human response. <strong>Ours does.</strong>
+          A small comp-neuro lab for predicting how people actually respond to ads — before any spend.
         </p>
         <p class="feat-sub">
-          Computational neuroscience meets agentic systems: we predict creative performance before a single dollar of spend, replacing weeks of testing with seconds of inference. Pilots live with multiple 100K+ creators and SMMA agencies; partnership discussions active with Meta; inbound interest from YouTube and Walmart.
+          Most teams test creative with A/B or ask an LLM what it thinks. Neither tells you how a real human nervous system reacts. We're trying to. Quietly piloting with a handful of creators, agencies, and one large platform.
         </p>
-        <div class="feat-stats">
-          <div class="feat-stat"><div class="feat-stat-num">100K+</div><div class="feat-stat-lbl">creators & SMMAs in live pilots</div></div>
-          <div class="feat-stat"><div class="feat-stat-num">Meta</div><div class="feat-stat-lbl">active partnership discussions</div></div>
-          <div class="feat-stat"><div class="feat-stat-num">MIT</div><div class="feat-stat-lbl">NeurIPS-published team & advisors</div></div>
-        </div>
         <div class="feat-tags">
-          <span class="feat-tag hot">Comp-Neuro</span>
-          <span class="feat-tag hot">Pre-Spend Prediction</span>
-          <span class="feat-tag">Agentic Systems</span>
+          <span class="feat-tag">Comp-neuro</span>
+          <span class="feat-tag">Pre-spend prediction</span>
           <span class="feat-tag">PyTorch · JAX</span>
-          <span class="feat-tag">FastAPI · Postgres</span>
         </div>
         <div class="feat-ctas">
-          <a href="mailto:vihaans@andrew.cmu.edu?subject=Presonance" class="btn-accent magnetic">Talk to me →</a>
-          <a href="#projects" class="btn-outline magnetic">See the rest ↓</a>
+          <a href="https://presonance.tech" target="_blank" class="btn-accent magnetic">presonance.tech →</a>
+          <a href="mailto:vihaans@andrew.cmu.edu?subject=Presonance" class="btn-outline magnetic">Get in touch</a>
         </div>
       </div>
 
-      <div class="feat-right reveal reveal-d2">
+      <a href="https://presonance.tech" target="_blank" class="feat-right reveal reveal-d2" style="text-decoration:none;color:inherit">
         <div class="feat-card">
           <div class="feat-card-head">
-            <div class="feat-card-title">Snapshot</div>
-            <div class="feat-card-badge">● LIVE</div>
+            <div class="feat-card-title">Notes</div>
+            <div class="feat-card-badge">● Quietly piloting</div>
           </div>
-          <div class="feat-card-row"><span class="feat-card-key">Stage</span><span class="feat-card-val">Live Pilots</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">In partnership talks with</span><span class="feat-card-val a">Meta</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">Inbound interest</span><span class="feat-card-val">YouTube · Walmart</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">Team</span><span class="feat-card-val">MIT · NeurIPS authors</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">Replacing</span><span class="feat-card-val">A/B Testing</span></div>
-
-          <div class="feat-advisor-list">
-            <div class="feat-advisor">
-              <div class="feat-advisor-icon">GT</div>
-              <div class="feat-advisor-text"><strong>Georgia Tech</strong> <span>· neuroscience professor (advisor)</span></div>
-            </div>
-            <div class="feat-advisor">
-              <div class="feat-advisor-icon">M</div>
-              <div class="feat-advisor-text"><strong>Meta</strong> <span>· ad intelligence team (advisors)</span></div>
-            </div>
-            <div class="feat-advisor">
-              <div class="feat-advisor-icon">LL</div>
-              <div class="feat-advisor-text"><strong>LushLife.ai</strong> <span>· founder (advisor)</span></div>
-            </div>
-          </div>
+          <div class="feat-card-row"><span class="feat-card-key">Stage</span><span class="feat-card-val">Private pilots</span></div>
+          <div class="feat-card-row"><span class="feat-card-key">Piloting with</span><span class="feat-card-val a">Meta &amp; others</span></div>
+          <div class="feat-card-row"><span class="feat-card-key">Team</span><span class="feat-card-val">A few quiet researchers</span></div>
+          <div class="feat-card-row"><span class="feat-card-key">Advised by</span><span class="feat-card-val">Folks at Meta · Georgia Tech · LushLife.ai</span></div>
+          <div class="feat-card-row"><span class="feat-card-key">Website</span><span class="feat-card-val a">presonance.tech ↗</span></div>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
-  <!-- CREDENTIALS -->
-  <section class="creds-outer">
-    <div class="creds-head">
-      <h3 class="creds-title">Receipts <span class="a">— for the doubters.</span></h3>
-      <p class="creds-sub">A handful of the numbers behind the work. The rest is on the resume.</p>
-    </div>
-    <div class="creds-grid">
-      <div class="cred-card hi reveal"><div class="cred-num">4.0</div><div class="cred-label"><strong>GPA · CMU</strong>Computer Science · expected May 2030</div></div>
-      <div class="cred-card hi reveal reveal-d1"><div class="cred-num">36/36</div><div class="cred-label"><strong>ACT · Perfect Score</strong>99.97th percentile, single sitting</div></div>
-      <div class="cred-card reveal reveal-d2"><div class="cred-num">5/5</div><div class="cred-label"><strong>5 AP Exams</strong>CS A · Stats · Physics · Physics C · Calc BC</div></div>
-      <div class="cred-card reveal reveal-d3"><div class="cred-num">7/7</div><div class="cred-label"><strong>IB Math Analysis HL</strong>Perfect score · top 1% globally</div></div>
-      <div class="cred-card reveal"><div class="cred-num">3.96</div><div class="cred-label"><strong>Interlake HS · '26</strong>AP Scholar with Distinction</div></div>
-      <div class="cred-card reveal reveal-d1"><div class="cred-num">2x</div><div class="cred-label"><strong>Stanford + CMU Summer</strong>Accredited UG coursework, pre-college</div></div>
-      <div class="cred-card hi reveal reveal-d2"><div class="cred-num">$150K</div><div class="cred-label"><strong>Funded Trader</strong>TopStep · live derivatives account</div></div>
-      <div class="cred-card hi reveal reveal-d3"><div class="cred-num">Patent</div><div class="cred-label"><strong>OncoScan AI</strong>VC-backed · AWS-credited · clinical India</div></div>
-      <div class="cred-card reveal"><div class="cred-num">7,000+</div><div class="cred-label"><strong>AI Valley Network</strong>Director of Expansion · 3 cities, 4 events</div></div>
-      <div class="cred-card reveal reveal-d1"><div class="cred-num">1st</div><div class="cred-label"><strong>WA State Science Fair</strong>3D CNN brain stroke classifier</div></div>
-      <div class="cred-card reveal reveal-d2"><div class="cred-num">Nobel</div><div class="cred-label"><strong>ISB · Baliga Lab</strong>HS researcher · HIV + preeclampsia ML</div></div>
-      <div class="cred-card reveal reveal-d3"><div class="cred-num">Most<br/>Innov.</div><div class="cred-label"><strong>Harvard HSIL Hackathon</strong>MedSim · 3D Gaussian splat + 6 agents</div></div>
+  <!-- QUICK FACTS -->
+  <section class="qf-outer">
+    <div class="qf-eyebrow">Quick facts</div>
+    <div class="qf-row">
+      <span class="qf-item"><strong>CMU CS '30</strong> · 4.0 GPA</span>
+      <span class="qf-sep">/</span>
+      <span class="qf-item">Stanford + CMU summer coursework</span>
+      <span class="qf-sep">/</span>
+      <span class="qf-item">ACT 36</span>
+      <span class="qf-sep">/</span>
+      <span class="qf-item">ML research at the <strong>Baliga Lab, ISB</strong></span>
+      <span class="qf-sep">/</span>
+      <span class="qf-item">Patent at <strong>OncoScan AI</strong></span>
+      <span class="qf-sep">/</span>
+      <span class="qf-item">Funded trader at TopStep</span>
+      <span class="qf-sep">/</span>
+      <span class="qf-item">Most Innovative · <strong>Harvard HSIL</strong> Hackathon</span>
     </div>
   </section>
 
@@ -995,9 +949,9 @@
   <section class="section-wrap ruled" id="affiliations">
     <div class="section-eyebrow">Work &amp; Research</div>
     <div class="aff-grid">
-      <a class="aff-card reveal" href="#presonance" style="text-decoration:none;color:inherit;border-color:rgba(56,189,248,0.25);background:rgba(56,189,248,0.04)">
+      <a class="aff-card reveal" href="https://presonance.tech" target="_blank" style="text-decoration:none;color:inherit;border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.03)">
         <div class="aff-logo-wrap fallback" style="font-size:13px;font-weight:700;color:var(--accent)">PR</div>
-        <div class="aff-info"><div class="aff-role">Founder &amp; CEO</div><div class="aff-org">Presonance · 2025–now</div></div>
+        <div class="aff-info"><div class="aff-role">Founder</div><div class="aff-org">Presonance · presonance.tech</div></div>
       </a>
       <a class="aff-card reveal reveal-d1" href="https://aivalley.io" target="_blank" style="text-decoration:none;color:inherit">
         <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='AV'"></div>
@@ -1046,10 +1000,10 @@
     <div class="proj-strip" id="projStrip">
 
       <div class="proj" data-project="presonance">
-        <div class="proj-header"><div class="proj-icon">🧠</div><span class="proj-type-badge award-badge-sm">● Live · Founder</span></div>
+        <div class="proj-header"><div class="proj-icon">🧠</div><span class="proj-type-badge award-badge-sm">● Building</span></div>
         <div class="proj-name">Presonance</div>
-        <div class="proj-desc">Comp-neuro ad prediction. Replaces A/B testing — predicts creative performance before any spend. Pilots with 100K+ creators; partnership talks with Meta.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip a">Meta Talks</span><span class="chip">Comp-Neuro</span><span class="chip">MIT Team</span></div>
+        <div class="proj-desc">A small comp-neuro lab. We predict how people actually respond to ads — before any spend. Quietly piloting with a few partners.</div>
+        <div class="chips" style="margin-bottom:22px"><span class="chip a">presonance.tech</span><span class="chip">Comp-neuro</span><span class="chip">PyTorch · JAX</span></div>
         <div class="proj-link gl">Open project ↗</div>
       </div>
 
@@ -1570,24 +1524,19 @@
     // ── PROJECT MODALS ──
     const PROJECTS = {
       'presonance': {
-        icon: '🧠', type: 'Startup · Founder & CEO · 2025–Present', title: 'Presonance',
-        tagline: 'Comp-neuro ad prediction platform that kills A/B testing and LLM feedback — neither simulates real human response. Ours does.',
-        links: [{ label: 'Get in touch →', url: 'mailto:vihaans@andrew.cmu.edu?subject=Presonance', cls: 'primary' }],
+        icon: '🧠', type: 'Founder · 2025–present · presonance.tech', title: 'Presonance',
+        tagline: 'A small comp-neuro lab predicting how people actually respond to ads — before any spend.',
+        links: [
+          { label: 'presonance.tech →', url: 'https://presonance.tech', cls: 'primary' },
+          { label: 'Get in touch', url: 'mailto:vihaans@andrew.cmu.edu?subject=Presonance', cls: 'ghost' }
+        ],
         desc: [
-          'Presonance predicts how real humans will respond to an ad <em>before</em> a single dollar is spent. We borrow from computational neuroscience to simulate attention, valence, and recall — the things A/B tests measure too slowly and LLM "judges" hallucinate.',
-          'Pilots are live with multiple 100K+ content creators and SMMA agencies. Active partnership discussions with Meta; inbound interest from YouTube and Walmart. Team includes MIT researchers and NeurIPS-published authors; advised by a Georgia Tech neuroscience professor, members of Meta\'s ad intelligence team, and the founder of LushLife.ai.'
+          'Most teams test creative with A/B or ask an LLM what it thinks. Neither tells you how a real human nervous system actually reacts. We\'re trying to model that directly — drawing from comp-neuro and a small amount of agentic infra.',
+          'Quietly piloting with a handful of creators, agencies, and one large platform. Advised by folks at Meta, a Georgia Tech neuroscience professor, and the founder of LushLife.ai. More on <a href="https://presonance.tech" target="_blank" style="color:var(--accent)">presonance.tech</a>.'
         ],
-        stack: ['PyTorch', 'JAX', 'FastAPI', 'Postgres', 'Comp-Neuro', 'Agentic Systems'],
-        awards: [
-          { num: '🤝', title: 'Partnership Talks · Meta', sub: 'Active partnership discussions with Meta' },
-          { num: '📣', title: 'Inbound · YouTube & Walmart', sub: 'Inbound interest from major platforms' },
-          { num: '🧪', title: 'Pilots Live', sub: '100K+ creators & SMMA agencies using the platform' }
-        ],
-        mentors: [
-          { initials: 'GT', name: 'Georgia Tech Neuroscience Faculty', role: 'Advisor · Computational Neuroscience', bio: 'Advising on the neural-response modeling layer.' },
-          { initials: 'M', name: 'Meta · Ad Intelligence Team', role: 'Advisors', bio: 'Advising on ad-platform integration and creative measurement.' },
-          { initials: 'LL', name: 'Founder · LushLife.ai', role: 'Advisor · GTM', bio: 'Advising on creator-economy GTM and partnership strategy.' }
-        ]
+        stack: ['PyTorch', 'JAX', 'FastAPI', 'Postgres'],
+        awards: [],
+        mentors: []
       },
       'sentinent': {
         icon: '📈', type: 'Personal Project · In Progress', title: 'Sentinent',
