@@ -828,7 +828,7 @@
     .timeline { position: relative; max-width: 1060px; margin: 0 auto; padding: 30px 48px 70px; z-index: 4; }
     .tl-head { text-align:center; margin: 6px 0 64px; }
     .tl-head .section-eyebrow { justify-content:center; display:flex; }
-    .tl-head h2 { font-size: clamp(30px,4.4vw,52px); font-weight:700; letter-spacing:-0.025em; line-height:1.03; margin-top:16px; }
+    .tl-head h2 { font-size: clamp(30px,4.4vw,52px); font-weight:700; letter-spacing:-0.025em; line-height:1.03; margin-top:16px; color:#4fc6f7; }
     .tl-head p { color: var(--muted); margin-top:16px; font-size:15px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.6; }
     .tl-head .tl-down { display:inline-block; margin-top:22px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:rgba(170,215,235,0.6); }
 
@@ -851,16 +851,16 @@
     /* clean editorial entries — no boxes */
     .tl-entry { position: relative; padding: 2px 0 22px; transition: transform .25s; }
     .tl-entry.clickable:hover { transform: translateX(6px); }
-    .tl-entry.clickable:hover .tl-title { color: var(--accent); }
+    .tl-entry.clickable:hover .tl-title { color: #a6ddff; }
     .tl-top { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:7px; }
     .tl-cat { font-size:10.5px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; }
     .tl-cat.exp { color:#fbbf24; } .tl-cat.research { color:#4ade80; } .tl-cat.project { color:#38bdf8; }
     .tl-cat.edu { color:#c084fc; } .tl-cat.award { color:#f5d76e; } .tl-cat.cert { color:#5eead4; }
     .tl-cat.rec { color:rgba(190,225,245,0.6); }
-    .tl-title { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; letter-spacing:-0.01em; color:var(--text); transition:color .2s; text-shadow:0 1px 16px rgba(0,8,16,0.6); }
-    .tl-org { font-size:13px; color: rgba(170,215,235,0.78); margin-top:3px; text-shadow:0 1px 12px rgba(0,8,16,0.55); }
-    .tl-desc { font-size:14.5px; line-height:1.62; color: rgba(206,224,236,0.82); margin-top:10px; max-width:620px; text-shadow:0 1px 12px rgba(0,8,16,0.55); }
-    .tl-quote .tl-desc { font-size:16px; font-style:italic; color:rgba(220,235,245,0.9); line-height:1.6; }
+    .tl-title { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; letter-spacing:-0.01em; color:#4fc6f7; transition:color .2s; text-shadow:0 1px 16px rgba(0,12,24,0.7); }
+    .tl-org { font-size:13px; color: rgba(120,188,224,0.72); margin-top:3px; text-shadow:0 1px 12px rgba(0,12,24,0.6); }
+    .tl-desc { font-size:14.5px; line-height:1.62; color: rgba(143,205,238,0.88); margin-top:10px; max-width:620px; text-shadow:0 1px 12px rgba(0,12,24,0.6); }
+    .tl-quote .tl-desc { font-size:16px; font-style:italic; color:rgba(176,221,247,0.92); line-height:1.6; }
     .tl-open { display:inline-block; font-size:12px; color:var(--accent); margin-top:12px; opacity:.5; transition:opacity .2s; }
     .tl-entry.clickable:hover .tl-open { opacity:1; }
     @media(max-width:680px){ .timeline{ padding:24px 18px 60px; } .tl-grid{ grid-template-columns:16px 1fr; gap:0 14px; } }
@@ -1128,11 +1128,6 @@
           <div class="shot-ph proj-shot ph" style="display:none;height:300px;position:static"><span class="ph-ico">🧠</span>presonance.tech</div>
           <div class="glass-sheen"></div>
         </div>
-        <div class="feat-card" style="margin-top:16px">
-          <div class="feat-card-row"><span class="feat-card-key">Stage</span><span class="feat-card-val">Private pilots</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">Piloting with</span><span class="feat-card-val a">Meta &amp; others</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">Advised by</span><span class="feat-card-val">Meta · Georgia Tech · LushLife.ai</span></div>
-        </div>
       </a>
     </div>
   </section>
@@ -1140,68 +1135,60 @@
   <!-- ════════════ THE DESCENT — a timeline back in time ════════════ -->
   <section class="timeline" id="journey">
     <div class="tl-head">
-      <div class="section-eyebrow">The descent</div>
-      <h2 class="flow">How I got here.</h2>
-      <p class="flow">Read top to bottom — newest first. The deeper you swim, the further back you go. Everything I've actually built, broken, and shipped. The gauge on the left is the year.</p>
-      <span class="tl-down">↓  2026 — 2023</span>
+      <div class="section-eyebrow">the descent</div>
+      <h2 class="flow">how i got here.</h2>
+      <p class="flow">newest first. the deeper you go, the further back it is. everything i actually built, broke, and shipped. the gauge on the left is the year.</p>
+      <span class="tl-down">↓  2026 : 2023</span>
     </div>
 
     <!-- 2026 -->
     <div class="tl-era" data-year="2026">
-      <div class="tl-era-head"><span class="tl-year">2026</span><span class="tl-era-note">now · the surface</span></div>
+      <div class="tl-era-head"><span class="tl-year">2026</span><span class="tl-era-note">now : the surface</span></div>
       <div class="tl-grid">
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
           <article class="tl-entry">
-            <div class="tl-top"><span class="tl-cat edu">Education</span></div>
-            <div class="tl-title flow">Computer Science at Carnegie Mellon</div>
-            <div class="tl-org flow">Starting Aug 2026 · 4.0 GPA</div>
-            <div class="tl-desc flow">This fall I start CS at one of the best programs there is. I'm already on the teams behind ScottyLabs Foundry and UEAX.</div>
+            <div class="tl-title flow">cs at carnegie mellon</div>
+            <div class="tl-org flow">starting aug 2026 : 4.0 gpa</div>
+            <div class="tl-desc flow">this fall i start cs at one of the best programs there is. already on the teams behind scottylabs foundry and ueax.</div>
           </article>
           <article class="tl-entry clickable" data-project="isb">
-            <div class="tl-top"><span class="tl-cat research">Research</span></div>
-            <div class="tl-title flow">Machine Learning Researcher — ISB</div>
-            <div class="tl-org flow">Institute for Systems Biology · Oct 2025 – Jun 2026 · Seattle</div>
-            <div class="tl-desc flow">For nine months I built ML systems for preeclampsia diagnostic and prognostic modeling. Just wrapped it this June.</div>
-            <span class="tl-open">Open ↗</span>
+            <div class="tl-title flow">ml researcher at ISB</div>
+            <div class="tl-org flow">institute for systems biology : oct 2025 - jun 2026 : seattle</div>
+            <div class="tl-desc flow">spent nine months building ml systems for preeclampsia diagnostic and prognostic modeling. just wrapped this june.</div>
+            <span class="tl-open">open ↗</span>
           </article>
           <article class="tl-entry clickable" data-project="medsim">
-            <div class="tl-top"><span class="tl-cat award">Most Innovative</span></div>
-            <div class="tl-title flow">MedSim — Harvard HSIL</div>
-            <div class="tl-org flow">Harvard Health Systems Innovation Lab · Apr 2026</div>
-            <div class="tl-desc flow">I built a world-models-based agent deployment system for trauma centers. It won Most Innovative at Harvard's HSIL.</div>
-            <span class="tl-open">Open ↗</span>
+            <div class="tl-title flow">medsim at harvard HSIL</div>
+            <div class="tl-org flow">most innovative : apr 2026</div>
+            <div class="tl-desc flow">i built a world models based agent system for trauma centers. it won most innovative at harvard's health systems innovation lab.</div>
+            <span class="tl-open">open ↗</span>
           </article>
           <article class="tl-entry clickable" data-project="sentinent">
-            <div class="tl-top"><span class="tl-cat project">Project</span></div>
-            <div class="tl-title flow">Sentinent</div>
-            <div class="tl-org flow">Mar 2026</div>
-            <div class="tl-desc flow">I built a swarm-intelligence trading engine — predictive simulation feeding a reasoning layer that turns live sentiment into explainable position calls.</div>
-            <span class="tl-open">Open ↗</span>
+            <div class="tl-title flow">sentinent</div>
+            <div class="tl-org flow">mar 2026</div>
+            <div class="tl-desc flow">built a swarm intelligence trading engine: predictive sim feeding a reasoning layer that turns live sentiment into calls i can actually explain.</div>
+            <span class="tl-open">open ↗</span>
           </article>
           <a class="tl-entry clickable" data-href="https://aivalley.io" target="_blank">
-            <div class="tl-top"><span class="tl-cat exp">Experience</span></div>
-            <div class="tl-title flow">Expansion — AI Valley</div>
-            <div class="tl-org flow">Dec 2025 – now</div>
-            <div class="tl-desc flow">I ran expansion — tech demos and hackathons with OpenAI, Anthropic, and Afore, nationwide. I've since moved into a part-time coordinator role to focus on the startup.</div>
-            <span class="tl-open">Visit ↗</span>
+            <div class="tl-title flow">expansion at AI valley</div>
+            <div class="tl-org flow">dec 2025 - now</div>
+            <div class="tl-desc flow">ran expansion: tech demos and hackathons with openai, anthropic, and afore, nationwide. moved into a part time coordinator role to focus on the startup.</div>
+            <span class="tl-open">visit ↗</span>
           </a>
           <article class="tl-entry">
-            <div class="tl-top"><span class="tl-cat research">The through-line</span></div>
-            <div class="tl-title flow">I build, break, and retrain.</div>
-            <div class="tl-org flow">Ongoing · the actual job</div>
-            <div class="tl-desc flow">Most of what I know came from experiments that didn't work yet — brain encoders, world-model agents, trading indicators I coded myself. I train models, break them, and keep going until they hold.</div>
+            <div class="tl-title flow">i build, break, and retrain</div>
+            <div class="tl-org flow">ongoing : the actual job</div>
+            <div class="tl-desc flow">most of what i know came from experiments that didn't work yet: brain encoders, world model agents, trading indicators i coded myself. i train models, break them, and keep going till they hold.</div>
           </article>
           <article class="tl-entry">
-            <div class="tl-top"><span class="tl-cat cert">Certification</span></div>
-            <div class="tl-title flow">PADI Advanced Open Water Diver</div>
-            <div class="tl-org flow">PADI · Issued Feb 2026</div>
-            <div class="tl-desc flow">Certified to go deeper and run my own dives. The ocean this whole page is built around — I actually spend time down there.</div>
+            <div class="tl-title flow">padi advanced open water diver</div>
+            <div class="tl-org flow">padi : issued feb 2026</div>
+            <div class="tl-desc flow">certified to go deeper and run my own dives. the ocean this whole page is built on, i actually spend time down there.</div>
           </article>
           <article class="tl-entry tl-quote">
-            <div class="tl-top"><span class="tl-cat rec">In their words</span></div>
-            <div class="tl-desc flow">"Vihaan is one of the smartest people I've ever met. His raw technical skillsets, paired with his GTM and networking abilities, make him an extremely talented force of our generation."</div>
-            <div class="tl-org flow">— Benjamin Chan · CS/AI @ CMU, Co-Founder @ Xyla · May 2026</div>
+            <div class="tl-desc flow">"vihaan is one of the smartest people i've ever met. his raw technical skillsets, paired with his GTM and networking abilities, make him an extremely talented force of our generation."</div>
+            <div class="tl-org flow">benjamin chan : cs/ai @ cmu, co-founder @ xyla : may 2026</div>
           </article>
         </div>
       </div>
@@ -1209,23 +1196,21 @@
 
     <!-- 2025 -->
     <div class="tl-era" data-year="2025">
-      <div class="tl-era-head"><span class="tl-year">2025</span><span class="tl-era-note">twilight · the build years</span></div>
+      <div class="tl-era-head"><span class="tl-year">2025</span><span class="tl-era-note">twilight : the build years</span></div>
       <div class="tl-grid">
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
           <a class="tl-entry clickable" data-href="https://topstep.com" target="_blank">
-            <div class="tl-top"><span class="tl-cat exp">Experience · Trading</span></div>
-            <div class="tl-title flow">Funded Trader — Topstep</div>
-            <div class="tl-org flow">May 2025 – Mar 2026</div>
-            <div class="tl-desc flow">I coded my own AI indicators, passed the eval, and traded a funded account — made some money, then quit to go all-in on Presonance.</div>
-            <span class="tl-open">Visit ↗</span>
+            <div class="tl-title flow">funded trader at topstep</div>
+            <div class="tl-org flow">may 2025 - mar 2026</div>
+            <div class="tl-desc flow">coded my own ai indicators, passed the eval, traded a funded account. made some money, then quit to go all in on presonance.</div>
+            <span class="tl-open">visit ↗</span>
           </a>
           <a class="tl-entry clickable" data-href="https://stanford.edu" target="_blank">
-            <div class="tl-top"><span class="tl-cat edu">Education</span></div>
-            <div class="tl-title flow">Coursework at Stanford</div>
-            <div class="tl-org flow">Jun – Aug 2025 · DATASCI 112, STATS 191</div>
-            <div class="tl-desc flow">A summer of data science and statistics — the math under everything I build.</div>
-            <span class="tl-open">Visit ↗</span>
+            <div class="tl-title flow">coursework at stanford</div>
+            <div class="tl-org flow">jun - aug 2025 : datasci 112, stats 191</div>
+            <div class="tl-desc flow">a summer of data science and stats. the math under everything i build.</div>
+            <span class="tl-open">visit ↗</span>
           </a>
         </div>
       </div>
@@ -1238,24 +1223,21 @@
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
           <article class="tl-entry clickable" data-project="oncoscan">
-            <div class="tl-top"><span class="tl-cat exp">Experience · Startup</span></div>
-            <div class="tl-title flow">Founder — OncoScan.ai</div>
-            <div class="tl-org flow">Aug 2024 – Dec 2025</div>
-            <div class="tl-desc flow">I built and patented an oral-cancer detection model, landed national partnerships, and got into AWS Activate — at 17.</div>
-            <span class="tl-open">Open ↗</span>
+            <div class="tl-title flow">founder at oncoscan.ai</div>
+            <div class="tl-org flow">aug 2024 - dec 2025</div>
+            <div class="tl-desc flow">built and patented an oral cancer detection model, landed national partnerships, got into aws activate. i was 17.</div>
+            <span class="tl-open">open ↗</span>
           </article>
           <a class="tl-entry clickable" data-href="https://theupliftnetwork.org" target="_blank">
-            <div class="tl-top"><span class="tl-cat exp">Volunteering · Founder</span></div>
-            <div class="tl-title flow">Founder — Uplift Network</div>
-            <div class="tl-org flow">Jun 2024 – Jan 2026</div>
-            <div class="tl-desc flow">I built a CS program and put it in front of 3,000+ students across 50+ schools — and helped cover college tuition for kids who finished it. I still advise and fund what I can.</div>
-            <span class="tl-open">Visit ↗</span>
+            <div class="tl-title flow">founder at uplift network</div>
+            <div class="tl-org flow">jun 2024 - jan 2026</div>
+            <div class="tl-desc flow">built a cs program and put it in front of 3,000+ students across 50+ schools, and helped cover college tuition for kids who finished it. still advise and fund what i can.</div>
+            <span class="tl-open">visit ↗</span>
           </a>
           <article class="tl-entry">
-            <div class="tl-top"><span class="tl-cat edu">Education</span></div>
-            <div class="tl-title flow">CMU Pre-College &amp; Stanford SPCS (AI)</div>
-            <div class="tl-org flow">Summer 2024</div>
-            <div class="tl-desc flow">My first real summer of it — Carnegie Mellon Pre-College and Stanford's summer AI program. A lot of this clicked here.</div>
+            <div class="tl-title flow">cmu pre-college and stanford spcs (ai)</div>
+            <div class="tl-org flow">summer 2024</div>
+            <div class="tl-desc flow">my first real summer of it: carnegie mellon pre-college and stanford's summer ai program. a lot of this clicked here.</div>
           </article>
         </div>
       </div>
@@ -1263,22 +1245,15 @@
 
     <!-- 2023 -->
     <div class="tl-era" data-year="2023">
-      <div class="tl-era-head"><span class="tl-year">2023</span><span class="tl-era-note">the abyss · where it started</span></div>
+      <div class="tl-era-head"><span class="tl-year">2023</span><span class="tl-era-note">the abyss : where it started</span></div>
       <div class="tl-grid">
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
           <article class="tl-entry clickable" data-project="brain-stroke">
-            <div class="tl-top"><span class="tl-cat research">Research</span><span class="tl-cat award">1st Place</span></div>
-            <div class="tl-title flow">Brain Stroke Classifier</div>
-            <div class="tl-org flow">1st Place — WA State Science &amp; Engineering Fair</div>
-            <div class="tl-desc flow">I built a 3D CNN that reads brain CT scans for stroke risk — capturing the whole volume, not just slices. This is where the ML obsession actually started.</div>
-            <span class="tl-open">Open ↗</span>
-          </article>
-          <article class="tl-entry">
-            <div class="tl-top"><span class="tl-cat edu">Off the clock</span></div>
-            <div class="tl-title flow">Life outside the lab</div>
-            <div class="tl-org flow">Scuba · Skiing · Climbing</div>
-            <div class="tl-desc flow">Black-diamond skiing in the Cascades, V5 bouldering in SF, and as much time underwater as I can get. Everything not spent coding, accounted for. <a href="hobbies.html" style="color:var(--accent);text-decoration:none">See more ↗</a></div>
+            <div class="tl-title flow">brain stroke classifier</div>
+            <div class="tl-org flow">1st place : wa state science and engineering fair</div>
+            <div class="tl-desc flow">built a 3d cnn that reads brain ct scans for stroke risk, capturing the whole volume instead of just slices. this is where the ml obsession actually started.</div>
+            <span class="tl-open">open ↗</span>
           </article>
         </div>
       </div>
