@@ -692,12 +692,11 @@
       position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: var(--caustic);
       mix-blend-mode: screen; transition: opacity .3s linear;
       background:
-        radial-gradient(ellipse 50% 38% at 22% -8%, rgba(120,220,255,0.22), transparent 60%),
-        radial-gradient(ellipse 42% 34% at 70% -10%, rgba(150,230,255,0.18), transparent 60%),
-        repeating-linear-gradient(102deg, rgba(150,225,255,0.05) 0px, rgba(150,225,255,0.05) 2px, transparent 2px, transparent 26px);
-      animation: causticShift 14s ease-in-out infinite alternate;
+        radial-gradient(ellipse 60% 42% at 22% -10%, rgba(120,220,255,0.18), transparent 62%),
+        radial-gradient(ellipse 50% 38% at 72% -12%, rgba(150,230,255,0.14), transparent 62%);
+      animation: causticShift 16s ease-in-out infinite alternate;
     }
-    @keyframes causticShift { 0%{ background-position:0 0,0 0,0 0; transform:translateX(0) } 100%{ background-position:40px 0,-30px 0,60px 0; transform:translateX(-14px) } }
+    @keyframes causticShift { 0%{ transform:translateX(0) scale(1) } 100%{ transform:translateX(-22px) scale(1.04) } }
     /* Depth vignette — closes in as you go deeper */
     #vignette {
       position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: var(--depth);
@@ -821,6 +820,69 @@
       background: rgba(255,255,255,0.55) !important; border-color: rgba(20,90,110,0.18) !important;
     }
 
+    /* ── DEPTH HUD: year readout ── */
+    .dh-year { text-align:center; font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--accent); letter-spacing:-0.02em; line-height:1; margin-bottom:3px; text-shadow:0 0 16px rgba(56,189,248,0.4); }
+    .dh-yearsub { text-align:center; font-size:8px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(170,215,235,0.55); margin-bottom:14px; }
+
+    /* ════════════════ THE DESCENT TIMELINE ════════════════ */
+    .timeline { position: relative; max-width: 1060px; margin: 0 auto; padding: 30px 48px 70px; z-index: 4; }
+    .tl-head { text-align:center; margin: 6px 0 64px; }
+    .tl-head .section-eyebrow { justify-content:center; display:flex; }
+    .tl-head h2 { font-size: clamp(30px,4.4vw,52px); font-weight:700; letter-spacing:-0.025em; line-height:1.03; margin-top:16px; }
+    .tl-head p { color: var(--muted); margin-top:16px; font-size:15px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.6; }
+    .tl-head .tl-down { display:inline-block; margin-top:22px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:rgba(170,215,235,0.6); }
+
+    .tl-era { position: relative; padding: 0 0 30px; }
+    .tl-era-head { display:flex; align-items:baseline; gap:16px; margin: 0 0 24px; }
+    .tl-year { font-family:'Space Grotesk',sans-serif; font-size: clamp(38px,6.5vw,80px); font-weight:700; letter-spacing:-0.04em; line-height:.78;
+      color: transparent; -webkit-text-stroke: 1px rgba(140,210,240,0.45); transition: color .4s, -webkit-text-stroke-color .4s, text-shadow .4s; }
+    .tl-era.active .tl-year { color: var(--accent); -webkit-text-stroke-color: transparent; text-shadow: 0 0 34px rgba(56,189,248,0.45); }
+    .tl-era-note { font-size:11px; letter-spacing:2px; text-transform:uppercase; color: rgba(170,215,235,0.55); }
+
+    .tl-grid { display:grid; grid-template-columns: 24px 1fr; gap: 0 26px; }
+    .tl-spine { position: relative; }
+    .tl-spine::before { content:''; position:absolute; left:50%; top:7px; bottom:-30px; width:1px; transform:translateX(-50%);
+      background: linear-gradient(180deg, rgba(140,210,240,0.30), rgba(140,210,240,0.06)); }
+    .tl-era:last-child .tl-spine::before { bottom: 40%; }
+    .tl-node { position:absolute; left:50%; top:7px; width:11px; height:11px; border-radius:50%; transform:translateX(-50%);
+      background: var(--sea-2,#06283a); border:2px solid var(--accent); box-shadow:0 0 14px rgba(56,189,248,0.5); }
+
+    .tl-list { display:flex; flex-direction:column; gap:15px; }
+    .tl-entry { position: relative; border-radius:16px; padding:19px 22px;
+      background: rgba(8,34,50,0.42); border:1px solid rgba(130,205,235,0.14);
+      backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
+      transition: border-color .25s, transform .25s, background .25s; }
+    .tl-entry.clickable:hover { border-color: rgba(130,205,235,0.42); transform: translateX(5px); background: rgba(10,44,62,0.55); }
+    .tl-top { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:9px; }
+    .tl-cat { font-size:10px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; padding:3px 9px; border-radius:99px; white-space:nowrap; }
+    .tl-cat.exp { color:#fbbf24; background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); }
+    .tl-cat.research { color:#4ade80; background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.3); }
+    .tl-cat.project { color:#38bdf8; background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.3); }
+    .tl-cat.edu { color:#c084fc; background:rgba(192,132,252,0.1); border:1px solid rgba(192,132,252,0.3); }
+    .tl-cat.award { color:#f5d76e; background:rgba(245,215,110,0.1); border:1px solid rgba(245,215,110,0.3); }
+    .tl-title { font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; letter-spacing:-0.01em; color:var(--text); }
+    .tl-org { font-size:13px; color: rgba(170,215,235,0.78); margin-top:3px; }
+    .tl-desc { font-size:14px; line-height:1.62; color: var(--muted); margin-top:11px; }
+    .tl-chips { display:flex; gap:7px; flex-wrap:wrap; margin-top:13px; }
+    .tl-chips .chip { font-size:11px; padding:4px 10px; border-radius:99px; background:rgba(130,205,235,0.08); border:1px solid rgba(130,205,235,0.18); color:rgba(190,225,245,0.85); }
+    .tl-open { display:inline-block; font-size:12px; color:var(--accent); margin-top:13px; opacity:.55; transition:opacity .2s; }
+    .tl-entry.clickable:hover .tl-open { opacity:1; }
+    @media(max-width:680px){ .timeline{ padding:24px 18px 60px; } .tl-grid{ grid-template-columns:16px 1fr; gap:0 14px; } }
+
+    /* ── FLOW TEXT — words part around the cursor (no reflow) ── */
+    .flow-w { display:inline-block; white-space:pre; will-change:transform; }
+
+    /* ── FOOTER LINKS BAR ── */
+    .links-bar { position:relative; z-index:5; text-align:center; padding: 30px 24px 12px; }
+    .links-bar .lb-pre { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(170,215,235,0.5); margin-bottom:16px; }
+    .links-bar a.links-cta { display:inline-flex; align-items:center; gap:11px; padding:14px 26px; border-radius:99px;
+      background: rgba(8,34,50,0.5); border:1px solid rgba(130,205,235,0.25); color:var(--text); text-decoration:none;
+      font-size:14px; font-weight:500; backdrop-filter:blur(8px); transition: border-color .25s, background .25s, transform .25s; }
+    .links-bar a.links-cta:hover { border-color: var(--accent); background: rgba(10,44,62,0.62); transform: translateY(-2px); }
+    .links-bar .lb-dot { width:7px; height:7px; border-radius:50%; background:#7fe3a0; box-shadow:0 0 10px #7fe3a0; animation: livePulse 1.6s ease-in-out infinite; }
+    [data-theme="light"] .timeline .tl-entry { background: rgba(255,255,255,0.55); border-color: rgba(20,90,110,0.18); }
+    [data-theme="light"] .links-bar a.links-cta { background: rgba(255,255,255,0.6); border-color: rgba(20,90,110,0.2); }
+
     @media (prefers-reduced-motion: reduce) {
       #caustics, .bubble { animation: none !important; }
     }
@@ -864,6 +926,8 @@
 
   <!-- Depth gauge HUD -->
   <div id="depth-hud">
+    <div class="dh-year" id="dh-year">2026</div>
+    <div class="dh-yearsub" id="dh-yearsub">now</div>
     <div class="dh-track">
       <span class="dh-tick" style="top:0%"></span>
       <span class="dh-tick" style="top:33%"></span>
@@ -881,10 +945,8 @@
     <a href="#" class="nav-logo">V<span>S</span></a>
     <div class="nav-links">
       <a href="#presonance">Presonance</a>
-      <a href="#affiliations">Work</a>
-      <a href="#projects">Projects</a>
-      <a href="#hobbies">Off Screen</a>
-      <a href="#contact">Connect</a>
+      <a href="#journey">The Descent</a>
+      <a href="https://v1hns.github.io/all-my-links/" target="_blank">Links ↗</a>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
     </div>
   </nav>
@@ -977,7 +1039,7 @@
         
           <!-- CLICKABLE FISH (swim behind everything) -->
           <!-- Fish 2: Where I've Been → yellow, swims right, y=660 -->
-          <g class="sf-r2 hero-fish" data-target="affiliations" transform="translate(0,660)" style="opacity:0.85">
+          <g class="sf-r2 hero-fish" data-target="journey" transform="translate(0,660)" style="opacity:0.85">
             <path d="M-24,0 L-36,-13 L-36,13 Z" fill="#fbbf24"/>
             <ellipse cx="0" cy="0" rx="28" ry="12" fill="#fbbf24"/>
             <ellipse cx="1" cy="3" rx="18" ry="7" fill="rgba(255,255,255,0.2)"/>
@@ -987,7 +1049,7 @@
             <text x="32" y="-21" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fbbf24" letter-spacing="0.3">Where I've Been ↓</text>
           </g>
           <!-- Fish 3: Projects → green, swims right, y=720 -->
-          <g class="sf-r3 hero-fish" data-target="projects" transform="translate(0,720)" style="opacity:0.85">
+          <g class="sf-r3 hero-fish" data-target="journey" transform="translate(0,720)" style="opacity:0.85">
             <path d="M-24,0 L-36,-13 L-36,13 Z" fill="#4ade80"/>
             <ellipse cx="0" cy="0" rx="28" ry="12" fill="#4ade80"/>
             <ellipse cx="1" cy="3" rx="18" ry="7" fill="rgba(255,255,255,0.2)"/>
@@ -996,16 +1058,16 @@
             <rect x="-10" y="-34" width="76" height="18" rx="9" fill="rgba(4,13,30,0.8)"/>
             <text x="28" y="-21" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#4ade80" letter-spacing="0.3">Projects ↓</text>
           </g>
-          <!-- Fish 4: Contact → purple, swims left, y=640 -->
-          <g class="sf-l1 hero-fish" data-target="contact" transform="translate(0,640)" style="opacity:0.85">
+          <!-- Fish 4: All My Links → purple, swims left, y=640 -->
+          <g class="sf-l1 hero-fish" data-target="https://v1hns.github.io/all-my-links/" transform="translate(0,640)" style="opacity:0.85">
             <g transform="scale(-1,1)">
               <path d="M-24,0 L-36,-13 L-36,13 Z" fill="#c084fc"/>
               <ellipse cx="0" cy="0" rx="28" ry="12" fill="#c084fc"/>
               <ellipse cx="1" cy="3" rx="18" ry="7" fill="rgba(255,255,255,0.2)"/>
               <path d="M -5,-12 C 2,-22 16,-21 18,-12" fill="#c084fc" opacity="0.6"/>
               <circle cx="18" cy="-4" r="3.5" fill="white"/><circle cx="19" cy="-4" r="2" fill="#0a1a2e"/>
-              <rect x="-14" y="-34" width="74" height="18" rx="9" fill="rgba(4,13,30,0.8)"/>
-              <text x="23" y="-21" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#c084fc" letter-spacing="0.3">Contact ↓</text>
+              <rect x="-18" y="-34" width="84" height="18" rx="9" fill="rgba(4,13,30,0.8)"/>
+              <text x="25" y="-21" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#c084fc" letter-spacing="0.3">All My Links ↗</text>
             </g>
           </g>
           <!-- Fish 5: Hobbies → orange, swims left, y=695 -->
@@ -1125,240 +1187,165 @@
     </div>
   </section>
 
-  <!-- QUICK FACTS -->
-  <section class="qf-outer">
-    <div class="qf-eyebrow">Quick facts</div>
-    <div class="qf-row">
-      <span class="qf-item"><strong>CMU CS '30</strong> · 4.0 GPA</span>
-      <span class="qf-sep">/</span>
-      <span class="qf-item">Stanford + CMU summer coursework</span>
-      <span class="qf-sep">/</span>
-      <span class="qf-item">ACT 36</span>
-      <span class="qf-sep">/</span>
-      <span class="qf-item">ML research at the <strong>Baliga Lab, ISB</strong></span>
-      <span class="qf-sep">/</span>
-      <span class="qf-item">Patent at <strong>OncoScan AI</strong></span>
-      <span class="qf-sep">/</span>
-      <span class="qf-item">Funded trader at TopStep</span>
-      <span class="qf-sep">/</span>
-      <span class="qf-item">Most Innovative · <strong>Harvard HSIL</strong> Hackathon</span>
+  <!-- ════════════ THE DESCENT — a timeline back in time ════════════ -->
+  <section class="timeline" id="journey">
+    <div class="tl-head">
+      <div class="section-eyebrow">The descent</div>
+      <h2 class="flow">Deeper is further back.</h2>
+      <p class="flow">Everything I've built, researched, and shipped — read top to bottom, newest first. The deeper you swim, the further back in time you go. The gauge on the left is the year.</p>
+      <span class="tl-down">↓  2026 — 2023</span>
+    </div>
+
+    <!-- 2026 -->
+    <div class="tl-era" data-year="2026">
+      <div class="tl-era-head"><span class="tl-year">2026</span><span class="tl-era-note">now · the surface</span></div>
+      <div class="tl-grid">
+        <div class="tl-spine"><span class="tl-node"></span></div>
+        <div class="tl-list">
+          <article class="tl-entry clickable" data-project="medsim">
+            <div class="tl-top"><span class="tl-cat award">Award · Hackathon</span></div>
+            <div class="tl-title flow">MedSim</div>
+            <div class="tl-org flow">Most Innovative — Harvard Health Systems Innovation Lab</div>
+            <div class="tl-desc flow">Auto-ingests hospital imagery into a navigable 3D Gaussian-splat world model, then dispatches six agent teams to detect safety risks live — streamed to a dashboard and exported as FHIR R4.</div>
+            <div class="tl-chips"><span class="chip">3D Gaussian Splat</span><span class="chip">6 Agents</span><span class="chip">FHIR R4</span></div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry">
+            <div class="tl-top"><span class="tl-cat edu">Education</span></div>
+            <div class="tl-title flow">B.S. Computer Science — Carnegie Mellon</div>
+            <div class="tl-org flow">CMU · Class of 2030 · 4.0 GPA</div>
+            <div class="tl-desc flow">Started at one of the strongest CS programs in the world. Heads-down on ML, systems, and shipping real things on the side.</div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="tl-era" data-year="2025">
+      <div class="tl-era-head"><span class="tl-year">2025</span><span class="tl-era-note">twilight · the build years</span></div>
+      <div class="tl-grid">
+        <div class="tl-spine"><span class="tl-node"></span></div>
+        <div class="tl-list">
+          <article class="tl-entry clickable" data-project="oncoscan">
+            <div class="tl-top"><span class="tl-cat exp">Experience · Startup</span></div>
+            <div class="tl-title flow">OncoScan AI — Founder, CEO &amp; CTO</div>
+            <div class="tl-org flow">Patent pending · VC funded · AWS-credited · 2025 — now</div>
+            <div class="tl-desc flow">Built and patented an ML oral-cancer detection model at 17 — co-built with India's top oncology researchers, now scaling across clinical partners.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry clickable" data-project="isb">
+            <div class="tl-top"><span class="tl-cat research">Research</span></div>
+            <div class="tl-title flow">ML Research Intern — Baliga Lab, ISB</div>
+            <div class="tl-org flow">Institute for Systems Biology · Nobel-winning institution · 2025 — now</div>
+            <div class="tl-desc flow">Predictive models for HIV and preeclampsia, integrating multi-omic datasets to surface biomarker signatures that enable earlier, more accurate diagnosis.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <a class="tl-entry clickable" data-href="https://aivalley.io" target="_blank">
+            <div class="tl-top"><span class="tl-cat exp">Experience</span></div>
+            <div class="tl-title flow">Director of Expansion — AI Valley</div>
+            <div class="tl-org flow">aivalley.io · 2025 — now</div>
+            <div class="tl-desc flow">Growing a community of builders across campuses and cities — events, partnerships, and getting people shipping together.</div>
+            <span class="tl-open">Visit ↗</span>
+          </a>
+          <article class="tl-entry clickable" data-project="sentinent">
+            <div class="tl-top"><span class="tl-cat project">Project</span></div>
+            <div class="tl-title flow">Sentinent</div>
+            <div class="tl-org flow">Swarm-intelligence trading platform</div>
+            <div class="tl-desc flow">MiroFish/OASIS predictive swarm simulation plus a GPT-4o reasoning layer that turns live news and sentiment into explainable position calls.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry clickable" data-project="really-ai">
+            <div class="tl-top"><span class="tl-cat project">Project</span></div>
+            <div class="tl-title flow">really.ai</div>
+            <div class="tl-org flow">AI real-estate superconnecter</div>
+            <div class="tl-desc flow">Drop your number, get called by an AI, get matched with buyers, sellers, and agents automatically — no forms, no middleman.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry clickable" data-project="pixel-agents">
+            <div class="tl-top"><span class="tl-cat project">Project · Open Source</span></div>
+            <div class="tl-title flow">pixel-agents</div>
+            <div class="tl-org flow">Real-time multiplayer pixel-art office</div>
+            <div class="tl-desc flow">A virtual workspace with persistent avatars and live presence, built for async-first remote teams. TypeScript + Electron.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry clickable" data-project="minecraft">
+            <div class="tl-top"><span class="tl-cat project">Project</span></div>
+            <div class="tl-title flow">cloneSMP</div>
+            <div class="tl-org flow">Autonomous Minecraft agents</div>
+            <div class="tl-desc flow">Agents that navigate, craft, and survive through reinforcement learning and LLM-based long-horizon task planning in an open world.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry clickable" data-project="whatsappbot2">
+            <div class="tl-top"><span class="tl-cat project">Project · Open Source</span></div>
+            <div class="tl-title flow">WhatsApp Bot</div>
+            <div class="tl-org flow">Clone-and-deploy automation</div>
+            <div class="tl-desc flow">A minimal WhatsApp automation bot anyone can clone, configure, and run — webhook triggers and a plugin-style command system.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <a class="tl-entry clickable" data-href="https://topstep.com" target="_blank">
+            <div class="tl-top"><span class="tl-cat exp">Experience · Trading</span></div>
+            <div class="tl-title flow">Funded Trader — TopStep</div>
+            <div class="tl-org flow">$150K funded account · 2025</div>
+            <div class="tl-desc flow">Passed the evaluation and traded a funded account — risk discipline, systems, and a lot of screen time.</div>
+            <span class="tl-open">Visit ↗</span>
+          </a>
+          <a class="tl-entry clickable" data-href="https://stanford.edu" target="_blank">
+            <div class="tl-top"><span class="tl-cat edu">Education</span></div>
+            <div class="tl-title flow">Stanford Summer Session '25</div>
+            <div class="tl-org flow">Data Science + Statistics</div>
+            <div class="tl-desc flow">Summer coursework in data science and stats — the math under everything I build.</div>
+            <span class="tl-open">Visit ↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2024 -->
+    <div class="tl-era" data-year="2024">
+      <div class="tl-era-head"><span class="tl-year">2024</span><span class="tl-era-note">midnight</span></div>
+      <div class="tl-grid">
+        <div class="tl-spine"><span class="tl-node"></span></div>
+        <div class="tl-list">
+          <a class="tl-entry clickable" data-href="https://theupliftnetwork.org" target="_blank">
+            <div class="tl-top"><span class="tl-cat exp">Experience · Nonprofit</span></div>
+            <div class="tl-title flow">Founder — The Uplift Network</div>
+            <div class="tl-org flow">theupliftnetwork.org · 2024 — 2025</div>
+            <div class="tl-desc flow">Founded and ran a network focused on getting resources and mentorship to students who don't usually get a seat at the table.</div>
+            <span class="tl-open">Visit ↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div class="tl-era" data-year="2023">
+      <div class="tl-era-head"><span class="tl-year">2023</span><span class="tl-era-note">the abyss · where it started</span></div>
+      <div class="tl-grid">
+        <div class="tl-spine"><span class="tl-node"></span></div>
+        <div class="tl-list">
+          <article class="tl-entry clickable" data-project="brain-stroke">
+            <div class="tl-top"><span class="tl-cat research">Research</span><span class="tl-cat award">🏆 1st Place</span></div>
+            <div class="tl-title flow">Brain Stroke Classifier</div>
+            <div class="tl-org flow">1st Place — WA State Science &amp; Engineering Fair · 2023 — 2025</div>
+            <div class="tl-desc flow">A 3D CNN that classifies brain CT scans for stroke susceptibility — capturing volumetric spatial structure across the full scan, not just slices. Where the deep dive into ML really began.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry">
+            <div class="tl-top"><span class="tl-cat edu">Off the clock</span></div>
+            <div class="tl-title flow">Life outside the lab</div>
+            <div class="tl-org flow">Scuba · Skiing · Climbing</div>
+            <div class="tl-desc flow">PADI Advanced Open Water, black-diamond skiing in the Cascades, V5 bouldering in SF. All hours not spent coding, fully accounted for. <a href="hobbies.html" style="color:var(--accent);text-decoration:none">See more ↗</a></div>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- BENTO -->
-  <section class="section-wrap ruled" id="affiliations">
-    <div class="section-eyebrow">Work &amp; Research</div>
-    <div class="aff-grid">
-      <a class="aff-card reveal" href="https://presonance.tech" target="_blank" style="text-decoration:none;color:inherit;border-color:rgba(56,189,248,0.2);background:rgba(56,189,248,0.03)">
-        <div class="aff-logo-wrap fallback" style="font-size:13px;font-weight:700;color:var(--accent)">PR</div>
-        <div class="aff-info"><div class="aff-role">Founder</div><div class="aff-org">Presonance · presonance.tech</div></div>
-      </a>
-      <a class="aff-card reveal reveal-d1" href="https://aivalley.io" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='AV'"></div>
-        <div class="aff-info"><div class="aff-role">Director of Expansion</div><div class="aff-org">AI Valley · 2025–now</div></div>
-      </a>
-      <a class="aff-card reveal reveal-d2" href="https://systemsbiology.org" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='ISB'"></div>
-        <div class="aff-info"><div class="aff-role">ML Research Intern</div><div class="aff-org">ISB · Baliga Lab · 2025–now</div></div>
-      </a>
-      <a class="aff-card reveal" href="https://oncoscan.ai" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap fallback" style="font-size:13px;font-weight:700;color:var(--accent)">OS</div>
-        <div class="aff-info"><div class="aff-role">Founder, CEO &amp; CTO</div><div class="aff-org">OncoScan AI · 2025–now</div></div>
-      </a>
-      <a class="aff-card reveal reveal-d1" href="https://topstep.com" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='TS'"></div>
-        <div class="aff-info"><div class="aff-role">Funded Trader · $150K</div><div class="aff-org">TopStep · 2025</div></div>
-      </a>
-      <div class="aff-card reveal reveal-d2">
-        <div class="aff-logo-wrap fallback" style="font-size:16px">🧠</div>
-        <div class="aff-info"><div class="aff-role">Lead ML Researcher</div><div class="aff-org">Brain Stroke · 2023–2025</div></div>
-      </div>
-      <a class="aff-card reveal" href="https://theupliftnetwork.org" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="tun.webp" alt="Uplift Network" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='UN'"></div>
-        <div class="aff-info"><div class="aff-role">Founder</div><div class="aff-org">The Uplift Network · 2024–2025</div></div>
-      </a>
-      <a class="aff-card reveal reveal-d1" href="https://cmu.edu" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/cmu.edu" alt="CMU" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='CMU'"></div>
-        <div class="aff-info"><div class="aff-role">B.S. Computer Science</div><div class="aff-org">Carnegie Mellon · 4.0 GPA · '30</div></div>
-      </a>
-      <a class="aff-card reveal reveal-d2" href="https://stanford.edu" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/stanford.edu" alt="Stanford" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='SU'"></div>
-        <div class="aff-info"><div class="aff-role">Summer Session '25</div><div class="aff-org">Stanford · Data Science + Stats</div></div>
-      </a>
-    </div>
-  </section>
-
-  <!-- PROJECTS HORIZONTAL SCROLL -->
-  <div class="proj-strip-outer" id="projects">
-    <div class="proj-strip-head">
-      <div class="section-eyebrow">Projects</div>
-      <span style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px">
-        <span class="drag-hint-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        drag to explore
-      </span>
-    </div>
-    <div class="proj-strip" id="projStrip">
-
-      <div class="proj" data-project="presonance">
-        <div class="proj-header"><div class="proj-icon">🧠</div><span class="proj-type-badge award-badge-sm">● Building</span></div>
-        <div class="proj-name">Presonance</div>
-        <div class="proj-desc">A small comp-neuro lab. We predict how people actually respond to ads — before any spend. Quietly piloting with a few partners.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip a">presonance.tech</span><span class="chip">Comp-neuro</span><span class="chip">PyTorch · JAX</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="sentinent">
-        <div class="proj-header"><div class="proj-icon">📈</div><span class="proj-type-badge">In Progress · Trading</span></div>
-        <div class="proj-name">Sentinent</div>
-        <div class="proj-desc">Swarm-intelligence trading platform. MiroFish/OASIS predictive simulation + GPT-4o reasoning layer for live sentiment → position recommendations.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip">MiroFish/OASIS</span><span class="chip">GPT-4o</span><span class="chip">Redis · Postgres</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="really-ai">
-        <div class="proj-header"><div class="proj-icon">🏡</div><span class="proj-type-badge">Product</span></div>
-        <div class="proj-name">really.ai</div>
-        <div class="proj-desc">AI real estate superconnecter. Drop your number, get called by AI, get matched with buyers, sellers, and agents — automatically.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip">VAPI</span><span class="chip">Groq LLaMA</span><span class="chip">FastAPI</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="brain-stroke">
-        <div class="proj-header"><div class="proj-icon">🧠</div><span class="proj-type-badge award-badge-sm">🏆 1st Place</span></div>
-        <div class="proj-name">Brain Stroke Classifier</div>
-        <div class="proj-desc">3D CNN for CT scan classification predicting stroke susceptibility. 1st Place — WA State Science &amp; Engineering Fair.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip">3D CNN</span><span class="chip">PyTorch</span><span class="chip">Medical Imaging</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="oncoscan">
-        <div class="proj-header"><div class="proj-icon">🔬</div><span class="proj-type-badge">Startup · Patent</span></div>
-        <div class="proj-name">OncoScan AI</div>
-        <div class="proj-desc">Oral cancer detection model with leading researchers in India. VC funded, AWS credits, patent pending, scaling nationally.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip a">Patent Pending</span><span class="chip">Computer Vision</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="isb">
-        <div class="proj-header"><div class="proj-icon">🧬</div><span class="proj-type-badge">Research · ISB</span></div>
-        <div class="proj-name">Computational Bio Modeling</div>
-        <div class="proj-desc">ML models for HIV &amp; preeclampsia diagnosis under Mario Arrieta Ortiz at the Nobel Prize-winning Baliga Lab.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip">Bioinformatics</span><span class="chip">Python · R</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="minecraft">
-        <div class="proj-header"><div class="proj-icon">⛏️</div><span class="proj-type-badge">In Progress</span></div>
-        <div class="proj-name">cloneSMP</div>
-        <div class="proj-desc">Autonomous agents that play Minecraft through RL and LLM-based task planning in an open-world environment.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip">RL</span><span class="chip">LLM Planning</span><span class="chip">Agents</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="medsim">
-        <div class="proj-header"><div class="proj-icon">🏥</div><span class="proj-type-badge award-badge-sm">🏆 Most Innovative</span></div>
-        <div class="proj-name">MedSim</div>
-        <div class="proj-desc">Auto-ingests hospital imagery → 3D Gaussian splat world model → 6 agent teams detect safety risks live. Streams to a Next.js dashboard, exports as FHIR R4. Most Innovative — Harvard HSIL.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip">3D Gaussian Splat</span><span class="chip">6 Agents</span><span class="chip">FHIR R4</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="pixel-agents">
-        <div class="proj-header"><div class="proj-icon">🖥️</div><span class="proj-type-badge">Open Source</span></div>
-        <div class="proj-name">pixel-agents</div>
-        <div class="proj-desc">Pixel office — a multiplayer virtual workspace rendered in pixel art. Real-time presence, built for remote teams.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip">TypeScript</span><span class="chip">Electron</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-      <div class="proj" data-project="whatsappbot2">
-        <div class="proj-header"><div class="proj-icon">💬</div><span class="proj-type-badge">Open Source</span></div>
-        <div class="proj-name">WhatsApp Bot</div>
-        <div class="proj-desc">A WhatsApp automation bot anyone can clone and deploy — for personal workflows, communities, or products.</div>
-        <div class="chips" style="margin-bottom:22px"><span class="chip">JavaScript</span><span class="chip">WhatsApp API</span></div>
-        <div class="proj-link gl">Open project ↗</div>
-      </div>
-
-    </div>
+  <!-- LINKS BAR — the seabed -->
+  <div class="links-bar">
+    <div class="lb-pre">You've reached the bottom</div>
+    <a href="https://v1hns.github.io/all-my-links/" target="_blank" class="links-cta magnetic"><span class="lb-dot"></span>Everything in one place — all my links ↗</a>
   </div>
-
-
-  <!-- HOBBIES -->
-  <section class="section-wrap hobbies-fullscreen" id="hobbies">
-    <div class="section-eyebrow">Beyond the screen</div>
-    <div class="hobbies-split" style="margin-top:20px">
-      <div class="hobbies-sticky">
-        <h2 class="wt" style="font-size:clamp(32px,4vw,48px);font-weight:700;line-height:0.95;letter-spacing:-0.02em">Life<br/>outside<br/>the lab.</h2>
-        <p class="hobbies-tagline">All hours not spent coding, fully accounted for.</p>
-        <div class="hobbies-pill"><span class="dot"></span>all efforts funding the next ski pass</div>
-      </div>
-      <div class="hobbies-reel" id="hobbiesReel">
-
-        <!-- Scuba -->
-        <div class="hobby-slide">
-          <img class="hobby-photo" src="media/photos/drawing.jpg" alt="Drawing underwater with gas narcosis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="hobby-photo-placeholder" style="display:none">🤿</div>
-          <div class="hobby-body">
-            <div class="hobby-tag">Underwater</div>
-            <div class="hobby-name">Scuba Diving</div>
-            <div class="hobby-desc">Exploring reef systems and wrecks. This is me doing math 100ft underwater with full gas narcosis — the deepest peer review process.</div>
-            <div class="hobby-stats">
-              <span class="hobby-stat hi">PADI Advanced Open Water</span>
-              <span class="hobby-stat">Pacific · Caribbean</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Skiing -->
-        <div class="hobby-slide">
-          <img class="hobby-photo" src="media/photos/mthood.jpg" alt="Skiing at Mt Hood" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="hobby-photo-placeholder" style="display:none">⛷️</div>
-          <div class="hobby-body">
-            <div class="hobby-tag">Mountain</div>
-            <div class="hobby-name">Skiing</div>
-            <div class="hobby-desc">Grew up in the Cascades. Snoqualmie, Mt Hood, wherever there's a black diamond and fresh snow.</div>
-            <div class="hobby-stats">
-              <span class="hobby-stat hi">Black Diamond</span>
-              <span class="hobby-stat">Mt Hood</span>
-              <span class="hobby-stat">Snoqualmie</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Climbing -->
-        <div class="hobby-slide">
-          <img class="hobby-photo" src="media/photos/climb.jpg" alt="Bouldering in San Francisco" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="hobby-photo-placeholder" style="display:none">🧗</div>
-          <div class="hobby-body">
-            <div class="hobby-tag">Vertical</div>
-            <div class="hobby-name">Rock Climbing</div>
-            <div class="hobby-desc">Problem solving at height. Bouldering in San Francisco, sport and trad outdoor. Every route is a puzzle.</div>
-            <div class="hobby-stats">
-              <span class="hobby-stat hi">V5 Boulder</span>
-              <span class="hobby-stat">Sport + Trad</span>
-              <span class="hobby-stat">San Francisco</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- CONTACT -->
-  <section class="contact reveal" id="contact">
-    <div class="contact-glow"></div>
-    <p class="contact-pre">Connect</p>
-    <h2 class="contact-title wt">Build something<br/>together.</h2>
-    <p class="contact-sub">Research, AI, real estate, investing, or just a good conversation.</p>
-    <div class="contact-ctas">
-      <a href="mailto:vihaans@andrew.cmu.edu" class="btn-accent magnetic">vihaans@andrew.cmu.edu →</a>
-      <a href="https://linkedin.com/in/vihaan-shringi-4667b12b1" target="_blank" class="btn-outline magnetic">LinkedIn</a>
-      <a href="https://github.com/v1hns" target="_blank" class="btn-outline magnetic">GitHub</a>
-      <a href="https://instagram.com/vhn1squests" target="_blank" class="btn-outline magnetic">Instagram</a>
-    </div>
-  </section>
 
   <!-- FOOTER -->
   <footer>
@@ -1913,14 +1900,12 @@
       if (o2) o2.style.transform = `translateY(${-y * 0.08}px)`;
     });
   
-    // CLICKABLE FISH → scroll to sections
+    // CLICKABLE FISH → scroll to sections / open links
     document.querySelectorAll('.hero-fish').forEach(fish => {
       fish.addEventListener('click', () => {
         const target = fish.getAttribute('data-target');
-        if (target === 'hobbies-link') {
-          window.location.href = 'hobbies.html';
-          return;
-        }
+        if (target === 'hobbies-link') { window.location.href = 'hobbies.html'; return; }
+        if (/^https?:\/\//.test(target)) { window.open(target, '_blank'); return; }
         const el = document.getElementById(target);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       });
@@ -2165,31 +2150,91 @@
       }
       if (wtc.length) requestAnimationFrame(wtTick);
 
-      /* ── PROJECT SPECIMEN FRAMES ── inject screenshot windows into cards ── */
-      const SHOTS = {
-        'presonance':   { file:'presonance-product.png', ico:'🧠' },
-        'sentinent':    { file:'sentinent.png',          ico:'📈' },
-        'really-ai':    { file:'really-ai.png',          ico:'🏡' },
-        'brain-stroke': { file:'brain-stroke.png',       ico:'🧠' },
-        'oncoscan':     { file:'oncoscan.png',           ico:'🔬' },
-        'isb':          { file:'isb.png',                ico:'🧬' },
-        'minecraft':    { file:'clonesmp.png',           ico:'⛏️' },
-        'medsim':       { file:'medsim.png',             ico:'🏥' },
-        'pixel-agents': { file:'pixel-agents.png',       ico:'🖥️' },
-        'whatsappbot2': { file:'whatsappbot2.png',       ico:'💬' },
-      };
-      document.querySelectorAll('.proj[data-project]').forEach(card => {
-        const key = card.dataset.project;
-        const s = SHOTS[key]; if (!s) return;
-        const frame = document.createElement('div');
-        frame.className = 'proj-shot';
-        frame.innerHTML =
-          `<img src="media/screens/${s.file}" alt="" loading="lazy"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-           <div class="ph" style="display:none"><span class="ph-ico">${s.ico}</span>add media/screens/${s.file}</div>
-           <div class="caustic-band"></div>`;
-        card.insertBefore(frame, card.firstChild);
+      /* ── DEPTH = TIME: year readout + era glow ── */
+      const eras = Array.from(document.querySelectorAll('.tl-era'));
+      const dhYear = document.getElementById('dh-year');
+      const dhYS   = document.getElementById('dh-yearsub');
+      const SUBMAP = { '2026':'now', '2025':'build years', '2024':'midnight', '2023':'where it started' };
+      const eraTop = e => e.getBoundingClientRect().top + (window.scrollY||window.pageYOffset);
+      function updateEra(){
+        if (!eras.length || !dhYear) return;
+        const mid = (window.scrollY||window.pageYOffset) + window.innerHeight*0.5;
+        let cur = null;
+        for (const e of eras){ if (mid >= eraTop(e)) cur = e; }
+        const yr = cur ? cur.dataset.year : '2026';
+        dhYear.textContent = yr;
+        dhYS.textContent = cur ? (SUBMAP[yr]||'') : 'now';
+        eras.forEach(e => e.classList.toggle('active', e === cur));
+      }
+      window.addEventListener('scroll', updateEra, { passive:true });
+      window.addEventListener('resize', updateEra);
+      updateEra();
+
+      /* ── TIMELINE: open modals / external links ── */
+      document.querySelectorAll('.tl-entry[data-project]').forEach(c =>
+        c.addEventListener('click', () => openModal(c.dataset.project)));
+      document.querySelectorAll('.tl-entry[data-href]').forEach(c =>
+        c.addEventListener('click', () => window.open(c.dataset.href, '_blank')));
+      document.querySelectorAll('.tl-entry.clickable').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
       });
+
+      /* ── FLOW TEXT — words part around the cursor (transform only) ── */
+      function splitFlow(el){
+        const words = [];
+        (function walk(node){
+          Array.from(node.childNodes).forEach(n => {
+            if (n.nodeType === 3){
+              const parts = n.textContent.split(/(\s+)/);
+              const frag = document.createDocumentFragment();
+              parts.forEach(p => {
+                if (p === '') return;
+                if (/^\s+$/.test(p)) frag.appendChild(document.createTextNode(p));
+                else { const s = document.createElement('span'); s.className = 'flow-w'; s.textContent = p; frag.appendChild(s); words.push(s); }
+              });
+              node.replaceChild(frag, n);
+            } else if (n.nodeType === 1 && n.nodeName !== 'BR' && !n.classList.contains('flow-w')){
+              walk(n);
+            }
+          });
+        })(el);
+        return words;
+      }
+      let activeFlow = null;
+      const settling = new Set();
+      const FR = 105, FS = 17;
+      function measureFlow(entry){
+        for (const w of entry.words){
+          const r = w.s.getBoundingClientRect();
+          w.cx = r.left - w.cur + r.width/2;
+          w.cy = r.top + r.height/2;
+        }
+      }
+      document.querySelectorAll('.flow').forEach(el => {
+        const entry = { el, words: splitFlow(el).map(s => ({ s, cx:0, cy:0, cur:0, tgt:0 })) };
+        el.__flow = entry;
+        el.addEventListener('mouseenter', () => { activeFlow = entry; entry.words.forEach(w => settling.delete(w)); measureFlow(entry); });
+        el.addEventListener('mouseleave', () => { if (activeFlow === entry){ entry.words.forEach(w => { w.tgt = 0; settling.add(w); }); activeFlow = null; } });
+      });
+      window.addEventListener('scroll', () => { if (activeFlow) measureFlow(activeFlow); }, { passive:true });
+      function flowTick(){
+        if (activeFlow){
+          for (const w of activeFlow.words){
+            const dx = w.cx - mx, dy = w.cy - my;
+            w.tgt = (Math.abs(dy) < 22 && Math.abs(dx) < FR) ? Math.sign(dx) * (1 - Math.abs(dx)/FR) * FS : 0;
+            w.cur += (w.tgt - w.cur) * 0.2;
+            w.s.style.transform = `translateX(${w.cur.toFixed(2)}px)`;
+          }
+        }
+        for (const w of settling){
+          w.cur += (0 - w.cur) * 0.2;
+          if (Math.abs(w.cur) < 0.1){ w.s.style.transform = ''; settling.delete(w); }
+          else w.s.style.transform = `translateX(${w.cur.toFixed(2)}px)`;
+        }
+        requestAnimationFrame(flowTick);
+      }
+      if (!reduce) requestAnimationFrame(flowTick);
     })();
 </script>
 </body>
