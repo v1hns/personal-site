@@ -847,25 +847,21 @@
     .tl-node { position:absolute; left:50%; top:7px; width:11px; height:11px; border-radius:50%; transform:translateX(-50%);
       background: var(--sea-2,#06283a); border:2px solid var(--accent); box-shadow:0 0 14px rgba(56,189,248,0.5); }
 
-    .tl-list { display:flex; flex-direction:column; gap:15px; }
-    .tl-entry { position: relative; border-radius:16px; padding:19px 22px;
-      background: rgba(8,34,50,0.42); border:1px solid rgba(130,205,235,0.14);
-      backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
-      transition: border-color .25s, transform .25s, background .25s; }
-    .tl-entry.clickable:hover { border-color: rgba(130,205,235,0.42); transform: translateX(5px); background: rgba(10,44,62,0.55); }
-    .tl-top { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:9px; }
-    .tl-cat { font-size:10px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; padding:3px 9px; border-radius:99px; white-space:nowrap; }
-    .tl-cat.exp { color:#fbbf24; background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); }
-    .tl-cat.research { color:#4ade80; background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.3); }
-    .tl-cat.project { color:#38bdf8; background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.3); }
-    .tl-cat.edu { color:#c084fc; background:rgba(192,132,252,0.1); border:1px solid rgba(192,132,252,0.3); }
-    .tl-cat.award { color:#f5d76e; background:rgba(245,215,110,0.1); border:1px solid rgba(245,215,110,0.3); }
-    .tl-title { font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; letter-spacing:-0.01em; color:var(--text); }
-    .tl-org { font-size:13px; color: rgba(170,215,235,0.78); margin-top:3px; }
-    .tl-desc { font-size:14px; line-height:1.62; color: var(--muted); margin-top:11px; }
-    .tl-chips { display:flex; gap:7px; flex-wrap:wrap; margin-top:13px; }
-    .tl-chips .chip { font-size:11px; padding:4px 10px; border-radius:99px; background:rgba(130,205,235,0.08); border:1px solid rgba(130,205,235,0.18); color:rgba(190,225,245,0.85); }
-    .tl-open { display:inline-block; font-size:12px; color:var(--accent); margin-top:13px; opacity:.55; transition:opacity .2s; }
+    .tl-list { display:flex; flex-direction:column; gap:6px; }
+    /* clean editorial entries — no boxes */
+    .tl-entry { position: relative; padding: 2px 0 22px; transition: transform .25s; }
+    .tl-entry.clickable:hover { transform: translateX(6px); }
+    .tl-entry.clickable:hover .tl-title { color: var(--accent); }
+    .tl-top { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:7px; }
+    .tl-cat { font-size:10.5px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; }
+    .tl-cat.exp { color:#fbbf24; } .tl-cat.research { color:#4ade80; } .tl-cat.project { color:#38bdf8; }
+    .tl-cat.edu { color:#c084fc; } .tl-cat.award { color:#f5d76e; } .tl-cat.cert { color:#5eead4; }
+    .tl-cat.rec { color:rgba(190,225,245,0.6); }
+    .tl-title { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; letter-spacing:-0.01em; color:var(--text); transition:color .2s; text-shadow:0 1px 16px rgba(0,8,16,0.6); }
+    .tl-org { font-size:13px; color: rgba(170,215,235,0.78); margin-top:3px; text-shadow:0 1px 12px rgba(0,8,16,0.55); }
+    .tl-desc { font-size:14.5px; line-height:1.62; color: rgba(206,224,236,0.82); margin-top:10px; max-width:620px; text-shadow:0 1px 12px rgba(0,8,16,0.55); }
+    .tl-quote .tl-desc { font-size:16px; font-style:italic; color:rgba(220,235,245,0.9); line-height:1.6; }
+    .tl-open { display:inline-block; font-size:12px; color:var(--accent); margin-top:12px; opacity:.5; transition:opacity .2s; }
     .tl-entry.clickable:hover .tl-open { opacity:1; }
     @media(max-width:680px){ .timeline{ padding:24px 18px 60px; } .tl-grid{ grid-template-columns:16px 1fr; gap:0 14px; } }
 
@@ -880,7 +876,7 @@
       font-size:14px; font-weight:500; backdrop-filter:blur(8px); transition: border-color .25s, background .25s, transform .25s; }
     .links-bar a.links-cta:hover { border-color: var(--accent); background: rgba(10,44,62,0.62); transform: translateY(-2px); }
     .links-bar .lb-dot { width:7px; height:7px; border-radius:50%; background:#7fe3a0; box-shadow:0 0 10px #7fe3a0; animation: livePulse 1.6s ease-in-out infinite; }
-    [data-theme="light"] .timeline .tl-entry { background: rgba(255,255,255,0.55); border-color: rgba(20,90,110,0.18); }
+    [data-theme="light"] .tl-title { text-shadow:none; } [data-theme="light"] .tl-desc { color:#3a5562; text-shadow:none; }
     [data-theme="light"] .links-bar a.links-cta { background: rgba(255,255,255,0.6); border-color: rgba(20,90,110,0.2); }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1096,52 +1092,6 @@
     </div>
   </div>
 
-  <!-- MARQUEE -->
-  <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span class="marquee-item"><span class="marquee-dot"></span>Presonance · presonance.tech</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>ML research · Baliga Lab · ISB</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>OncoScan AI · patent pending</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · '30</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Bellevue · Pittsburgh · SF</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Presonance · presonance.tech</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>ML research · Baliga Lab · ISB</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>OncoScan AI · patent pending</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>AI Valley · Director of Expansion</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>CMU Computer Science · '30</span>
-      <span class="marquee-item"><span class="marquee-dot"></span>Bellevue · Pittsburgh · SF</span>
-    </div>
-  </div>
-
-  <!-- BUILT WITH -->
-  <div class="built-with">
-    <span class="bw-label">Built &amp; worked with</span>
-    <div class="bw-logos">
-      <div class="bw-pill"><img src="https://logo.clearbit.com/meta.com" alt="Meta" onerror="this.style.display='none'"><span>Meta</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/openai.com" alt="OpenAI" onerror="this.style.display='none'"><span>OpenAI</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/anthropic.com" alt="Anthropic" onerror="this.style.display='none'"><span>Anthropic</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/google.com" alt="Google" onerror="this.style.display='none'"><span>Google</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/nvidia.com" alt="Nvidia" onerror="this.style.display='none'"><span>Nvidia</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/amd.com" alt="AMD" onerror="this.style.display='none'"><span>AMD</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/aws.amazon.com" alt="AWS" onerror="this.style.display='none'"><span>AWS</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/youtube.com" alt="YouTube" onerror="this.style.display='none'"><span>YouTube</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/walmart.com" alt="Walmart" onerror="this.style.display='none'"><span>Walmart</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/mit.edu" alt="MIT" onerror="this.style.display='none'"><span>MIT</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/harvard.edu" alt="Harvard" onerror="this.style.display='none'"><span>Harvard</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/gatech.edu" alt="Georgia Tech" onerror="this.style.display='none'"><span>Georgia Tech</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/cmu.edu" alt="CMU" onerror="this.style.display='none'"><span>CMU</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/stanford.edu" alt="Stanford" onerror="this.style.display='none'"><span>Stanford</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/minimaxi.com" alt="MiniMax" onerror="this.style.display='none'"><span>MiniMax</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/plugandplaytechcenter.com" alt="Plug and Play" onerror="this.style.display='none'"><span>Plug and Play</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/hanwha.com" alt="Hanwha" onerror="this.style.display='none'"><span>Hanwha AI</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/ifm.com" alt="IFM" onerror="this.style.display='none'"><span>IFM</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/mbzuai.ac.ae" alt="MBZUAI" onerror="this.style.display='none'"><span>MBZUAI</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.style.display='none'"><span>Baliga Lab · ISB</span></div>
-      <div class="bw-pill"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.style.display='none'"><span>TopStep</span></div>
-    </div>
-  </div>
-
   <!-- FEATURED: PRESONANCE -->
   <section class="featured-outer" id="presonance">
     <div class="featured-grid">
@@ -1191,8 +1141,8 @@
   <section class="timeline" id="journey">
     <div class="tl-head">
       <div class="section-eyebrow">The descent</div>
-      <h2 class="flow">Deeper is further back.</h2>
-      <p class="flow">Everything I've built, researched, and shipped — read top to bottom, newest first. The deeper you swim, the further back in time you go. The gauge on the left is the year.</p>
+      <h2 class="flow">How I got here.</h2>
+      <p class="flow">Read top to bottom — newest first. The deeper you swim, the further back you go. Everything I've actually built, broken, and shipped. The gauge on the left is the year.</p>
       <span class="tl-down">↓  2026 — 2023</span>
     </div>
 
@@ -1202,19 +1152,56 @@
       <div class="tl-grid">
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
-          <article class="tl-entry clickable" data-project="medsim">
-            <div class="tl-top"><span class="tl-cat award">Award · Hackathon</span></div>
-            <div class="tl-title flow">MedSim</div>
-            <div class="tl-org flow">Most Innovative — Harvard Health Systems Innovation Lab</div>
-            <div class="tl-desc flow">Auto-ingests hospital imagery into a navigable 3D Gaussian-splat world model, then dispatches six agent teams to detect safety risks live — streamed to a dashboard and exported as FHIR R4.</div>
-            <div class="tl-chips"><span class="chip">3D Gaussian Splat</span><span class="chip">6 Agents</span><span class="chip">FHIR R4</span></div>
-            <span class="tl-open">Open ↗</span>
-          </article>
           <article class="tl-entry">
             <div class="tl-top"><span class="tl-cat edu">Education</span></div>
-            <div class="tl-title flow">B.S. Computer Science — Carnegie Mellon</div>
-            <div class="tl-org flow">CMU · Class of 2030 · 4.0 GPA</div>
-            <div class="tl-desc flow">Started at one of the strongest CS programs in the world. Heads-down on ML, systems, and shipping real things on the side.</div>
+            <div class="tl-title flow">Computer Science at Carnegie Mellon</div>
+            <div class="tl-org flow">Starting Aug 2026 · 4.0 GPA</div>
+            <div class="tl-desc flow">This fall I start CS at one of the best programs there is. I'm already on the teams behind ScottyLabs Foundry and UEAX.</div>
+          </article>
+          <article class="tl-entry clickable" data-project="isb">
+            <div class="tl-top"><span class="tl-cat research">Research</span></div>
+            <div class="tl-title flow">Machine Learning Researcher — ISB</div>
+            <div class="tl-org flow">Institute for Systems Biology · Oct 2025 – Jun 2026 · Seattle</div>
+            <div class="tl-desc flow">For nine months I built ML systems for preeclampsia diagnostic and prognostic modeling. Just wrapped it this June.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry clickable" data-project="medsim">
+            <div class="tl-top"><span class="tl-cat award">Most Innovative</span></div>
+            <div class="tl-title flow">MedSim — Harvard HSIL</div>
+            <div class="tl-org flow">Harvard Health Systems Innovation Lab · Apr 2026</div>
+            <div class="tl-desc flow">I built a world-models-based agent deployment system for trauma centers. It won Most Innovative at Harvard's HSIL.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <article class="tl-entry clickable" data-project="sentinent">
+            <div class="tl-top"><span class="tl-cat project">Project</span></div>
+            <div class="tl-title flow">Sentinent</div>
+            <div class="tl-org flow">Mar 2026</div>
+            <div class="tl-desc flow">I built a swarm-intelligence trading engine — predictive simulation feeding a reasoning layer that turns live sentiment into explainable position calls.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
+          <a class="tl-entry clickable" data-href="https://aivalley.io" target="_blank">
+            <div class="tl-top"><span class="tl-cat exp">Experience</span></div>
+            <div class="tl-title flow">Expansion — AI Valley</div>
+            <div class="tl-org flow">Dec 2025 – now</div>
+            <div class="tl-desc flow">I ran expansion — tech demos and hackathons with OpenAI, Anthropic, and Afore, nationwide. I've since moved into a part-time coordinator role to focus on the startup.</div>
+            <span class="tl-open">Visit ↗</span>
+          </a>
+          <article class="tl-entry">
+            <div class="tl-top"><span class="tl-cat research">The through-line</span></div>
+            <div class="tl-title flow">I build, break, and retrain.</div>
+            <div class="tl-org flow">Ongoing · the actual job</div>
+            <div class="tl-desc flow">Most of what I know came from experiments that didn't work yet — brain encoders, world-model agents, trading indicators I coded myself. I train models, break them, and keep going until they hold.</div>
+          </article>
+          <article class="tl-entry">
+            <div class="tl-top"><span class="tl-cat cert">Certification</span></div>
+            <div class="tl-title flow">PADI Advanced Open Water Diver</div>
+            <div class="tl-org flow">PADI · Issued Feb 2026</div>
+            <div class="tl-desc flow">Certified to go deeper and run my own dives. The ocean this whole page is built around — I actually spend time down there.</div>
+          </article>
+          <article class="tl-entry tl-quote">
+            <div class="tl-top"><span class="tl-cat rec">In their words</span></div>
+            <div class="tl-desc flow">"Vihaan is one of the smartest people I've ever met. His raw technical skillsets, paired with his GTM and networking abilities, make him an extremely talented force of our generation."</div>
+            <div class="tl-org flow">— Benjamin Chan · CS/AI @ CMU, Co-Founder @ Xyla · May 2026</div>
           </article>
         </div>
       </div>
@@ -1226,74 +1213,18 @@
       <div class="tl-grid">
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
-          <article class="tl-entry clickable" data-project="oncoscan">
-            <div class="tl-top"><span class="tl-cat exp">Experience · Startup</span></div>
-            <div class="tl-title flow">OncoScan AI — Founder, CEO &amp; CTO</div>
-            <div class="tl-org flow">Patent pending · VC funded · AWS-credited · 2025 — now</div>
-            <div class="tl-desc flow">Built and patented an ML oral-cancer detection model at 17 — co-built with India's top oncology researchers, now scaling across clinical partners.</div>
-            <span class="tl-open">Open ↗</span>
-          </article>
-          <article class="tl-entry clickable" data-project="isb">
-            <div class="tl-top"><span class="tl-cat research">Research</span></div>
-            <div class="tl-title flow">ML Research Intern — Baliga Lab, ISB</div>
-            <div class="tl-org flow">Institute for Systems Biology · Nobel-winning institution · 2025 — now</div>
-            <div class="tl-desc flow">Predictive models for HIV and preeclampsia, integrating multi-omic datasets to surface biomarker signatures that enable earlier, more accurate diagnosis.</div>
-            <span class="tl-open">Open ↗</span>
-          </article>
-          <a class="tl-entry clickable" data-href="https://aivalley.io" target="_blank">
-            <div class="tl-top"><span class="tl-cat exp">Experience</span></div>
-            <div class="tl-title flow">Director of Expansion — AI Valley</div>
-            <div class="tl-org flow">aivalley.io · 2025 — now</div>
-            <div class="tl-desc flow">Growing a community of builders across campuses and cities — events, partnerships, and getting people shipping together.</div>
-            <span class="tl-open">Visit ↗</span>
-          </a>
-          <article class="tl-entry clickable" data-project="sentinent">
-            <div class="tl-top"><span class="tl-cat project">Project</span></div>
-            <div class="tl-title flow">Sentinent</div>
-            <div class="tl-org flow">Swarm-intelligence trading platform</div>
-            <div class="tl-desc flow">MiroFish/OASIS predictive swarm simulation plus a GPT-4o reasoning layer that turns live news and sentiment into explainable position calls.</div>
-            <span class="tl-open">Open ↗</span>
-          </article>
-          <article class="tl-entry clickable" data-project="really-ai">
-            <div class="tl-top"><span class="tl-cat project">Project</span></div>
-            <div class="tl-title flow">really.ai</div>
-            <div class="tl-org flow">AI real-estate superconnecter</div>
-            <div class="tl-desc flow">Drop your number, get called by an AI, get matched with buyers, sellers, and agents automatically — no forms, no middleman.</div>
-            <span class="tl-open">Open ↗</span>
-          </article>
-          <article class="tl-entry clickable" data-project="pixel-agents">
-            <div class="tl-top"><span class="tl-cat project">Project · Open Source</span></div>
-            <div class="tl-title flow">pixel-agents</div>
-            <div class="tl-org flow">Real-time multiplayer pixel-art office</div>
-            <div class="tl-desc flow">A virtual workspace with persistent avatars and live presence, built for async-first remote teams. TypeScript + Electron.</div>
-            <span class="tl-open">Open ↗</span>
-          </article>
-          <article class="tl-entry clickable" data-project="minecraft">
-            <div class="tl-top"><span class="tl-cat project">Project</span></div>
-            <div class="tl-title flow">cloneSMP</div>
-            <div class="tl-org flow">Autonomous Minecraft agents</div>
-            <div class="tl-desc flow">Agents that navigate, craft, and survive through reinforcement learning and LLM-based long-horizon task planning in an open world.</div>
-            <span class="tl-open">Open ↗</span>
-          </article>
-          <article class="tl-entry clickable" data-project="whatsappbot2">
-            <div class="tl-top"><span class="tl-cat project">Project · Open Source</span></div>
-            <div class="tl-title flow">WhatsApp Bot</div>
-            <div class="tl-org flow">Clone-and-deploy automation</div>
-            <div class="tl-desc flow">A minimal WhatsApp automation bot anyone can clone, configure, and run — webhook triggers and a plugin-style command system.</div>
-            <span class="tl-open">Open ↗</span>
-          </article>
           <a class="tl-entry clickable" data-href="https://topstep.com" target="_blank">
             <div class="tl-top"><span class="tl-cat exp">Experience · Trading</span></div>
-            <div class="tl-title flow">Funded Trader — TopStep</div>
-            <div class="tl-org flow">$150K funded account · 2025</div>
-            <div class="tl-desc flow">Passed the evaluation and traded a funded account — risk discipline, systems, and a lot of screen time.</div>
+            <div class="tl-title flow">Funded Trader — Topstep</div>
+            <div class="tl-org flow">May 2025 – Mar 2026</div>
+            <div class="tl-desc flow">I coded my own AI indicators, passed the eval, and traded a funded account — made some money, then quit to go all-in on Presonance.</div>
             <span class="tl-open">Visit ↗</span>
           </a>
           <a class="tl-entry clickable" data-href="https://stanford.edu" target="_blank">
             <div class="tl-top"><span class="tl-cat edu">Education</span></div>
-            <div class="tl-title flow">Stanford Summer Session '25</div>
-            <div class="tl-org flow">Data Science + Statistics</div>
-            <div class="tl-desc flow">Summer coursework in data science and stats — the math under everything I build.</div>
+            <div class="tl-title flow">Coursework at Stanford</div>
+            <div class="tl-org flow">Jun – Aug 2025 · DATASCI 112, STATS 191</div>
+            <div class="tl-desc flow">A summer of data science and statistics — the math under everything I build.</div>
             <span class="tl-open">Visit ↗</span>
           </a>
         </div>
@@ -1302,17 +1233,30 @@
 
     <!-- 2024 -->
     <div class="tl-era" data-year="2024">
-      <div class="tl-era-head"><span class="tl-year">2024</span><span class="tl-era-note">midnight</span></div>
+      <div class="tl-era-head"><span class="tl-year">2024</span><span class="tl-era-note">going deeper</span></div>
       <div class="tl-grid">
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
+          <article class="tl-entry clickable" data-project="oncoscan">
+            <div class="tl-top"><span class="tl-cat exp">Experience · Startup</span></div>
+            <div class="tl-title flow">Founder — OncoScan.ai</div>
+            <div class="tl-org flow">Aug 2024 – Dec 2025</div>
+            <div class="tl-desc flow">I built and patented an oral-cancer detection model, landed national partnerships, and got into AWS Activate — at 17.</div>
+            <span class="tl-open">Open ↗</span>
+          </article>
           <a class="tl-entry clickable" data-href="https://theupliftnetwork.org" target="_blank">
-            <div class="tl-top"><span class="tl-cat exp">Experience · Nonprofit</span></div>
-            <div class="tl-title flow">Founder — The Uplift Network</div>
-            <div class="tl-org flow">theupliftnetwork.org · 2024 — 2025</div>
-            <div class="tl-desc flow">Founded and ran a network focused on getting resources and mentorship to students who don't usually get a seat at the table.</div>
+            <div class="tl-top"><span class="tl-cat exp">Volunteering · Founder</span></div>
+            <div class="tl-title flow">Founder — Uplift Network</div>
+            <div class="tl-org flow">Jun 2024 – Jan 2026</div>
+            <div class="tl-desc flow">I built a CS program and put it in front of 3,000+ students across 50+ schools — and helped cover college tuition for kids who finished it. I still advise and fund what I can.</div>
             <span class="tl-open">Visit ↗</span>
           </a>
+          <article class="tl-entry">
+            <div class="tl-top"><span class="tl-cat edu">Education</span></div>
+            <div class="tl-title flow">CMU Pre-College &amp; Stanford SPCS (AI)</div>
+            <div class="tl-org flow">Summer 2024</div>
+            <div class="tl-desc flow">My first real summer of it — Carnegie Mellon Pre-College and Stanford's summer AI program. A lot of this clicked here.</div>
+          </article>
         </div>
       </div>
     </div>
@@ -1324,17 +1268,17 @@
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
           <article class="tl-entry clickable" data-project="brain-stroke">
-            <div class="tl-top"><span class="tl-cat research">Research</span><span class="tl-cat award">🏆 1st Place</span></div>
+            <div class="tl-top"><span class="tl-cat research">Research</span><span class="tl-cat award">1st Place</span></div>
             <div class="tl-title flow">Brain Stroke Classifier</div>
-            <div class="tl-org flow">1st Place — WA State Science &amp; Engineering Fair · 2023 — 2025</div>
-            <div class="tl-desc flow">A 3D CNN that classifies brain CT scans for stroke susceptibility — capturing volumetric spatial structure across the full scan, not just slices. Where the deep dive into ML really began.</div>
+            <div class="tl-org flow">1st Place — WA State Science &amp; Engineering Fair</div>
+            <div class="tl-desc flow">I built a 3D CNN that reads brain CT scans for stroke risk — capturing the whole volume, not just slices. This is where the ML obsession actually started.</div>
             <span class="tl-open">Open ↗</span>
           </article>
           <article class="tl-entry">
             <div class="tl-top"><span class="tl-cat edu">Off the clock</span></div>
             <div class="tl-title flow">Life outside the lab</div>
             <div class="tl-org flow">Scuba · Skiing · Climbing</div>
-            <div class="tl-desc flow">PADI Advanced Open Water, black-diamond skiing in the Cascades, V5 bouldering in SF. All hours not spent coding, fully accounted for. <a href="hobbies.html" style="color:var(--accent);text-decoration:none">See more ↗</a></div>
+            <div class="tl-desc flow">Black-diamond skiing in the Cascades, V5 bouldering in SF, and as much time underwater as I can get. Everything not spent coding, accounted for. <a href="hobbies.html" style="color:var(--accent);text-decoration:none">See more ↗</a></div>
           </article>
         </div>
       </div>
@@ -1762,7 +1706,7 @@
         mentors: []
       },
       'oncoscan': {
-        icon: '🔬', type: 'Startup · Founder, CEO & CTO · 2025–Present', title: 'OncoScan AI',
+        icon: '🔬', type: 'Founder, CEO & CTO · Aug 2024 – Dec 2025', title: 'OncoScan AI',
         tagline: 'Built and patented an ML-powered oral cancer detection model at 17 — VC-backed, AWS-credited, and embedded in clinical partner pipelines across India.',
         links: [],
         desc: [
@@ -1778,7 +1722,7 @@
         mentors: []
       },
       'isb': {
-        icon: '🧬', type: 'ML Research Internship · 2025', title: 'Computational Bio Modeling',
+        icon: '🧬', type: 'ML Researcher · ISB · Oct 2025 – Jun 2026', title: 'Computational Bio Modeling',
         tagline: 'Predictive ML models for HIV and preeclampsia diagnosis at the Nobel Prize-winning Institute for Systems Biology.',
         links: [{ label: 'Baliga Lab →', url: 'https://systemsbiology.org', cls: 'ghost' }],
         desc: [
@@ -2079,16 +2023,48 @@
         }));
       }
       sizeSnow(); window.addEventListener('resize', sizeSnow);
+
+      // real-time eddy that orbits the diver
+      const dfx = Array.from({length:26}, (_,i) => ({
+        a: (i/26)*6.283, r: 40 + Math.random()*70, s: (Math.random()*0.6+0.3)*(Math.random()<0.5?1:-1)*0.012,
+        ph: Math.random()*6.283, size: Math.random()*1.6+0.5, al: Math.random()*0.35+0.12,
+      }));
+      let lastCX = curX, lastCY = curY;
       function snowTick(){
         sctx.clearRect(0,0,snow.width,snow.height);
         if (diving){
+          const dw = diver.offsetWidth || 180;
+          const dcx = curX + dw/2, dcy = curY + dw*0.42;
+          const speed = Math.hypot(curX - lastCX, curY - lastCY);
+          lastCX = curX; lastCY = curY;
+          const REP = 120;
+
+          // marine snow — drifts up, pushed aside by the diver
           for (const p of sp){
             p.drift += 0.01;
             p.y += p.vy; p.x += p.vx + Math.sin(p.drift)*0.12;
+            const ddx = p.x - dcx, ddy = p.y - dcy, dd = Math.hypot(ddx, ddy);
+            if (dd < REP && dd > 0){ const f = (1 - dd/REP) * 2.6; p.x += (ddx/dd)*f; p.y += (ddy/dd)*f; }
             if (p.y < -4){ p.y = snow.height+4; p.x = Math.random()*snow.width; }
             if (p.x < -4) p.x = snow.width+4; if (p.x > snow.width+4) p.x = -4;
             sctx.beginPath(); sctx.arc(p.x,p.y,p.r,0,6.283);
             sctx.fillStyle = `rgba(190,225,245,${p.a*(0.5+diveProg*0.5)})`;
+            sctx.fill();
+          }
+
+          // disturbed-water glow around the diver
+          const glow = sctx.createRadialGradient(dcx,dcy,8, dcx,dcy,150);
+          glow.addColorStop(0, `rgba(120,210,255,${0.05 + Math.min(speed*0.012,0.10)})`);
+          glow.addColorStop(1, 'rgba(120,210,255,0)');
+          sctx.fillStyle = glow; sctx.fillRect(dcx-150, dcy-150, 300, 300);
+
+          // live eddy — particles orbit the diver, kicked by its motion
+          for (const o of dfx){
+            o.a += o.s * (1 + speed*0.06);
+            const rr = o.r + Math.sin(o.a*1.7 + o.ph)*9 + speed*1.4;
+            const x = dcx + Math.cos(o.a)*rr, y = dcy + Math.sin(o.a)*rr*0.72;
+            sctx.beginPath(); sctx.arc(x, y, o.size, 0, 6.283);
+            sctx.fillStyle = `rgba(165,230,255,${o.al})`;
             sctx.fill();
           }
         }
