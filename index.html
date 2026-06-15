@@ -675,7 +675,156 @@
     [data-theme="light"] .bw-pill { background:rgba(0,0,0,0.03); border-color:rgba(0,0,0,0.09); }
     [data-theme="light"] .bw-pill:hover { background:rgba(0,0,0,0.07); }
     @media(max-width:820px){ .built-with { padding:18px 24px; gap:16px; } }
-    
+
+    /* ════════════════════════════════════════════════════════════
+       THE DIVE — underwater descent system
+       ════════════════════════════════════════════════════════════ */
+    :root { --sea-1:#0a3d54; --sea-2:#06283a; --caustic:0.0; --depth:0; }
+
+    /* Ocean gradient — fixed behind all content, faded in by scroll */
+    #ocean {
+      position: fixed; inset: 0; z-index: -1; opacity: 0; pointer-events: none;
+      background: linear-gradient(180deg, var(--sea-1) 0%, var(--sea-2) 55%, #01070e 100%);
+      transition: opacity .25s linear;
+    }
+    /* Caustic light rays near the surface — strong shallow, gone deep */
+    #caustics {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: var(--caustic);
+      mix-blend-mode: screen; transition: opacity .3s linear;
+      background:
+        radial-gradient(ellipse 50% 38% at 22% -8%, rgba(120,220,255,0.22), transparent 60%),
+        radial-gradient(ellipse 42% 34% at 70% -10%, rgba(150,230,255,0.18), transparent 60%),
+        repeating-linear-gradient(102deg, rgba(150,225,255,0.05) 0px, rgba(150,225,255,0.05) 2px, transparent 2px, transparent 26px);
+      animation: causticShift 14s ease-in-out infinite alternate;
+    }
+    @keyframes causticShift { 0%{ background-position:0 0,0 0,0 0; transform:translateX(0) } 100%{ background-position:40px 0,-30px 0,60px 0; transform:translateX(-14px) } }
+    /* Depth vignette — closes in as you go deeper */
+    #vignette {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: var(--depth);
+      background: radial-gradient(ellipse 120% 90% at 50% 38%, transparent 35%, rgba(0,3,8,0.85) 100%);
+      transition: opacity .3s linear;
+    }
+    #marine-snow { position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .4s linear; }
+    body.diving #marine-snow { opacity: 1; }
+
+    /* DIVE TRANSITION — the surface line where you plunge under */
+    .plunge { position: relative; height: 0; }
+    .plunge .surface-line {
+      position: absolute; left: 0; right: 0; top: -2px; height: 140px; z-index: 3; pointer-events: none;
+      background: linear-gradient(180deg, transparent, rgba(10,61,84,0.0) 30%, rgba(10,61,84,0.5));
+      overflow: hidden;
+    }
+    .plunge .surface-line svg { position:absolute; bottom:0; left:0; width:200%; height:60px; }
+
+    /* ── RISING BUBBLES ── */
+    #bubble-field { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .5s linear; }
+    body.diving #bubble-field { opacity: 1; }
+    .bubble {
+      position: absolute; bottom: -40px; border-radius: 50%;
+      background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.55), rgba(180,230,255,0.12) 55%, transparent 72%);
+      box-shadow: inset 0 0 4px rgba(255,255,255,0.25); will-change: transform, opacity;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      8% { opacity: .7; }
+      85% { opacity: .45; }
+      100% { transform: translateY(-108vh) translateX(var(--drift, 24px)); opacity: 0; }
+    }
+
+    /* ── SCUBA DIVER ── (drop-in PNG, SVG fallback) */
+    #diver {
+      position: fixed; top: 0; left: 0; z-index: 6; width: clamp(120px, 16vw, 230px);
+      pointer-events: none; opacity: 0; will-change: transform, opacity;
+      transition: opacity .5s ease; filter: drop-shadow(0 20px 40px rgba(0,10,20,0.55));
+    }
+    body.diving #diver { opacity: 1; }
+    #diver img, #diver svg { width: 100%; height: auto; display: block; }
+    .diver-glow { position:absolute; inset:-30% -20%; z-index:-1; background: radial-gradient(circle, rgba(120,210,255,0.18), transparent 65%); }
+    /* diver flashlight cone */
+    #diver .torch {
+      position: absolute; top: 40%; left: 78%; width: 320px; height: 220px; z-index:-1;
+      background: conic-gradient(from 18deg at 0% 50%, rgba(190,235,255,0.22), transparent 36deg);
+      filter: blur(8px); opacity: .8; transform-origin: 0 50%;
+    }
+
+    /* ── DEPTH HUD ── */
+    #depth-hud {
+      position: fixed; left: 26px; top: 50%; transform: translateY(-50%);
+      z-index: 40; width: 58px; opacity: 0; transition: opacity .5s ease;
+      font-family: 'Space Grotesk', sans-serif; pointer-events: none; user-select: none;
+    }
+    body.diving #depth-hud { opacity: 1; }
+    .dh-track { position: relative; width: 2px; height: 230px; margin: 0 auto 12px; background: rgba(140,210,240,0.18); border-radius: 2px; }
+    .dh-fill { position: absolute; top: 0; left: 0; width: 100%; background: linear-gradient(180deg, var(--accent), #0a3d54); border-radius: 2px; height: 0%; }
+    .dh-marker { position: absolute; left: 50%; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); transform: translate(-50%,-50%); box-shadow: 0 0 12px var(--accent); top: 0%; }
+    .dh-tick { position:absolute; left:50%; transform:translateX(-50%); width:7px; height:1px; background:rgba(140,210,240,0.35); }
+    .dh-readout { text-align: center; font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+    .dh-zone { text-align: center; font-size: 8.5px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(170,215,235,0.7); margin-top: 3px; line-height:1.4; }
+    @media(max-width:920px){ #depth-hud { display:none; } }
+
+    /* ── WATER TEXT — chars escape the cursor ── */
+    .wt { position: relative; }
+    .wt-char { display: inline-block; will-change: transform; }
+
+    /* ── GLASS DECK + SUBMERSIBLE FRAMES ── */
+    body.diving .feat-card, body.diving .bento-card, body.diving .proj, body.diving .hcard, body.diving .sidebar-card {
+      background: rgba(8,34,50,0.42) !important;
+      border-color: rgba(130,205,235,0.16) !important;
+      backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
+    }
+    body.diving .chip, body.diving .feat-tag { background: rgba(130,205,235,0.08) !important; border-color: rgba(130,205,235,0.18) !important; }
+    body.diving .bw-pill, body.diving .logo-pill { background: rgba(8,34,50,0.5) !important; border-color: rgba(130,205,235,0.14) !important; }
+
+    /* SUB-WINDOW — a porthole/viewport frame for real screenshots */
+    .subwindow {
+      position: relative; border-radius: 18px; overflow: hidden;
+      border: 1px solid rgba(130,205,235,0.22);
+      background: rgba(4,20,32,0.6); backdrop-filter: blur(6px);
+      box-shadow: 0 30px 80px -20px rgba(0,8,20,0.8), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .subwindow-bar { display:flex; align-items:center; gap:7px; padding:11px 14px; border-bottom:1px solid rgba(130,205,235,0.14); background:rgba(6,26,40,0.7); }
+    .subwindow-bar i { width:10px; height:10px; border-radius:50%; display:block; }
+    .subwindow-bar .u { background:#ff5f57; } .subwindow-bar .m { background:#febc2e; } .subwindow-bar .g { background:#28c840; }
+    .subwindow-bar .url { margin-left:10px; font-size:11px; color:rgba(170,215,235,0.7); font-family:'Space Grotesk',sans-serif; letter-spacing:.3px; }
+    .subwindow img { width:100%; display:block; }
+    /* glass refraction sheen + water caustic over the screenshot */
+    .subwindow .glass-sheen { position:absolute; inset:0; pointer-events:none; background: linear-gradient(120deg, rgba(120,210,255,0.10), transparent 30%, transparent 70%, rgba(120,210,255,0.06)); mix-blend-mode:screen; }
+    .subwindow:hover { border-color: rgba(130,205,235,0.4); }
+    .subwindow .live-pin { position:absolute; top:54px; right:14px; z-index:2; display:flex; align-items:center; gap:6px; font-size:10px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:#7fe3a0; background:rgba(4,20,32,0.7); border:1px solid rgba(127,227,160,0.3); padding:4px 9px; border-radius:99px; }
+    .subwindow .live-pin-dot { width:6px; height:6px; border-radius:50%; background:#7fe3a0; box-shadow:0 0 8px #7fe3a0; animation: livePulse 1.6s ease-in-out infinite; }
+    @keyframes livePulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+    /* PROJECT SPECIMEN FRAME — screenshot at top of each card */
+    .proj-shot {
+      position: relative; height: 132px; margin: -2px -2px 18px; border-radius: 13px 13px 0 0; overflow: hidden;
+      background: linear-gradient(135deg, rgba(10,61,84,0.5), rgba(4,20,32,0.7));
+      border-bottom: 1px solid rgba(130,205,235,0.12);
+    }
+    .proj-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .proj-shot .ph {
+      position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+      color: rgba(170,215,235,0.55); font-size: 11px; letter-spacing:.4px; text-align:center; padding:0 16px;
+    }
+    .proj-shot .ph .ph-ico { font-size: 26px; opacity:.8; }
+    .proj-shot::after { content:''; position:absolute; inset:0; pointer-events:none; background: linear-gradient(115deg, rgba(120,210,255,0.10), transparent 40%); mix-blend-mode:screen; }
+    .proj-shot .caustic-band { position:absolute; inset:0; pointer-events:none; opacity:.5; background: repeating-linear-gradient(100deg, rgba(160,225,255,0.06) 0 2px, transparent 2px 22px); }
+
+    /* Section eyebrows turn into "depth station" labels while diving */
+    body.diving .section-eyebrow::before, body.diving .feat-eyebrow::before, body.diving .qf-eyebrow::before { content:''; }
+
+    /* Light theme: warm shallow lagoon instead of dark abyss */
+    [data-theme="light"] { }
+    [data-theme="light"].diving #ocean { background: linear-gradient(180deg, #bfe9f0 0%, #6fb8cf 55%, #2c6f86 100%); }
+    [data-theme="light"] #depth-hud .dh-readout { color:#0e6b86; }
+    [data-theme="light"].diving .feat-card, [data-theme="light"].diving .bento-card, [data-theme="light"].diving .proj, [data-theme="light"].diving .hcard {
+      background: rgba(255,255,255,0.55) !important; border-color: rgba(20,90,110,0.18) !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #caustics, .bubble { animation: none !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -684,6 +833,48 @@
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
   <div id="spotlight"></div>
+
+  <!-- ── THE DIVE: underwater layers ── -->
+  <div id="ocean"></div>
+  <div id="caustics"></div>
+  <div id="vignette"></div>
+  <canvas id="marine-snow"></canvas>
+  <div id="bubble-field"></div>
+
+  <!-- Scuba diver: drop a transparent PNG at media/diver.png to replace the fallback -->
+  <div id="diver">
+    <div class="diver-glow"></div>
+    <div class="torch"></div>
+    <img id="diver-img" src="media/diver.png" alt="" onerror="this.style.display='none';document.getElementById('diver-fallback').style.display='block'">
+    <svg id="diver-fallback" viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <!-- placeholder silhouette until media/diver.png is added -->
+      <g fill="#0c2030" stroke="rgba(150,220,255,0.5)" stroke-width="1.5">
+        <ellipse cx="86" cy="58" rx="20" ry="17"/>
+        <rect x="98" y="44" width="14" height="26" rx="6" fill="rgba(150,220,255,0.25)"/>
+        <path d="M70 70 Q72 112 96 124 L150 132 Q176 130 188 116 L176 104 Q150 116 128 108 L112 74 Z"/>
+        <rect x="62" y="58" width="20" height="34" rx="8"/>
+        <path d="M150 132 q26 6 44 -6 M150 132 q24 14 46 8"/>
+        <circle cx="78" cy="56" r="5" fill="rgba(190,235,255,0.8)" stroke="none"/>
+      </g>
+      <g fill="none" stroke="rgba(190,235,255,0.6)" stroke-width="1.6">
+        <circle cx="58" cy="48" r="3"/><circle cx="48" cy="36" r="2.2"/><circle cx="40" cy="26" r="1.6"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Depth gauge HUD -->
+  <div id="depth-hud">
+    <div class="dh-track">
+      <span class="dh-tick" style="top:0%"></span>
+      <span class="dh-tick" style="top:33%"></span>
+      <span class="dh-tick" style="top:66%"></span>
+      <span class="dh-tick" style="top:100%"></span>
+      <div class="dh-fill"></div>
+      <div class="dh-marker"></div>
+    </div>
+    <div class="dh-readout" id="dh-depth">0m</div>
+    <div class="dh-zone" id="dh-zone">Surface</div>
+  </div>
 
   <!-- NAV -->
   <nav>
@@ -834,7 +1025,14 @@
     </div>
   </section>
 
-
+  <!-- ── PLUNGE: the surface line where the page goes underwater ── -->
+  <div class="plunge" id="plunge">
+    <div class="surface-line">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path d="M0,30 C180,8 360,52 540,30 C720,8 900,52 1080,30 C1260,8 1440,52 1620,30 L1620,60 L0,60 Z" fill="rgba(10,61,84,0.55)"/>
+      </svg>
+    </div>
+  </div>
 
   <!-- MARQUEE -->
   <div class="marquee-wrap">
@@ -890,7 +1088,7 @@
           <span class="live-dot"></span>
           What I'm building
         </div>
-        <a href="https://presonance.tech" target="_blank" class="feat-title-link"><h2 class="feat-title"><span class="feat-grad">Presonance.</span> <span class="feat-arrow">↗</span></h2></a>
+        <a href="https://presonance.tech" target="_blank" class="feat-title-link"><h2 class="feat-title"><span class="feat-grad wt">Presonance.</span> <span class="feat-arrow">↗</span></h2></a>
         <div class="feat-role">Founder · 2025 — present · <a href="https://presonance.tech" target="_blank" style="color:var(--accent);text-decoration:none">presonance.tech</a></div>
         <p class="feat-desc">
           A small comp-neuro lab for predicting how people actually respond to ads — before any spend.
@@ -910,16 +1108,18 @@
       </div>
 
       <a href="https://presonance.tech" target="_blank" class="feat-right reveal reveal-d2" style="text-decoration:none;color:inherit">
-        <div class="feat-card">
-          <div class="feat-card-head">
-            <div class="feat-card-title">Notes</div>
-            <div class="feat-card-badge">● Quietly piloting</div>
-          </div>
+        <div class="subwindow">
+          <div class="subwindow-bar"><i class="u"></i><i class="m"></i><i class="g"></i><span class="url">presonance.tech</span></div>
+          <div class="live-pin"><span class="live-pin-dot"></span>Live</div>
+          <img src="media/screens/presonance-desktop.png" alt="Presonance — live product, captured from presonance.tech"
+               onerror="this.style.display='none';this.parentElement.querySelector('.shot-ph').style.display='flex'">
+          <div class="shot-ph proj-shot ph" style="display:none;height:300px;position:static"><span class="ph-ico">🧠</span>presonance.tech</div>
+          <div class="glass-sheen"></div>
+        </div>
+        <div class="feat-card" style="margin-top:16px">
           <div class="feat-card-row"><span class="feat-card-key">Stage</span><span class="feat-card-val">Private pilots</span></div>
           <div class="feat-card-row"><span class="feat-card-key">Piloting with</span><span class="feat-card-val a">Meta &amp; others</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">Team</span><span class="feat-card-val">A few quiet researchers</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">Advised by</span><span class="feat-card-val">Folks at Meta · Georgia Tech · LushLife.ai</span></div>
-          <div class="feat-card-row"><span class="feat-card-key">Website</span><span class="feat-card-val a">presonance.tech ↗</span></div>
+          <div class="feat-card-row"><span class="feat-card-key">Advised by</span><span class="feat-card-val">Meta · Georgia Tech · LushLife.ai</span></div>
         </div>
       </a>
     </div>
@@ -954,11 +1154,11 @@
         <div class="aff-info"><div class="aff-role">Founder</div><div class="aff-org">Presonance · presonance.tech</div></div>
       </a>
       <a class="aff-card reveal reveal-d1" href="https://aivalley.io" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='AV'"></div>
+        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/aivalley.io" alt="AI Valley" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='AV'"></div>
         <div class="aff-info"><div class="aff-role">Director of Expansion</div><div class="aff-org">AI Valley · 2025–now</div></div>
       </a>
       <a class="aff-card reveal reveal-d2" href="https://systemsbiology.org" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='ISB'"></div>
+        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/systemsbiology.org" alt="ISB" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='ISB'"></div>
         <div class="aff-info"><div class="aff-role">ML Research Intern</div><div class="aff-org">ISB · Baliga Lab · 2025–now</div></div>
       </a>
       <a class="aff-card reveal" href="https://oncoscan.ai" target="_blank" style="text-decoration:none;color:inherit">
@@ -966,7 +1166,7 @@
         <div class="aff-info"><div class="aff-role">Founder, CEO &amp; CTO</div><div class="aff-org">OncoScan AI · 2025–now</div></div>
       </a>
       <a class="aff-card reveal reveal-d1" href="https://topstep.com" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='TS'"></div>
+        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/topstep.com" alt="TopStep" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='TS'"></div>
         <div class="aff-info"><div class="aff-role">Funded Trader · $150K</div><div class="aff-org">TopStep · 2025</div></div>
       </a>
       <div class="aff-card reveal reveal-d2">
@@ -974,15 +1174,15 @@
         <div class="aff-info"><div class="aff-role">Lead ML Researcher</div><div class="aff-org">Brain Stroke · 2023–2025</div></div>
       </div>
       <a class="aff-card reveal" href="https://theupliftnetwork.org" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="tun.webp" alt="Uplift Network" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='UN'"></div>
+        <div class="aff-logo-wrap"><img src="tun.webp" alt="Uplift Network" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='UN'"></div>
         <div class="aff-info"><div class="aff-role">Founder</div><div class="aff-org">The Uplift Network · 2024–2025</div></div>
       </a>
       <a class="aff-card reveal reveal-d1" href="https://cmu.edu" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/cmu.edu" alt="CMU" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='CMU'"></div>
+        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/cmu.edu" alt="CMU" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='CMU'"></div>
         <div class="aff-info"><div class="aff-role">B.S. Computer Science</div><div class="aff-org">Carnegie Mellon · 4.0 GPA · '30</div></div>
       </a>
       <a class="aff-card reveal reveal-d2" href="https://stanford.edu" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/stanford.edu" alt="Stanford" onerror="this.parentElement.classList.add('fallback');this.remove();this.parentElement.textContent='SU'"></div>
+        <div class="aff-logo-wrap"><img src="https://logo.clearbit.com/stanford.edu" alt="Stanford" onerror="this.parentElement.classList.add('fallback');this.parentElement.textContent='SU'"></div>
         <div class="aff-info"><div class="aff-role">Summer Session '25</div><div class="aff-org">Stanford · Data Science + Stats</div></div>
       </a>
     </div>
@@ -1088,7 +1288,7 @@
     <div class="section-eyebrow">Beyond the screen</div>
     <div class="hobbies-split" style="margin-top:20px">
       <div class="hobbies-sticky">
-        <h2 style="font-size:clamp(32px,4vw,48px);font-weight:700;line-height:0.95;letter-spacing:-0.02em">Life<br/>outside<br/>the lab.</h2>
+        <h2 class="wt" style="font-size:clamp(32px,4vw,48px);font-weight:700;line-height:0.95;letter-spacing:-0.02em">Life<br/>outside<br/>the lab.</h2>
         <p class="hobbies-tagline">All hours not spent coding, fully accounted for.</p>
         <div class="hobbies-pill"><span class="dot"></span>all efforts funding the next ski pass</div>
       </div>
@@ -1150,7 +1350,7 @@
   <section class="contact reveal" id="contact">
     <div class="contact-glow"></div>
     <p class="contact-pre">Connect</p>
-    <h2 class="contact-title">Build something<br/>together.</h2>
+    <h2 class="contact-title wt">Build something<br/>together.</h2>
     <p class="contact-sub">Research, AI, real estate, investing, or just a good conversation.</p>
     <div class="contact-ctas">
       <a href="mailto:vihaans@andrew.cmu.edu" class="btn-accent magnetic">vihaans@andrew.cmu.edu →</a>
@@ -1737,6 +1937,260 @@
         }
       }, { passive: false });
     }
+
+    /* ════════════════════════════════════════════════════════════
+       THE DIVE ENGINE — depth color · diver · bubbles · marine snow
+       · water-text · depth HUD     (shares mx/my from cursor block)
+       ════════════════════════════════════════════════════════════ */
+    (function dive() {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const ocean   = document.getElementById('ocean');
+      const diver   = document.getElementById('diver');
+      const hud     = document.getElementById('depth-hud');
+      const dhFill  = document.querySelector('.dh-fill');
+      const dhMark  = document.querySelector('.dh-marker');
+      const dhDepth = document.getElementById('dh-depth');
+      const dhZone  = document.getElementById('dh-zone');
+      const root    = document.documentElement;
+      const bubbleField = document.getElementById('bubble-field');
+      if (!ocean || !diver) return;
+
+      const lerp = (a,b,t)=>a+(b-a)*t;
+      const clamp = (v,a,b)=>Math.min(b,Math.max(a,v));
+      // hex -> rgb helper for sea color crossfade
+      const hex = h => [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+      const mixHex = (h1,h2,t)=>{const a=hex(h1),b=hex(h2);return `rgb(${a.map((v,i)=>Math.round(lerp(v,b[i],t))).join(',')})`;};
+      // depth gradient stops: [progress, topColor, bottomColor]
+      const STOPS = [
+        [0.00,'#0d4a63','#063249'],   // sunlit shallow
+        [0.30,'#073048','#04202f'],   // twilight
+        [0.62,'#04141f','#020b13'],   // midnight
+        [1.00,'#010810','#000204'],   // abyss
+      ];
+      function seaColor(p){
+        for(let i=0;i<STOPS.length-1;i++){
+          if(p<=STOPS[i+1][0]){
+            const t=(p-STOPS[i][0])/(STOPS[i+1][0]-STOPS[i][0]||1);
+            return [mixHex(STOPS[i][1],STOPS[i+1][1],t), mixHex(STOPS[i][2],STOPS[i+1][2],t)];
+          }
+        }
+        return [STOPS[STOPS.length-1][1],STOPS[STOPS.length-1][2]];
+      }
+
+      const ZONES = [
+        [40,  'Sunlight Zone'],
+        [120, 'Twilight Zone'],
+        [240, 'Midnight Zone'],
+        [9999,'The Abyss'],
+      ];
+      function zoneFor(m){ for(const [max,name] of ZONES) if(m<max) return name; }
+
+      let diving = false, diveProg = 0, oceanOp = 0;
+      function recalc(){
+        const heroH = document.querySelector('.hero').offsetHeight;
+        const y = window.scrollY || window.pageYOffset;
+        const docH = document.documentElement.scrollHeight;
+        const winH = window.innerHeight;
+        oceanOp  = clamp((y - heroH*0.42) / (heroH*0.45), 0, 1);
+        const start = heroH*0.5;
+        diveProg = clamp((y - start) / Math.max(1,(docH - winH - start)), 0, 1);
+
+        ocean.style.opacity = oceanOp;
+        const [c1,c2] = seaColor(diveProg);
+        root.style.setProperty('--sea-1', c1);
+        root.style.setProperty('--sea-2', c2);
+        root.style.setProperty('--caustic', clamp(1 - diveProg*2.4, 0, 1).toFixed(3));
+        root.style.setProperty('--depth', clamp(diveProg*1.05, 0, 1).toFixed(3));
+
+        const nowDiving = oceanOp > 0.03;
+        if (nowDiving !== diving){ diving = nowDiving; document.body.classList.toggle('diving', diving); }
+
+        // depth gauge (max ~320m at the abyss)
+        const meters = Math.round(diveProg * 320);
+        dhDepth.textContent = meters + 'm';
+        dhZone.textContent  = diving ? zoneFor(meters) : 'Surface';
+        dhFill.style.height = (diveProg*100) + '%';
+        dhMark.style.top    = (diveProg*100) + '%';
+      }
+      window.addEventListener('scroll', recalc, { passive:true });
+      window.addEventListener('resize', recalc);
+      recalc();
+
+      /* ── DIVER motion: swims down, drifts, escapes the cursor ── */
+      const diverImg = diver.firstElementChild;
+      let dX=window.innerWidth*0.5, dY=window.innerHeight*0.3, curX=dX, curY=dY, curRot=0, facing=1, t=0;
+      function diverTick(){
+        t += 1;
+        const y = window.scrollY || window.pageYOffset;
+        const W = window.innerWidth, H = window.innerHeight;
+        const dw = diver.offsetWidth || 180;
+        // horizontal sweep tied to scroll; vertical "swim" oscillation + bob
+        const phase = y * 0.0017;
+        const sweep = Math.sin(phase);
+        dX = W*0.5 + sweep * W*0.30 - dw/2;
+        const bob = Math.sin(t*0.018) * 16;
+        dY = H*0.16 + (0.5 + 0.5*Math.sin(phase - 1.1)) * (H*0.46) + bob;
+
+        // mouse escape — diver drifts away when cursor approaches
+        const cx = curX + dw/2, cy = curY + dw*0.35;
+        const ddx = cx - mx, ddy = cy - my;
+        const dist = Math.hypot(ddx, ddy);
+        const R = 240;
+        if (dist < R && dist > 0){
+          const f = (1 - dist/R) * 90;
+          dX += (ddx/dist) * f;
+          dY += (ddy/dist) * f;
+        }
+        // smooth follow
+        curX = lerp(curX, dX, 0.06);
+        curY = lerp(curY, dY, 0.06);
+        // face direction of travel
+        const dir = Math.cos(phase) >= 0 ? 1 : -1;
+        facing = lerp(facing, dir, 0.08);
+        // tilt with vertical drift + a little lean
+        const targetRot = clamp((dY - curY)*0.25, -14, 14) + sweep*4;
+        curRot = lerp(curRot, targetRot, 0.07);
+        diver.style.transform =
+          `translate(${curX.toFixed(1)}px,${curY.toFixed(1)}px) rotate(${curRot.toFixed(2)}deg) scaleX(${facing.toFixed(2)})`;
+
+        // bubble trail from the regulator while actively diving
+        if (diving && !reduce && t % 26 === 0) spawnBubble(curX + dw*0.32, curY + dw*0.30, true);
+        requestAnimationFrame(diverTick);
+      }
+      requestAnimationFrame(diverTick);
+
+      /* ── BUBBLES ── ambient risers + diver trail */
+      function spawnBubble(x, y, fromDiver){
+        const b = document.createElement('div');
+        b.className = 'bubble';
+        const size = fromDiver ? (3 + Math.random()*5) : (4 + Math.random()*12);
+        b.style.width = b.style.height = size + 'px';
+        b.style.setProperty('--drift', (Math.random()*60 - 30) + 'px');
+        if (fromDiver){
+          b.style.left = x + 'px'; b.style.bottom = (window.innerHeight - y) + 'px';
+          b.style.animationDuration = (2.5 + Math.random()*1.5) + 's';
+        } else {
+          b.style.left = (Math.random()*100) + 'vw'; b.style.bottom = '-40px';
+          b.style.animationDuration = (7 + Math.random()*8) + 's';
+        }
+        bubbleField.appendChild(b);
+        setTimeout(()=>b.remove(), 11000);
+      }
+      if (!reduce){
+        setInterval(()=>{ if (diving) spawnBubble(0,0,false); }, 600);
+      }
+
+      /* ── MARINE SNOW ── slow drifting particles, denser with depth ── */
+      const snow = document.getElementById('marine-snow');
+      const sctx = snow.getContext('2d');
+      let sp = [];
+      function sizeSnow(){
+        snow.width = window.innerWidth; snow.height = window.innerHeight;
+        const N = Math.round(window.innerWidth/14);
+        sp = Array.from({length:N}, () => ({
+          x: Math.random()*snow.width, y: Math.random()*snow.height,
+          r: Math.random()*1.6+0.3, vy: -(Math.random()*0.25+0.05),
+          vx: (Math.random()-0.5)*0.18, a: Math.random()*0.4+0.1, drift: Math.random()*6.28,
+        }));
+      }
+      sizeSnow(); window.addEventListener('resize', sizeSnow);
+      function snowTick(){
+        sctx.clearRect(0,0,snow.width,snow.height);
+        if (diving){
+          for (const p of sp){
+            p.drift += 0.01;
+            p.y += p.vy; p.x += p.vx + Math.sin(p.drift)*0.12;
+            if (p.y < -4){ p.y = snow.height+4; p.x = Math.random()*snow.width; }
+            if (p.x < -4) p.x = snow.width+4; if (p.x > snow.width+4) p.x = -4;
+            sctx.beginPath(); sctx.arc(p.x,p.y,p.r,0,6.283);
+            sctx.fillStyle = `rgba(190,225,245,${p.a*(0.5+diveProg*0.5)})`;
+            sctx.fill();
+          }
+        }
+        requestAnimationFrame(snowTick);
+      }
+      if (!reduce) requestAnimationFrame(snowTick);
+
+      /* ── WATER TEXT ── heading chars flee the cursor ── */
+      let wtc = [];
+      function splitWT(el){
+        const out = [];
+        const nodes = Array.from(el.childNodes);
+        el.textContent = '';
+        for (const n of nodes){
+          if (n.nodeType === 3){ // text
+            for (const ch of n.textContent){
+              const s = document.createElement('span');
+              s.className = 'wt-char';
+              s.textContent = ch;
+              if (ch === ' ') s.style.whiteSpace = 'pre';
+              el.appendChild(s); out.push(s);
+            }
+          } else if (n.nodeName === 'BR'){
+            el.appendChild(document.createElement('br'));
+          } else {
+            el.appendChild(n);
+          }
+        }
+        return out;
+      }
+      document.querySelectorAll('.wt').forEach(el => {
+        splitWT(el).forEach(s => wtc.push({ el:s, cx:0, cy:0, vx:0, vy:0, dx:0, dy:0 }));
+      });
+      function recapWT(){
+        for (const c of wtc){
+          const r = c.el.getBoundingClientRect();
+          c.cx = r.left + r.width/2 - c.dx;
+          c.cy = r.top  + r.height/2 - c.dy;
+        }
+      }
+      recapWT();
+      window.addEventListener('scroll', recapWT, { passive:true });
+      window.addEventListener('resize', () => { setTimeout(recapWT, 60); });
+      const WT_R = 130, WT_S = 42, WT_SPRING = 0.12, WT_DAMP = 0.78;
+      function wtTick(){
+        for (const c of wtc){
+          let fx = -c.dx*WT_SPRING, fy = -c.dy*WT_SPRING;
+          const px = c.cx + c.dx, py = c.cy + c.dy;
+          const dx = px - mx, dy = py - my, d = Math.hypot(dx,dy);
+          if (d < WT_R && d > 0){
+            const f = (1 - d/WT_R) * WT_S;
+            fx += (dx/d)*f; fy += (dy/d)*f;
+          }
+          c.vx = c.vx*WT_DAMP + fx; c.vy = c.vy*WT_DAMP + fy;
+          c.dx += c.vx; c.dy += c.vy;
+          c.el.style.transform = `translate(${c.dx.toFixed(2)}px,${c.dy.toFixed(2)}px)`;
+        }
+        requestAnimationFrame(wtTick);
+      }
+      if (wtc.length) requestAnimationFrame(wtTick);
+
+      /* ── PROJECT SPECIMEN FRAMES ── inject screenshot windows into cards ── */
+      const SHOTS = {
+        'presonance':   { file:'presonance-product.png', ico:'🧠' },
+        'sentinent':    { file:'sentinent.png',          ico:'📈' },
+        'really-ai':    { file:'really-ai.png',          ico:'🏡' },
+        'brain-stroke': { file:'brain-stroke.png',       ico:'🧠' },
+        'oncoscan':     { file:'oncoscan.png',           ico:'🔬' },
+        'isb':          { file:'isb.png',                ico:'🧬' },
+        'minecraft':    { file:'clonesmp.png',           ico:'⛏️' },
+        'medsim':       { file:'medsim.png',             ico:'🏥' },
+        'pixel-agents': { file:'pixel-agents.png',       ico:'🖥️' },
+        'whatsappbot2': { file:'whatsappbot2.png',       ico:'💬' },
+      };
+      document.querySelectorAll('.proj[data-project]').forEach(card => {
+        const key = card.dataset.project;
+        const s = SHOTS[key]; if (!s) return;
+        const frame = document.createElement('div');
+        frame.className = 'proj-shot';
+        frame.innerHTML =
+          `<img src="media/screens/${s.file}" alt="" loading="lazy"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+           <div class="ph" style="display:none"><span class="ph-ico">${s.ico}</span>add media/screens/${s.file}</div>
+           <div class="caustic-band"></div>`;
+        card.insertBefore(frame, card.firstChild);
+      });
+    })();
 </script>
 </body>
 </html>
