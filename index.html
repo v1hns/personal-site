@@ -616,9 +616,9 @@
     .feat-title-link .feat-arrow { font-size:0.5em; color:var(--muted); vertical-align:super; margin-left:8px; transition:color 0.2s ease, transform 0.2s ease; display:inline-block; }
     .feat-title-link:hover .feat-arrow { color:var(--accent); transform:translate(2px,-2px); }
     .feat-role { font-size:14px; color:var(--accent); font-weight:600; letter-spacing:0.04em; margin-bottom:22px; text-transform:uppercase; }
-    .feat-desc { font-size:16px; color:var(--text); line-height:1.7; margin-bottom:18px; max-width:580px; }
-    .feat-desc strong { color:var(--text); font-weight:600; }
-    .feat-sub { font-size:14px; color:var(--muted); line-height:1.75; margin-bottom:28px; max-width:580px; }
+    .feat-desc { font-size:16px; color:#9fd2f0; line-height:1.7; margin-bottom:18px; max-width:580px; }
+    .feat-desc strong { color:#cfeaf9; font-weight:600; }
+    .feat-sub { font-size:14px; color:rgba(143,205,238,0.78); line-height:1.75; margin-bottom:28px; max-width:580px; }
     .feat-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:28px; max-width:580px; }
     .feat-stat { background:rgba(255,255,255,0.025); border:1px solid var(--border); border-radius:12px; padding:14px 16px; transition: border-color 0.2s, background 0.2s; }
     .feat-stat:hover { border-color:var(--border2); background:rgba(255,255,255,0.04); }
@@ -1102,10 +1102,10 @@
         </div>
         <a href="https://presonance.tech" target="_blank" class="feat-title-link"><h2 class="feat-title"><span class="feat-grad wt">Presonance.</span> <span class="feat-arrow">↗</span></h2></a>
         <div class="feat-role">co-founder + ceo : apr 2026 - now : <a href="https://presonance.tech" target="_blank" style="color:var(--accent);text-decoration:none">presonance.tech</a></div>
-        <p class="feat-desc">
+        <p class="feat-desc flow">
           a small comp-neuro lab. i predict how people actually respond to ads: before any spend.
         </p>
-        <p class="feat-sub">
+        <p class="feat-sub flow">
           most teams a/b test their creative or ask an llm what it thinks. neither tells you how a real nervous system reacts, so i'm building something that does. quietly piloting with a few creators, agencies, and one big platform. advised by ad teams at meta, neuroscience folks at georgia tech, and a couple 100m+ founders.
         </p>
         <div class="feat-tags">
@@ -1138,7 +1138,7 @@
       <div class="section-eyebrow">the descent</div>
       <h2 class="flow">how i got here.</h2>
       <p class="flow">newest first. the deeper you go, the further back it is. everything i actually built, broke, and shipped. the gauge on the left is the year.</p>
-      <span class="tl-down">↓  2026 : 2023</span>
+      <span class="tl-down">↓  2026 : 2020</span>
     </div>
 
     <!-- 2026 -->
@@ -1245,15 +1245,30 @@
 
     <!-- 2023 -->
     <div class="tl-era" data-year="2023">
-      <div class="tl-era-head"><span class="tl-year">2023</span><span class="tl-era-note">the abyss : where it started</span></div>
+      <div class="tl-era-head"><span class="tl-year">2023</span><span class="tl-era-note">the abyss</span></div>
       <div class="tl-grid">
         <div class="tl-spine"><span class="tl-node"></span></div>
         <div class="tl-list">
           <article class="tl-entry clickable" data-project="brain-stroke">
             <div class="tl-title flow">brain stroke classifier</div>
             <div class="tl-org flow">1st place : wa state science and engineering fair</div>
-            <div class="tl-desc flow">built a 3d cnn that reads brain ct scans for stroke risk, capturing the whole volume instead of just slices. this is where the ml obsession actually started.</div>
+            <div class="tl-desc flow">built a 3d cnn that reads brain ct scans for stroke risk, capturing the whole volume instead of just slices. my first real research win.</div>
             <span class="tl-open">open ↗</span>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2020 -->
+    <div class="tl-era" data-year="2020">
+      <div class="tl-era-head"><span class="tl-year">2020</span><span class="tl-era-note">the seabed : where it started</span></div>
+      <div class="tl-grid">
+        <div class="tl-spine"><span class="tl-node"></span></div>
+        <div class="tl-list">
+          <article class="tl-entry">
+            <div class="tl-title flow">where it actually started</div>
+            <div class="tl-org flow">6th grade : 2020</div>
+            <div class="tl-desc flow">started coding in 6th grade. built my first neural net at 13. everything above grew out of that.</div>
           </article>
         </div>
       </div>
@@ -1949,7 +1964,7 @@
         curX = lerp(curX, dX, 0.06);
         curY = lerp(curY, dY, 0.06);
         // face direction of travel
-        const dir = Math.cos(phase) >= 0 ? 1 : -1;
+        const dir = Math.cos(phase) >= 0 ? -1 : 1; // source art faces left; mirror when swimming right
         facing = lerp(facing, dir, 0.08);
         // tilt with vertical drift + a little lean
         const targetRot = clamp((dY - curY)*0.25, -14, 14) + sweep*4;
@@ -2105,7 +2120,7 @@
       const eras = Array.from(document.querySelectorAll('.tl-era'));
       const dhYear = document.getElementById('dh-year');
       const dhYS   = document.getElementById('dh-yearsub');
-      const SUBMAP = { '2026':'now', '2025':'build years', '2024':'midnight', '2023':'where it started' };
+      const SUBMAP = { '2026':'now', '2025':'build years', '2024':'going deeper', '2023':'the abyss', '2020':'where it started' };
       const eraTop = e => e.getBoundingClientRect().top + (window.scrollY||window.pageYOffset);
       function updateEra(){
         if (!eras.length || !dhYear) return;
@@ -2154,12 +2169,13 @@
       }
       let activeFlow = null;
       const settling = new Set();
-      const FR = 105, FS = 17;
+      const GAP = 30;
       function measureFlow(entry){
         for (const w of entry.words){
           const r = w.s.getBoundingClientRect();
           w.cx = r.left - w.cur + r.width/2;
           w.cy = r.top + r.height/2;
+          w.hh = r.height/2;
         }
       }
       document.querySelectorAll('.flow').forEach(el => {
@@ -2172,10 +2188,12 @@
       function flowTick(){
         if (activeFlow){
           for (const w of activeFlow.words){
-            const dx = w.cx - mx, dy = w.cy - my;
-            w.tgt = (Math.abs(dy) < 22 && Math.abs(dx) < FR) ? Math.sign(dx) * (1 - Math.abs(dx)/FR) * FS : 0;
-            w.cur += (w.tgt - w.cur) * 0.2;
-            w.s.style.transform = `translateX(${w.cur.toFixed(2)}px)`;
+            // insert a single gap (tab) at the cursor: everything on the cursor's
+            // line that sits to the right of it slides over, so the cursor never touches text
+            const onLine = Math.abs(w.cy - my) < (w.hh + 5);
+            w.tgt = (onLine && w.cx > mx) ? GAP : 0;
+            w.cur += (w.tgt - w.cur) * 0.28;
+            w.s.style.transform = w.cur > 0.1 ? `translateX(${w.cur.toFixed(2)}px)` : '';
           }
         }
         for (const w of settling){
