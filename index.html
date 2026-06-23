@@ -30,7 +30,7 @@
  #frontcover .clothbook{cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
  .cover-title{font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:.03em} .cover-rule{width:64px;height:1px;background:rgba(238,228,207,.45);margin:22px 0}
  .cover-by{font-size:18px;font-style:italic;color:#ccc3ab} .cover-open{position:absolute;bottom:34px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#b3aa90}
- body.opened #frontcover{opacity:0} body.opened #frontcover .clothbook{transform:rotateY(-122deg)}
+ body.opened #frontcover{opacity:0;pointer-events:none} body.opened #frontcover .clothbook{transform:rotateY(-122deg)}
  /* BACK */
  #backcover .clothbook{border-radius:12px 8px 8px 12px;display:flex;flex-direction:column;justify-content:center}
  #backcover .clothbook::after{left:0;right:auto;border-radius:4px 0 0 4px}
