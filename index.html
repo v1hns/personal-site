@@ -9,18 +9,22 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; }
-    body { height: 280vh; background: #bfe3f2; overflow-x: hidden; }
-    #bg { position: fixed; top: 0; left: 0; width: 100vw; height: auto; z-index: -2; will-change: transform; pointer-events: none; user-select: none; }
-    #figure { position: fixed; top: 0; left: 0; width: 34vw; max-width: 540px; z-index: 1; will-change: transform; pointer-events: none; user-select: none; filter: drop-shadow(0 16px 38px rgba(0,12,24,0.35)); }
-    #flow { position: fixed; top: 7vh; bottom: 7vh; left: 6vw; right: 6vw; z-index: 2; }
-    #flow span { will-change: transform; }
+    html { width: 100%; }
+    body { position: relative; background: #bfe3f2; overflow-x: hidden; font-family: "Times New Roman", Times, serif; }
+    #bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1;
+          background-image: url(media/bg.png); background-size: 100% 100%; background-repeat: no-repeat; }
+    #flow { position: relative; margin: 9vh 6vw; }
+    #flow span { position: absolute; will-change: transform; }
+    #flow img.fig { position: absolute; pointer-events: none; user-select: none; width: 25vw; max-width: 400px;
+                    filter: drop-shadow(0 14px 34px rgba(0,12,24,0.35)); }
   </style>
 </head>
 <body>
-  <img id="bg" src="media/bg.png" alt="" />
-  <img id="figure" src="media/skydiver.png" alt="" />
-  <div id="flow"></div>
+  <div id="bg"></div>
+  <div id="flow">
+    <img class="fig" id="sky" src="media/skydiver.png" alt="" />
+    <img class="fig" id="diver" src="media/diver.png" alt="" />
+  </div>
   <script>
 function createFlow(container, text, opts) {
   opts = opts || {};
@@ -29,6 +33,8 @@ function createFlow(container, text, opts) {
   var color = opts.color || '#111';
   var padding = (opts.padding != null) ? opts.padding : 16;
   var getObstacles = opts.getObstacles || function () { return []; };
+  var colorFor = opts.colorFor || function () { return color; };
+  var lastBottom = 0;
   var fontFamily = '"Times New Roman", Times, serif';
 
   var cw = container.clientWidth;
@@ -125,6 +131,7 @@ function createFlow(container, text, opts) {
 
   function relayout() {
     var obstacles = getObstacles() || [];
+    lastBottom = 0;
     var spanIdx = 0;        // index into pool / placed-word cursor
     var wi = 0;             // next word to place
 
@@ -149,6 +156,8 @@ function createFlow(container, text, opts) {
           span.textContent = word.text;
           span.style.display = 'block';
           span.style.transform = 'translate(' + penX + 'px,' + baselineTop + 'px)';
+          span.style.color = colorFor(baselineTop);
+          if (baselineTop + lineHeight > lastBottom) lastBottom = baselineTop + lineHeight;
           penX += word.w;
           wi++;
           first = false;
@@ -163,76 +172,72 @@ function createFlow(container, text, opts) {
   }
 
   relayout();
-  return { relayout: relayout };
+  return { relayout: relayout, getHeight: function () { return lastBottom; } };
 }
 
   const STRIPS = {"diver": [[0.6337, 0.6801, 0.0, 0.0367], [0.6142, 0.6936, 0.0367, 0.0756], [0.5963, 0.7865, 0.0756, 0.1145], [0.5813, 0.8382, 0.1145, 0.1533], [0.5745, 0.8494, 0.1533, 0.1922], [0.4592, 0.8644, 0.1922, 0.2289], [0.4277, 0.8644, 0.2289, 0.2678], [0.4202, 0.8689, 0.2678, 0.3067], [0.415, 0.8704, 0.3067, 0.3456], [0.4142, 0.8764, 0.3456, 0.3844], [0.1813, 0.8712, 0.3844, 0.4212], [0.1341, 0.8637, 0.4212, 0.46], [0.0644, 0.8577, 0.46, 0.4989], [0.0345, 0.8457, 0.4989, 0.5378], [0.0157, 0.8801, 0.5378, 0.5767], [0.003, 0.8921, 0.5767, 0.6134], [0.0, 0.8936, 0.6134, 0.6523], [0.018, 0.8989, 0.6523, 0.6911], [0.0434, 0.9064, 0.6911, 0.73], [0.0936, 0.9476, 0.73, 0.7689], [0.0629, 0.9828, 0.7689, 0.8056], [0.0375, 0.9993, 0.8056, 0.8445], [0.0195, 0.9985, 0.8445, 0.8834], [0.018, 0.7521, 0.8834, 0.9222], [0.0375, 0.7221, 0.9222, 0.9611], [0.5221, 0.6464, 0.9611, 1.0]], "skydiver": [[0.1693, 0.6705, 0.0, 0.038], [0.1602, 0.7008, 0.038, 0.076], [0.1541, 0.7229, 0.076, 0.114], [0.1245, 0.738, 0.114, 0.152], [0.0585, 0.9104, 0.152, 0.1901], [0.0418, 0.9476, 0.1901, 0.2281], [0.0311, 0.9651, 0.2281, 0.269], [0.019, 0.981, 0.269, 0.307], [0.0061, 0.9954, 0.307, 0.345], [0.0023, 0.9992, 0.345, 0.383], [0.0008, 0.9992, 0.383, 0.4211], [0.0, 0.9992, 0.4211, 0.4591], [0.0008, 0.9992, 0.4591, 0.5], [0.003, 0.9939, 0.5, 0.538], [0.0084, 0.981, 0.538, 0.576], [0.0182, 0.9674, 0.576, 0.614], [0.0289, 0.9575, 0.614, 0.652], [0.041, 0.9339, 0.652, 0.6901], [0.0547, 0.7699, 0.6901, 0.7281], [0.0714, 0.735, 0.7281, 0.769], [0.0987, 0.7084, 0.769, 0.807], [0.2885, 0.6925, 0.807, 0.845], [0.3098, 0.6834, 0.845, 0.883], [0.3356, 0.6651, 0.883, 0.9211], [0.3645, 0.6462, 0.9211, 0.9591], [0.3941, 0.6105, 0.9591, 1.0]]};
-  const PROSE = `hi, i'm vihaan. right now i'm building presonance, a small comp-neuro lab that predicts how people actually respond to ads before anyone spends a dollar on them. i'm the co-founder and ceo, and we're lucky to be advised by people who've done the real thing: ad teams at meta, neuroscience folks at georgia tech, and a couple of 100m+ founders who keep me honest. i start cs at carnegie mellon this fall, coming in with a 4.0. before that i spent about nine months as an ml researcher at the institute for systems biology, working on diagnostic and prognostic models for preeclampsia, basically trying to catch something dangerous earlier than we currently can. somewhere in there i won most innovative at harvard's hsil for medsim, a world-models agent system for trauma centers. i was also a funded trader at topstep, running ai indicators i coded myself, and then i quit to go all in on presonance because you can't half-build a company. earlier i founded oncoscan.ai at 16, where i built and patented an oral cancer detection model, landed national partnerships, and got onto aws activate. around the same time i started the uplift network: i wrote a cs program, got it in front of 3000+ students across 50+ schools, and helped cover college tuition for some of them. i ran expansion at ai valley working alongside openai, anthropic, and afore, and did coursework at stanford along the way. the origin is simpler: i started coding in 6th grade, built my first neural net at 13, and my first real research win was a 3d cnn that classified brain strokes and took first at the washington state science fair. the through-line across all of it is the same. i build things, i break them, and i retrain until they hold. off the clock you'll find me scuba diving or skydiving, which is roughly the same loop, just with more water and more air.`;
-
-  const bg = document.getElementById('bg');
-  const figure = document.getElementById('figure');
+  const PROSE = `hi, i'm vihaan. up here at the surface is what i'm doing right now: i'm building presonance, a small comp-neuro lab that predicts how people actually respond to ads before anyone spends a dollar on them. i'm the co-founder and ceo, and we're advised by people who've done the real thing, ad teams at meta, neuroscience folks at georgia tech, and a couple of 100m+ founders who keep me honest. this fall i start computer science at carnegie mellon, coming in with a 4.0, and i'm already on the teams behind scottylabs foundry and ueax. go a little deeper and you hit the last couple of years, the build years. i just wrapped about nine months as a machine learning researcher at the institute for systems biology, working on diagnostic and prognostic models for preeclampsia, basically trying to catch something dangerous earlier than we currently can. somewhere in there i won most innovative at harvard's hsil for medsim, a world-models agent system for trauma centers. i built sentinent, a swarm-intelligence trading engine that turns live sentiment into calls i can actually explain. i was a funded trader at topstep running ai indicators i coded myself, and then i quit to go all in on presonance, because you can't half-build a company. i ran expansion at ai valley alongside openai, anthropic, and afore, and did coursework at stanford in data science and statistics along the way. further down, before any of that, i was sixteen and founding oncoscan.ai. i built and patented an oral cancer detection model, landed national partnerships, and got onto aws activate. around the same time i started the uplift network, wrote a cs program, got it in front of three thousand students across more than fifty schools, and helped cover college tuition for some of them. at the bottom, in the dark, is where it actually started. i started coding in sixth grade and built my first neural net at thirteen. my first real research win was a 3d cnn that classified brain strokes and took first at the washington state science fair. that is the whole origin, a kid who liked that you could write something down and watch it learn. the through-line across all of it is the same: i build things, i break them, and i retrain until they hold. off the clock you'll find me scuba diving or skydiving, which is honestly the same loop, just with more water and more air.`;
   const flow = document.getElementById('flow');
+  const sky = document.getElementById('sky');
+  const diver = document.getElementById('diver');
   const lerp = (a,b,t)=>a+(b-a)*t;
   const clamp = (v,a,b)=>Math.min(b,Math.max(a,v));
 
-  let mx=-999, my=-999, scrollProg=0, t=0, figKey='skydiver';
-  let figFrame = {x:0,y:0,w:0,h:0};
+  let mx=-999, my=-999, contentH=1000;
+  let figs = []; // {el,key,left,top,w,h}
 
-  const fontSize = Math.max(20, Math.round(innerWidth/56));
-  const lineHeight = Math.round(fontSize*1.55);
-
-  const api = createFlow(flow, PROSE, {
-    fontSize, lineHeight, padding: 18,
-    getObstacles(){
-      const fr = flow.getBoundingClientRect();
-      const obs = [];
-      const st = STRIPS[figKey] || [];
-      for (const s of st){
-        if (!s) continue;
-        const x = figFrame.x + s[0]*figFrame.w;
-        const w = (s[1]-s[0])*figFrame.w;
-        const y = figFrame.y + s[2]*figFrame.h;
-        const h = (s[3]-s[2])*figFrame.h;
-        obs.push({ type:'rect', x:x-fr.left, y:y-fr.top, w, h });
-      }
-      if (mx > -900) obs.push({ type:'circle', cx:mx-fr.left, cy:my-fr.top, r:44 });
-      return obs;
+  // text color matches the water it floats over: dark ink in the bright sky, pale in the deep
+  function colorFor(y){
+    const f = clamp(y/contentH, 0, 1);
+    const t = clamp((f-0.42)/0.14, 0, 1);
+    return 'rgb(' + Math.round(lerp(10,240,t)) + ',' + Math.round(lerp(26,247,t)) + ',' + Math.round(lerp(40,251,t)) + ')';
+  }
+  function getObstacles(){
+    const obs = [];
+    for (const f of figs){
+      const st = STRIPS[f.key] || [];
+      for (const s of st){ if(!s) continue;
+        obs.push({ type:'rect', x:f.left + s[0]*f.w, y:f.top + s[2]*f.h, w:(s[1]-s[0])*f.w, h:(s[3]-s[2])*f.h }); }
     }
-  });
+    if (mx > -900){ const fr = flow.getBoundingClientRect(); obs.push({ type:'circle', cx:mx-fr.left, cy:my-fr.top, r:44 }); }
+    return obs;
+  }
 
-  addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-  addEventListener('scroll', () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    scrollProg = max>0 ? clamp(scrollY/max,0,1) : 0;
-  }, { passive:true });
+  const fontSize = Math.max(24, Math.round(innerWidth/42));
+  const lineHeight = Math.round(fontSize*1.6);
+  let api;
+
+  function placeFig(el, key, frac, H){
+    const w = el.clientWidth, h = el.clientHeight;
+    const cx = flow.clientWidth*0.52;
+    const left = cx - w/2, top = frac*H - h/2;
+    el.style.left = left+'px'; el.style.top = top+'px';
+    return { el, key, left, top, w, h };
+  }
+
+  function build(){
+    flow.style.height = '40000px';            // huge so the engine lays out every word
+    api = createFlow(flow, PROSE, { fontSize, lineHeight, padding: 16, colorFor, getObstacles });
+    let H = api.getHeight();                   // height with text only
+    figs = [ placeFig(sky,'skydiver',0.14,H), placeFig(diver,'diver',0.80,H) ];
+    contentH = H; api.relayout();              // re-flow around the figures
+    H = api.getHeight();
+    figs = [ placeFig(sky,'skydiver',0.14,H), placeFig(diver,'diver',0.80,H) ];
+    contentH = H; api.relayout();
+    contentH = api.getHeight();
+    flow.style.height = contentH + 'px';
+    api.relayout();                            // final pass: correct colors for final height
+  }
+
+  // relayout only when the cursor moves or the page scrolls (text itself scrolls natively)
+  let queued = false;
+  function req(){ if (queued) return; queued = true; requestAnimationFrame(()=>{ queued=false; api.relayout(); }); }
+  addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; req(); });
+  addEventListener('scroll', req, { passive:true });
   addEventListener('resize', () => location.reload());
 
-  function frame(){
-    t++;
-    const vw=innerWidth, vh=innerHeight;
-    const renderedH = vw * (bg.naturalHeight/bg.naturalWidth || 3);
-    bg.style.transform = 'translateY(' + (-scrollProg*Math.max(0,renderedH-vh)).toFixed(1) + 'px)';
-
-    const want = scrollProg>0.42 ? 'diver' : 'skydiver';
-    if (want!==figKey){ figKey=want; figure.src='media/'+(want==='diver'?'diver.png':'skydiver.png'); }
-
-    const figW = figure.clientWidth || vw*0.34;
-    const figH = figure.clientHeight || figW*0.4;
-    const cx = vw*0.53 + Math.sin(t*0.011)*15;
-    const cy = vh*0.50 + Math.cos(t*0.008)*16;
-    figFrame = { x:cx-figW/2, y:cy-figH/2, w:figW, h:figH };
-    figure.style.transform = 'translate(' + figFrame.x.toFixed(1) + 'px,' + figFrame.y.toFixed(1) + 'px)';
-
-    const lightT = clamp((scrollProg-0.42)/0.2, 0, 1);
-    flow.style.color = 'rgb(' + Math.round(lerp(9,239,lightT)) + ',' + Math.round(lerp(24,247,lightT)) + ',' + Math.round(lerp(37,251,lightT)) + ')';
-    // soft opposite-color halo so the text stays legible through the horizon transition
-    const sc = lightT < 0.5 ? '245,250,252' : '0,10,20';
-    flow.style.textShadow = '0 0 5px rgba('+sc+',0.45), 0 0 2px rgba('+sc+',0.55)';
-
-    api.relayout();
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
+  if (document.readyState === 'complete') build();
+  else addEventListener('load', build);
   </script>
 </body>
 </html>
