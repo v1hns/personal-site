@@ -5,7 +5,7 @@
  *{margin:0;padding:0;box-sizing:border-box}
  html,body{height:100%}
  body{font-family:"Times New Roman",Times,serif;overflow:hidden;display:flex;align-items:center;justify-content:center;
-   background:url("media/grass.jpg") center/cover no-repeat fixed,#2b5d2e}
+   background:#e7e5e0}
  .book{position:relative;width:min(1080px,93vw);height:min(690px,85vh);display:flex;perspective:2200px;border-radius:7px;box-shadow:0 54px 120px -26px rgba(0,0,0,.78),0 10px 34px rgba(0,0,0,.45)}
  .page{position:relative;flex:1;overflow:hidden;background:url("media/paper.jpg") center/cover,#f4ecd8}
  .page.left{border-radius:7px 0 0 7px;box-shadow:-3px 0 0 #e7dcc0,-6px 0 0 #ddd1b2,-9px 0 0 #d3c6a4,-12px 0 0 #cdbf9d}
@@ -43,7 +43,7 @@
  .book,.nav,.hint{opacity:0}
  body.opened .book{opacity:1;transition:opacity .7s ease .5s} body.opened .nav,body.opened .hint{opacity:1;transition:opacity .6s ease .7s}
  body.showback .book{opacity:0!important;pointer-events:none;transition:opacity .4s ease}
- .nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:18px;align-items:center;color:#eaf0e6;font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+ .nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:18px;align-items:center;color:#2a2014;font-size:13px}
  .nav button{font-family:inherit;background:rgba(0,0,0,.32);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:7px 16px;cursor:pointer;font-size:13px}
  .nav button:hover{background:rgba(0,0,0,.46)} .nav button:disabled{opacity:.3;cursor:default}
  .hint{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:20;color:#eef4ea;font-size:12px;font-style:italic;text-shadow:0 1px 4px rgba(0,0,0,.5)}
