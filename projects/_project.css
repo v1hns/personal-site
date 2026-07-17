@@ -55,7 +55,6 @@ nav::after {
   padding: 130px 48px 60px; max-width: 860px; margin: 0 auto;
   border-bottom: 1px solid var(--border);
 }
-.proj-icon-lg { font-size: 48px; margin-bottom: 20px; }
 .eyebrow {
   font-size: 12px; font-weight: 500; color: var(--accent);
   letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;

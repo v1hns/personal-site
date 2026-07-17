@@ -98,9 +98,7 @@
     [data-theme="light"] .slide-3 .slide-bg { background:radial-gradient(ellipse at 50% 25%,rgba(2,132,199,0.06) 0%,transparent 65%),#eff8ff; }
 
     /* Big emoji */
-    .slide-emoji { position:absolute; right:52px; top:50%; transform:translateY(-60%); font-size:clamp(120px,18vw,200px); opacity:0.18; pointer-events:none; z-index:1; user-select:none; }
-    [data-theme="light"] .slide-emoji { opacity:0.12; }
-
+    [data-theme="light"]
     /* Slide content */
     .slide-content { position:relative; z-index:2; }
     .slide-tag { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
@@ -127,7 +125,6 @@
       .left-panel { width:100%; padding:100px 24px 32px; }
       .right-panel { border-left:none; border-top:1px solid var(--border); }
       .reel-slide { min-height:70vh; padding:48px 24px 36px; }
-      .slide-emoji { font-size:100px; right:24px; }
     }
   </style>
 </head>
@@ -177,7 +174,6 @@
         <!-- SLIDE 0: Scuba -->
         <div class="reel-slide slide-0">
           <div class="slide-bg"></div>
-          <div class="slide-emoji">🤿</div>
           <div class="slide-content">
             <div class="slide-tag">Underwater</div>
             <div class="slide-name">Scuba<br/>Diving</div>
@@ -194,7 +190,6 @@
         <!-- SLIDE 1: Skiing -->
         <div class="reel-slide slide-1">
           <div class="slide-bg"></div>
-          <div class="slide-emoji">⛷️</div>
           <div class="slide-content">
             <div class="slide-tag">Mountain</div>
             <div class="slide-name">Skiing</div>
@@ -212,7 +207,6 @@
         <!-- SLIDE 2: Climbing -->
         <div class="reel-slide slide-2">
           <div class="slide-bg"></div>
-          <div class="slide-emoji">🧗</div>
           <div class="slide-content">
             <div class="slide-tag">Vertical</div>
             <div class="slide-name">Rock<br/>Climbing</div>
@@ -230,7 +224,6 @@
         <!-- SLIDE 3: Hiking -->
         <div class="reel-slide slide-3">
           <div class="slide-bg"></div>
-          <div class="slide-emoji">🏔️</div>
           <div class="slide-content">
             <div class="slide-tag">Trails</div>
             <div class="slide-name">Hiking</div>
