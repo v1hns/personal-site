@@ -9,17 +9,24 @@
  :root{--pad:56px;--padb:46px;--picw:205px;--capfs:12.5px}
  body{font-family:"Times New Roman",Times,serif;overflow:hidden;display:flex;align-items:center;justify-content:center;
    background:#e7e5e0;-webkit-text-size-adjust:100%}
- .book{position:relative;width:min(1080px,93vw);height:min(690px,85vh);display:flex;perspective:2200px;border-radius:7px;box-shadow:0 54px 120px -26px rgba(0,0,0,.78),0 10px 34px rgba(0,0,0,.45)}
- /* portrait phones: one page at a time, so a page keeps a readable measure */
- body.single .book{width:min(560px,94vw);height:min(760px,80vh);box-shadow:0 30px 70px -20px rgba(0,0,0,.7),0 6px 20px rgba(0,0,0,.4)}
+ /* Lock the real proportions instead of stretching to fill the viewport: a page
+    is 540x690 (0.7826), the open book 1080x690 (1.5652). Width is capped by BOTH
+    the viewport width and the width that height allows, so the book always keeps
+    its shape and the background letterboxes around it — same as on desktop. */
+ .book{position:relative;width:min(1080px,93vw,85vh * 1.5652);aspect-ratio:1080/690;display:flex;perspective:2200px;border-radius:7px;box-shadow:0 54px 120px -26px rgba(0,0,0,.78),0 10px 34px rgba(0,0,0,.45)}
+ /* portrait phones: one page at a time, at that page's true 540:690 shape */
+ body.single .book{width:min(560px,94vw,78vh * 0.7826);aspect-ratio:540/690;box-shadow:0 30px 70px -20px rgba(0,0,0,.7),0 6px 20px rgba(0,0,0,.4)}
  body.single .page.right,body.single .spine{display:none}
  body.single .page.left{border-radius:7px;box-shadow:0 0 0 1px rgba(60,45,20,.10)}
  body.single .page.left::before{background:linear-gradient(90deg,rgba(60,45,20,.10),transparent 9%)}
  body.single #flip{width:100%}
- /* landscape phones are short: give the nav room so it can't sit on the page */
+ /* landscape phones are short: pull the book in via width (never height, which
+    would break the aspect ratio) so the nav has room below it */
  @media (max-height:460px) and (orientation:landscape){
-   .book{height:min(690px,76vh)} .nav{bottom:6px} .nav button{padding:5px 12px;font-size:12px}
+   .book{width:min(1080px,93vw,78vh * 1.5652)} .nav{bottom:5px} .nav button{padding:4px 11px;font-size:12px}
  }
+ /* the cover's 52px inset is a big share of a phone-width page */
+ @media (max-width:820px){ .clothbook{padding:34px} .cover-open{bottom:22px} }
  .page{position:relative;flex:1;overflow:hidden;background:url("media/paper.jpg") center/cover,#f4ecd8}
  .page.left{border-radius:7px 0 0 7px;box-shadow:-3px 0 0 #e7dcc0,-6px 0 0 #ddd1b2,-9px 0 0 #d3c6a4,-12px 0 0 #cdbf9d}
  .page.left::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(60,45,20,.12),transparent 16%)}
@@ -33,7 +40,8 @@
  #flip{position:absolute;top:0;width:50%;height:100%;z-index:8;display:none;backface-visibility:hidden;background:url("media/paper.jpg") center/cover;box-shadow:0 0 40px rgba(0,0,0,.35)}
  /* covers (front + back) share the cloth look */
  .coverwrap{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .6s ease}
- .clothbook{width:min(540px,78vw);height:min(690px,85vh);border-radius:8px 12px 12px 8px;position:relative;padding:52px;color:#eee4cf;
+ /* the cover is a single page, so it keeps the same 540:690 shape as one */
+ .clothbook{width:min(540px,78vw,84vh * 0.7826);aspect-ratio:540/690;border-radius:8px 12px 12px 8px;position:relative;padding:52px;color:#eee4cf;
    background:linear-gradient(135deg,rgba(22,32,44,.86),rgba(12,18,26,.92)),url("media/cover.jpg") center/cover;
    box-shadow:0 54px 120px -28px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.06),inset 0 0 80px rgba(0,0,0,.35);
    transform-origin:left center;transition:transform 1s cubic-bezier(.5,.05,.2,1),opacity 1s ease}
@@ -259,7 +267,7 @@ function createFlow(container, text, opts) {
       SCT - type: mostly width, but capped by height so headings stop colliding
                   with photos whose y is a fraction of a now-short page
       SCP - photos: must fit BOTH axes, hence the min */
- let SCW=1,SCH=1,SCT=1,SCP=1,FS=18,LH=29,PAD=56,PADB=46,HTOP=48;
+ let SCW=1,SCH=1,SCT=1,SCP=1,PICADJ=1,FS=18,LH=29,PAD=56,PADB=46,HTOP=48;
  function computeMetrics(){
    const r=bookEl.getBoundingClientRect(),w=r.width/ppv(),h=r.height;
    SCW=Math.max(.4,Math.min(1,w/540));
@@ -269,7 +277,7 @@ function createFlow(container, text, opts) {
    PAD=Math.max(18,56*SCW); PADB=Math.max(14,46*SCH); HTOP=Math.max(14,48*SCH);
    const s=document.documentElement.style;
    s.setProperty('--pad',PAD+'px'); s.setProperty('--padb',PADB+'px');
-   s.setProperty('--picw',Math.round(205*SCP)+'px');
+   s.setProperty('--picw',Math.round(205*SCP*PICADJ)+'px');
    s.setProperty('--capfs',Math.max(10,12.5*SCT)+'px');
  }
  let mx=-999,my=-999,spread=0,view='front',leftApis=[],rightApis=[];
@@ -313,7 +321,7 @@ function createFlow(container, text, opts) {
      const p=it[0],side=it[1],si=it[2],abs=it[3],pi=idx++,el=getPic(pi);
      el.dataset.on='1';el.style.display='block';el.className='pic'+(p.photo?' photo':'');
      if(p.strips)el.dataset.strips=p.strips;else el.removeAttribute('data-strips');
-     const w=Math.round((p.w||(p.photo?205:200))*SCP);
+     const w=Math.round((p.w||(p.photo?205:200))*SCP*PICADJ);
      el.style.width=w+'px';el.style.transform='rotate('+(p.rot||0)+'deg)';
      let fx,fy;
      if(p.x!=null){fx=p.x;fy=p.y;}
@@ -349,26 +357,40 @@ function createFlow(container, text, opts) {
     Must run with photos at their REAL size: an <img> that hasn't loaded is
     0px tall, so the text looks like it fits and this exits too early. Hence
     the refit on image load below. */
- function fitType(){
+ function tryFit(floor){
    const n=ppv(),li=spread*n,ri=n===2?li+1:-1,L=PAGES[li],R=ri>=0?PAGES[ri]:null;
    let fs=FS,lh=LH;
-   for(let i=0;i<8;i++){
+   for(let i=0;i<10;i++){
      leftApis=renderSide(leftPage,hl,fl,L,obstaclesFor,fs,lh);
      rightApis=n===2?renderSide(rightPage,hr,fr,R,obstaclesFor,fs,lh):[];
      const apis=leftApis.concat(rightApis);
      apis.forEach(a=>a&&a.relayout());
-     if(!apis.some(a=>a&&a.overflow&&a.overflow()>0))return;
-     if(fs<=9)return;
-     fs*=0.93; lh*=0.93;
+     if(!apis.some(a=>a&&a.overflow&&a.overflow()>0))return true;
+     if(fs<=floor)return false;
+     fs*=0.94; lh*=0.94;
+   }
+   return false;
+ }
+ /* Two levers, tried in order of least damage: shrink the type, and if a page
+    still can't hold its words, shrink the photos to give the text room back.
+    Needed once the book keeps its true aspect ratio — a landscape phone's book
+    is small, and pages with three photos couldn't fit their text on type alone. */
+ function fitType(){
+   const rounds=[[1,11.5],[0.85,11],[0.72,10],[0.58,8.5]];
+   for(let r=0;r<rounds.length;r++){
+     const adj=rounds[r][0];
+     if(PICADJ!==adj){PICADJ=adj;if(view==='spread')renderPics();}
+     if(tryFit(rounds[r][1]))return;
    }
  }
  let refitQ=false;
- function scheduleRefit(){if(refitQ)return;refitQ=true;requestAnimationFrame(()=>{refitQ=false;fitType();});}
+ function scheduleRefit(){if(refitQ)return;refitQ=true;requestAnimationFrame(()=>{refitQ=false;PICADJ=1;if(view==='spread')renderPics();fitType();});}
  function buildSpread(){computeMetrics();
    const n=ppv(),li=spread*n,ri=n===2?li+1:-1,L=PAGES[li],R=ri>=0?PAGES[ri]:null;
    document.getElementById('pl').textContent=L?(li+1):'';
    document.getElementById('pr').textContent=R?(ri+1):'';
    refreshNav();
+   PICADJ=1;
    if(view==='spread')renderPics();
    fitType();
    relayout();}

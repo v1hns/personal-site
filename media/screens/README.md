@@ -12,8 +12,8 @@ placeholder telling you the exact filename to add.
 ## Filenames the site looks for
 | Project            | File                      | Status            |
 |--------------------|---------------------------|-------------------|
-| Presonance (card)  | `presonance-product.png`  | ✅ captured live   |
-| Presonance (hero)  | `presonance-desktop.png`  | ✅ captured live   |
+| Presonance (card)  | `presonance-product.png`  | captured live   |
+| Presonance (hero)  | `presonance-desktop.png`  | captured live   |
 | Sentinent          | `sentinent.png`           | drop in           |
 | really.ai          | `really-ai.png`           | drop in           |
 | Brain Stroke       | `brain-stroke.png`        | drop in           |
