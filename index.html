@@ -4,18 +4,31 @@
 <style>
  *{margin:0;padding:0;box-sizing:border-box}
  html,body{height:100%}
+ /* metrics are recomputed in JS from the rendered page width so the book scales
+    as one piece (type, margins, photos) instead of only the frame shrinking */
+ :root{--pad:56px;--padb:46px;--picw:205px;--capfs:12.5px}
  body{font-family:"Times New Roman",Times,serif;overflow:hidden;display:flex;align-items:center;justify-content:center;
-   background:#e7e5e0}
+   background:#e7e5e0;-webkit-text-size-adjust:100%}
  .book{position:relative;width:min(1080px,93vw);height:min(690px,85vh);display:flex;perspective:2200px;border-radius:7px;box-shadow:0 54px 120px -26px rgba(0,0,0,.78),0 10px 34px rgba(0,0,0,.45)}
+ /* portrait phones: one page at a time, so a page keeps a readable measure */
+ body.single .book{width:min(560px,94vw);height:min(760px,80vh);box-shadow:0 30px 70px -20px rgba(0,0,0,.7),0 6px 20px rgba(0,0,0,.4)}
+ body.single .page.right,body.single .spine{display:none}
+ body.single .page.left{border-radius:7px;box-shadow:0 0 0 1px rgba(60,45,20,.10)}
+ body.single .page.left::before{background:linear-gradient(90deg,rgba(60,45,20,.10),transparent 9%)}
+ body.single #flip{width:100%}
+ /* landscape phones are short: give the nav room so it can't sit on the page */
+ @media (max-height:460px) and (orientation:landscape){
+   .book{height:min(690px,76vh)} .nav{bottom:6px} .nav button{padding:5px 12px;font-size:12px}
+ }
  .page{position:relative;flex:1;overflow:hidden;background:url("media/paper.jpg") center/cover,#f4ecd8}
  .page.left{border-radius:7px 0 0 7px;box-shadow:-3px 0 0 #e7dcc0,-6px 0 0 #ddd1b2,-9px 0 0 #d3c6a4,-12px 0 0 #cdbf9d}
  .page.left::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(60,45,20,.12),transparent 16%)}
  .page.right{border-radius:0 7px 7px 0;box-shadow:3px 0 0 #e7dcc0,6px 0 0 #ddd1b2,9px 0 0 #d3c6a4,12px 0 0 #cdbf9d;background-position:right center}
  .page.right::before{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(60,45,20,.12),transparent 16%)}
  .spine{position:absolute;top:0;bottom:0;left:50%;width:46px;transform:translateX(-50%);z-index:6;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,0),rgba(40,28,12,.28) 48%,rgba(60,42,20,.4) 50%,rgba(40,28,12,.28) 52%,rgba(0,0,0,0))}
- .chead{position:absolute;top:48px;left:56px;right:56px;z-index:2} .chead.empty{display:none}
+ .chead{position:absolute;top:48px;left:var(--pad);right:var(--pad);z-index:2} .chead.empty{display:none}
  .cyear{font-size:62px;line-height:1;color:#2a2014} .csub{font-style:italic;color:#8a7a52;font-size:16px;margin-top:8px}
- .flow{position:absolute;left:56px;right:56px;bottom:46px;top:50px;color:#2a2014;z-index:1} .flow span{position:absolute;will-change:transform}
+ .flow{position:absolute;left:var(--pad);right:var(--pad);bottom:var(--padb);top:50px;color:#2a2014;z-index:1} .flow span{position:absolute;will-change:transform}
  .pageno{position:absolute;bottom:18px;width:100%;text-align:center;font-size:12px;color:#9a865c;font-style:italic;z-index:1}
  #flip{position:absolute;top:0;width:50%;height:100%;z-index:8;display:none;backface-visibility:hidden;background:url("media/paper.jpg") center/cover;box-shadow:0 0 40px rgba(0,0,0,.35)}
  /* covers (front + back) share the cloth look */
@@ -50,7 +63,7 @@
  .pic{position:fixed;z-index:15;user-select:none;-webkit-user-drag:none;touch-action:none;cursor:grab;filter:drop-shadow(0 12px 26px rgba(0,0,0,.45));will-change:left,top}
  body:not(.opened) .pic,body.showback .pic{display:none!important}
  .pic.photo{border:6px solid #fff;border-radius:2px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
- .cap{position:fixed;z-index:15;width:205px;text-align:center;font-style:italic;font-size:12.5px;line-height:1.3;color:#3a2e18;pointer-events:none;text-shadow:0 1px 0 rgba(255,255,255,.55)}
+ .cap{position:fixed;z-index:15;width:var(--picw);text-align:center;font-style:italic;font-size:var(--capfs);line-height:1.3;color:#3a2e18;pointer-events:none;text-shadow:0 1px 0 rgba(255,255,255,.55)}
  body:not(.opened) .cap,body.showback .cap{display:none!important}
  body.grabbing,body.grabbing *{cursor:grabbing !important}
 </style></head>
@@ -171,6 +184,8 @@ function createFlow(container, text, opts) {
     return free;
   }
 
+  var leftover = 0;       // words that did not fit in the last pass
+
   function relayout() {
     var obstacles = getObstacles() || [];
     var spanIdx = 0;        // index into pool / placed-word cursor
@@ -204,6 +219,11 @@ function createFlow(container, text, opts) {
       }
     }
 
+    // Words the band loop never reached: the column ran out of height. Callers
+    // use this to shrink the type until the page holds all of it, rather than
+    // letting the tail of a paragraph silently vanish off the bottom edge.
+    leftover = words.length - wi;
+
     // Hide surplus spans from a previous (longer) layout.
     for (var h = spanIdx; h < pool.length; h++) {
       if (pool[h] && pool[h].style.display !== 'none') pool[h].style.display = 'none';
@@ -211,7 +231,7 @@ function createFlow(container, text, opts) {
   }
 
   relayout();
-  return { relayout: relayout };
+  return { relayout: relayout, overflow: function () { return leftover; } };
 }
  const STRIPS={"diver": [[0.3443, 0.368, 0.0, 0.0455], [0.3005, 0.3644, 0.0455, 0.0909], [0.2868, 0.3178, 0.0909, 0.1364], null, [0.2685, 0.3132, 0.1818, 0.2273], [0.1534, 0.3114, 0.2273, 0.2727], [0.1014, 0.2639, 0.2727, 0.3182], [0.0849, 0.3352, 0.3182, 0.3636], [0.0822, 0.4502, 0.3636, 0.4091], [0.0858, 0.5151, 0.4091, 0.4545], [0.0858, 0.579, 0.4545, 0.5], [0.0932, 0.5936, 0.5, 0.5455], [0.1068, 0.8712, 0.5455, 0.5909], [0.1096, 0.9306, 0.5909, 0.6364], [0.0995, 0.9881, 0.6364, 0.6818], [0.0137, 0.9881, 0.6818, 0.7273], [0.011, 0.9726, 0.7273, 0.7727], [0.4977, 0.9543, 0.7727, 0.8182], [0.5671, 0.9406, 0.8182, 0.8636], [0.642, 0.9626, 0.8636, 0.9091], [0.8566, 0.9571, 0.9091, 0.9545], [0.8822, 0.9279, 0.9545, 1.0]]}, PAGES=[{"head": {"big": "why this book", "sub": ""}, "pics": [{"src": "media/photos/IMG_6629.JPG", "photo": true, "rot": -3, "x": 0.33, "y": 0.52}, {"src": "media/photos/linkedin-pfp.jpg", "photo": true, "rot": 3, "x": 0.04, "y": 0.18}], "text": "i made this less as a portfolio and more as a small book, because personal websites always seem to just be a retelling of a resume and i thought that was stupid. i added real time rendering just cuz i think its cool. in this book you will go back from 2026-2020, seeing my experiences and cool shit i did in general in csml. thx for reading!"}, {"head": {"big": "2026", "sub": ""}, "pics": [{"src": "media/screens/presonance-desktop.png", "photo": true, "rot": 3, "x": 0.78, "y": 0.12}, {"src": "media/photos/03232026_AIValley_CMU-27.jpg", "photo": true, "rot": -3, "x": 0.54, "y": 0.66}], "text": "a lot happened this year. in april i started presonance, and i'm the co-founder and ceo. it's a small comp-neuro lab that uses neural simulation to predict how people actually respond to content before any market testing occurs. we're now a team of 7 working w/ advisors from meta, neuro @ gt + several 100m founders. i've been hosting tech demos and hackathons with aivalley, w/ some rlly cool ppl @ labs like openai, mbzuai, and travel a lot for that so i might catch you in any city. wrapped up my internship at isb (keep reading)"}, {"head": {"big": "2026", "sub": ""}, "pics": [{"src": "media/photos/harvard.png", "photo": true, "rot": 2, "x": 0.30, "y": 0.15}, {"src": "media/photos/skydive.jpg", "photo": true, "rot": -3, "x": 0.02, "y": 0.45}, {"src": "media/photos/drawing.jpg", "photo": true, "rot": 3, "x": 0.30, "y": 0.63, "caption": "me trying to do math & draw a dog 100ft underwater"}], "text": "this fall, in august, i start computer science at carnegie mellon, coming in with a 4.0 from a semester i studied there before. this yr i've also done a lot of hackathons: yc, harvard, others. won most innovative at harvard, apify track at an aws one, more. also got my advanced diving license and jumped off a plane :p"}, {"head": {"big": "2025", "sub": ""}, "pics": [{"src": "media/photos/isbpic.png", "photo": true, "rot": -2, "x": 0.74, "y": 0.14, "w": 155}, {"src": "media/photos/pokerstan.jpg", "photo": true, "rot": 3, "x": 0.51, "y": 0.60}], "text": "this yr was very research and early building focused. got funded 150k for ai trading bots i devved, started working as a machine learning researcher at the institute for systems biology, where i built diagnostic and prognostic models for preeclampsia, won washington state's science fair w/ a 3d ct scan based brain stroke diagnostic cnn, studied applied stats and ml at stanford, built and scaled uplift to 3k students (keep reading)"}, {"head": {"big": "2024", "sub": ""}, "pics": [{"src": "media/photos/oncoscan-site.png", "photo": true, "rot": 2, "x": 0.30, "y": 0.15}, {"src": "media/photos/cmu-precollege.png", "photo": true, "rot": -3, "x": 0.02, "y": 0.46}], "text": "at sixteen, in august, i founded oncoscan.ai; i built and patented an oral cancer detection model, found national partnerships with hospitals and oncologists, got compute from aws. earlier that summer i started a nonprofit called the uplift network, wrote a csml program, began scaling to diff schools. i also did cmu pre-college and stanford's summer ai program that year. also bet one of my buds 100 dollars id go to cmu cs. easy money."}, {"sections": [{"head": {"big": "2023", "sub": ""}, "text": "started ml research in comp bio and cv. did a few diabetes and cancer detection models through cv and rf-type approaches, worked w/ students from stanford and cmu, tons of general projects."}, {"head": {"big": "2020", "sub": ""}, "text": "first learned cs cuz my mom said it will help us get rich."}], "pics": [{"src": "media/photos/code-2023.png", "photo": true, "rot": -3, "x": 0.70, "y": 0.13}]}];
  const fl=document.getElementById('fl'),fr=document.getElementById('fr'),hl=document.getElementById('hl'),hr=document.getElementById('hr');
@@ -223,46 +243,191 @@ function createFlow(container, text, opts) {
  let caps=[];
  function mkCap(){const c=document.createElement('div');c.className='cap';c.dataset.on='';document.body.appendChild(c);return c;}
  function placeCap(el){const c=el._cap;if(!c)return;c.style.left=el.style.left;c.style.top=(parseFloat(el.style.top)+el.offsetHeight+8)+'px';}
- const SPREADS=Math.ceil(PAGES.length/2); const FS=18,LH=29;
+ /* ---- responsive mode ----------------------------------------------------
+    portrait phone  -> SINGLE: one page per view, swipe/tap page by page
+    anything else   -> spread: the two-page book
+    Everything is sized off SC, the rendered page width over the 540px the
+    layout was drawn at, so type/margins/photos shrink together. */
+ const mqSingle=matchMedia('(max-width:820px) and (orientation:portrait)');
+ let SINGLE=mqSingle.matches,COARSE=matchMedia('(pointer:coarse)').matches;
+ const bookEl=document.querySelector('.book');
+ function ppv(){return SINGLE?1:2;}
+ function viewCount(){return Math.ceil(PAGES.length/ppv());}
+ /* A landscape phone is ~390px tall, so the book ends up far wider-vs-shorter
+    than the 1080x690 it was drawn at. Scaling everything off width alone makes
+    photos (sized by width, but tall) spill past the bottom edge. So: two axes.
+      SCT - type: mostly width, but capped by height so headings stop colliding
+                  with photos whose y is a fraction of a now-short page
+      SCP - photos: must fit BOTH axes, hence the min */
+ let SCW=1,SCH=1,SCT=1,SCP=1,FS=18,LH=29,PAD=56,PADB=46,HTOP=48;
+ function computeMetrics(){
+   const r=bookEl.getBoundingClientRect(),w=r.width/ppv(),h=r.height;
+   SCW=Math.max(.4,Math.min(1,w/540));
+   SCH=Math.max(.35,Math.min(1,h/690));
+   SCT=Math.min(SCW,SCH*1.25); SCP=Math.min(SCW,SCH);
+   FS=Math.max(13,18*SCT); LH=Math.max(19,29*SCT);
+   PAD=Math.max(18,56*SCW); PADB=Math.max(14,46*SCH); HTOP=Math.max(14,48*SCH);
+   const s=document.documentElement.style;
+   s.setProperty('--pad',PAD+'px'); s.setProperty('--padb',PADB+'px');
+   s.setProperty('--picw',Math.round(205*SCP)+'px');
+   s.setProperty('--capfs',Math.max(10,12.5*SCT)+'px');
+ }
  let mx=-999,my=-999,spread=0,view='front',leftApis=[],rightApis=[];
  const leftPage=document.querySelector('.page.left'),rightPage=document.querySelector('.page.right');
- function setHead(el,head){if(!head){el.classList.add('empty');return;}el.classList.remove('empty');const y=el.querySelector('.cyear'),s=el.querySelector('.csub');y.textContent=head.big;y.style.fontSize=/^\d+$/.test(head.big)?'62px':'36px';s.textContent=head.sub||'';s.style.display=head.sub?'block':'none';}
- function renderSide(pageEl,headEl,flowEl,page,getObs){
+ function setHead(el,head){if(!head){el.classList.add('empty');return;}el.classList.remove('empty');const y=el.querySelector('.cyear'),s=el.querySelector('.csub');y.textContent=head.big;
+   /* a year is short and can stay big; a phrase like "why this book" has to wrap
+      inside the page, so it gets the smaller size and scales down further */
+   y.style.fontSize=Math.round((/^\d+$/.test(head.big)?62:36)*SCT)+'px';y.style.lineHeight=1.05;
+   s.style.fontSize=Math.max(11,16*SCT)+'px';s.textContent=head.sub||'';s.style.display=head.sub?'block':'none';}
+ function renderSide(pageEl,headEl,flowEl,page,getObs,fs,lh){
+   fs=fs||FS; lh=lh||LH;
    pageEl.querySelectorAll('.xsec').forEach(n=>n.remove());
    const secs=page?(page.sections||[{head:page.head,text:page.text}]):[];
-   if(secs.length===0){setHead(headEl,null);flowEl.innerHTML='';flowEl.style.top='50px';flowEl.style.bottom='46px';flowEl.style.height='';return[];}
-   if(secs.length===1){const s=secs[0];setHead(headEl,s.head);flowEl.style.top=(s.head?'150px':'50px');flowEl.style.bottom='46px';flowEl.style.height='';flowEl.innerHTML='';return[createFlow(flowEl,s.text,{fontSize:FS,lineHeight:LH,padding:12,getObstacles:()=>getObs(flowEl)})];}
-   const H=pageEl.clientHeight,band=(H-44)/secs.length,apis=[];
-   secs.forEach((s,i)=>{const top=44+i*band;let hd,fw;
-     if(i===0){hd=headEl;fw=flowEl;setHead(hd,s.head);hd.style.top='44px';fw.style.top=(s.head?116:60)+'px';fw.style.bottom='auto';fw.style.height=(band-(s.head?80:20))+'px';fw.innerHTML='';}
+   /* vertical rhythm scales with SC; headEl.offsetHeight is measured rather than
+      assumed because a wrapped title is taller than a one-line year */
+   const FT=Math.max(20,50*SCH),PADP=Math.max(8,12*SCW),GAP=Math.max(8,16*SCH);
+   headEl.style.top=HTOP+'px';
+   if(secs.length===0){setHead(headEl,null);flowEl.innerHTML='';flowEl.style.top=FT+'px';flowEl.style.bottom=PADB+'px';flowEl.style.height='';return[];}
+   if(secs.length===1){const s=secs[0];setHead(headEl,s.head);
+     flowEl.style.top=(s.head?HTOP+headEl.offsetHeight+GAP:FT)+'px';flowEl.style.bottom=PADB+'px';flowEl.style.height='';flowEl.innerHTML='';
+     return[createFlow(flowEl,s.text,{fontSize:fs,lineHeight:lh,padding:PADP,getObstacles:()=>getObs(flowEl)})];}
+   const H=pageEl.clientHeight,TOP=Math.max(14,44*SCH),band=(H-TOP-PADB)/secs.length,apis=[];
+   secs.forEach((s,i)=>{const top=TOP+i*band;let hd,fw;
+     if(i===0){hd=headEl;fw=flowEl;setHead(hd,s.head);hd.style.top=TOP+'px';}
      else{hd=document.createElement('div');hd.className='chead xsec';hd.style.top=top+'px';hd.innerHTML='<div class="cyear"></div><div class="csub"></div>';pageEl.appendChild(hd);setHead(hd,s.head);
-       fw=document.createElement('div');fw.className='flow xsec';fw.style.top=(top+(s.head?72:12))+'px';fw.style.bottom='auto';fw.style.height=(band-(s.head?80:20))+'px';pageEl.appendChild(fw);}
-     apis.push(createFlow(fw,s.text,{fontSize:FS,lineHeight:LH,padding:12,getObstacles:()=>getObs(fw)}));});
+       fw=document.createElement('div');fw.className='flow xsec';fw.style.bottom='auto';pageEl.appendChild(fw);}
+     const hh=s.head?hd.offsetHeight+Math.max(6,12*SCH):Math.max(6,12*SCH);
+     if(i===0){fw.style.top=(TOP+hh)+'px';fw.innerHTML='';}else{fw.style.top=(top+hh)+'px';}
+     fw.style.bottom='auto';fw.style.height=Math.max(40,band-hh-Math.max(6,12*SCH))+'px';
+     apis.push(createFlow(fw,s.text,{fontSize:fs,lineHeight:lh,padding:PADP,getObstacles:()=>getObs(fw)}));});
    return apis;}
  function obstaclesFor(el){const pr=el.getBoundingClientRect(),obs=[];for(const pic of pics.concat(caps)){if(!pic||!pic.dataset.on)continue;const r=pic.getBoundingClientRect();if(r.right<pr.left||r.left>pr.right||r.bottom<pr.top||r.top>pr.bottom)continue;const k=pic.dataset.strips;if(k&&STRIPS[k]){for(const s of STRIPS[k]){if(!s)continue;obs.push({type:'rect',x:r.left-pr.left+s[0]*r.width,y:r.top-pr.top+s[2]*r.height,w:(s[1]-s[0])*r.width,h:(s[3]-s[2])*r.height});}}else obs.push({type:'rect',x:r.left-pr.left,y:r.top-pr.top,w:r.width,h:r.height});}if(mx>-900)obs.push({type:'circle',cx:mx-pr.left,cy:my-pr.top,r:40});return obs;}
- function renderPics(){const bk=document.querySelector('.book').getBoundingClientRect();const L=PAGES[spread*2],R=PAGES[spread*2+1];const items=[];pagePics(L).forEach((p,i)=>items.push([p,'L',i]));pagePics(R).forEach((p,i)=>items.push([p,'R',i]));let idx=0;for(const it of items){const p=it[0],side=it[1],si=it[2],pi=idx++,el=getPic(pi);el.dataset.on='1';el.style.display='block';el.className='pic'+(p.photo?' photo':'');if(p.strips)el.dataset.strips=p.strips;else el.removeAttribute('data-strips');el.style.width=(p.w||(p.photo?205:200))+'px';el.style.transform='rotate('+(p.rot||0)+'deg)';let fx,fy;if(p.x!=null){fx=p.x;fy=p.y;}else{const arr=SLOTS[side],s=arr[si]||arr[arr.length-1];fx=s[0];fy=s[1];}el.style.left=(bk.left+bk.width*fx)+'px';el.style.top=(bk.top+bk.height*fy)+'px';const cap=caps[pi]||(caps[pi]=mkCap());el._cap=null;if(p.caption){cap.textContent=p.caption;cap.dataset.on='1';cap.style.display='block';cap.style.transform='rotate('+(p.rot||0)+'deg)';el._cap=cap;}else{cap.dataset.on='';cap.style.display='none';}if(el.getAttribute('src')!==p.src){el.src=p.src;el.onload=()=>{placeCap(el);relayout();};}placeCap(el);}for(let h=idx;h<pics.length;h++){if(pics[h]){pics[h].dataset.on='';pics[h].style.display='none';}if(caps[h]){caps[h].dataset.on='';caps[h].style.display='none';}}}
- function buildSpread(){const li=spread*2,ri=spread*2+1,L=PAGES[li],R=PAGES[ri];leftApis=renderSide(leftPage,hl,fl,L,obstaclesFor);rightApis=renderSide(rightPage,hr,fr,R,obstaclesFor);document.getElementById('pl').textContent=L?(li+1):'';document.getElementById('pr').textContent=R?(ri+1):'';refreshNav();if(view==='spread')renderPics();relayout();}
- function refreshNav(){document.getElementById('counter').textContent=view==='back'?'back cover':(spread+1)+' / '+SPREADS;document.getElementById('prev').innerHTML=(view==='spread'&&spread<=0)?'&#8617; cover':'&#8592; prev';document.getElementById('next').disabled=(view==='back');}
+ function renderPics(){
+   const bk=bookEl.getBoundingClientRect(),n=ppv();
+   const li=spread*n,ri=n===2?li+1:-1,L=PAGES[li],R=ri>=0?PAGES[ri]:null;
+   const items=[];
+   pagePics(L).forEach((p,i)=>items.push([p,'L',i,li]));
+   if(R)pagePics(R).forEach((p,i)=>items.push([p,'R',i,ri]));
+   let idx=0;
+   for(const it of items){
+     const p=it[0],side=it[1],si=it[2],abs=it[3],pi=idx++,el=getPic(pi);
+     el.dataset.on='1';el.style.display='block';el.className='pic'+(p.photo?' photo':'');
+     if(p.strips)el.dataset.strips=p.strips;else el.removeAttribute('data-strips');
+     const w=Math.round((p.w||(p.photo?205:200))*SCP);
+     el.style.width=w+'px';el.style.transform='rotate('+(p.rot||0)+'deg)';
+     let fx,fy;
+     if(p.x!=null){fx=p.x;fy=p.y;}
+     else{const arr=SLOTS[side],s=arr[si]||arr[arr.length-1];fx=s[0];fy=s[1];}
+     /* x/y are fractions of the whole two-page spread. Showing one page means
+        that page's half of the range has to stretch back across the full width:
+        even pages sit in [0,.5], odd pages in [.5,1]. */
+     if(SINGLE)fx=(fx-((abs%2)?0.5:0))*2;
+     /* Caption is set before clamping because it hangs *below* the photo and so
+        counts toward how far down the photo may sit. */
+     const cap=caps[pi]||(caps[pi]=mkCap());el._cap=null;
+     if(p.caption){cap.textContent=p.caption;cap.dataset.on='1';cap.style.display='block';cap.style.transform='rotate('+(p.rot||0)+'deg)';el._cap=cap;}
+     else{cap.dataset.on='';cap.style.display='none';}
+     /* y was authored against a 690px-tall book; on a short screen the photo
+        (plus its caption) can run off the bottom, so clamp to real rendered
+        sizes — offsetHeight is 0 until the image loads, hence the onload refit */
+     const ph=el.offsetHeight||Math.round(w*1.35),ch=p.caption?(cap.offsetHeight+8):0;
+     const maxX=1-(w+8)/bk.width,maxY=1-(ph+ch+6)/bk.height;
+     fx=Math.max(0.01,Math.min(fx,Math.max(0.01,maxX)));
+     fy=Math.max(0.01,Math.min(fy,Math.max(0.01,maxY)));
+     el.style.left=(bk.left+bk.width*fx)+'px';el.style.top=(bk.top+bk.height*fy)+'px';
+     /* On load the photo finally has real dimensions: re-place it (clamped
+        against its true height) and re-fit the type around it, since until now
+        it was a zero-height obstacle. Safe against recursion — src is only
+        assigned when it changes, so this second pass can't refire onload. */
+     if(el.getAttribute('src')!==p.src){el.src=p.src;el.onload=()=>{renderPics();scheduleRefit();relayout();};}
+     placeCap(el);
+   }
+   for(let h=idx;h<pics.length;h++){if(pics[h]){pics[h].dataset.on='';pics[h].style.display='none';}if(caps[h]){caps[h].dataset.on='';caps[h].style.display='none';}}}
+ /* Step the type down until every word fits. A short landscape page can't hold
+    the text at full size and the flow engine drops the remainder, so measure
+    and retry rather than let paragraphs lose their endings.
+    Must run with photos at their REAL size: an <img> that hasn't loaded is
+    0px tall, so the text looks like it fits and this exits too early. Hence
+    the refit on image load below. */
+ function fitType(){
+   const n=ppv(),li=spread*n,ri=n===2?li+1:-1,L=PAGES[li],R=ri>=0?PAGES[ri]:null;
+   let fs=FS,lh=LH;
+   for(let i=0;i<8;i++){
+     leftApis=renderSide(leftPage,hl,fl,L,obstaclesFor,fs,lh);
+     rightApis=n===2?renderSide(rightPage,hr,fr,R,obstaclesFor,fs,lh):[];
+     const apis=leftApis.concat(rightApis);
+     apis.forEach(a=>a&&a.relayout());
+     if(!apis.some(a=>a&&a.overflow&&a.overflow()>0))return;
+     if(fs<=9)return;
+     fs*=0.93; lh*=0.93;
+   }
+ }
+ let refitQ=false;
+ function scheduleRefit(){if(refitQ)return;refitQ=true;requestAnimationFrame(()=>{refitQ=false;fitType();});}
+ function buildSpread(){computeMetrics();
+   const n=ppv(),li=spread*n,ri=n===2?li+1:-1,L=PAGES[li],R=ri>=0?PAGES[ri]:null;
+   document.getElementById('pl').textContent=L?(li+1):'';
+   document.getElementById('pr').textContent=R?(ri+1):'';
+   refreshNav();
+   if(view==='spread')renderPics();
+   fitType();
+   relayout();}
+ function refreshNav(){document.getElementById('counter').textContent=view==='back'?'back cover':(spread+1)+' / '+viewCount();document.getElementById('prev').innerHTML=(view==='spread'&&spread<=0)?'&#8617; cover':'&#8592; prev';document.getElementById('next').disabled=(view==='back');}
  let q=false;function relayout(){if(q)return;q=true;requestAnimationFrame(()=>{q=false;leftApis.forEach(a=>a&&a.relayout());rightApis.forEach(a=>a&&a.relayout());});}
  const flip=document.getElementById('flip');
- function turn(dir,after){const fwd=dir>0;flip.style.display='block';flip.style.left=fwd?'50%':'0';flip.style.transformOrigin=fwd?'left center':'right center';flip.style.transition='none';flip.style.transform='rotateY(0deg)';requestAnimationFrame(()=>{flip.style.transition='transform .6s ease';flip.style.transform='rotateY('+(fwd?-160:160)+'deg)';});setTimeout(after,300);setTimeout(()=>{flip.style.display='none';},640);}
+ function turn(dir,after){const fwd=dir>0;flip.style.display='block';
+   /* two-page: the leaf hinges on the spine down the middle.
+      one-page: the whole page is the leaf, hinging on its left edge. */
+   if(SINGLE){flip.style.left='0';flip.style.transformOrigin='left center';}
+   else{flip.style.left=fwd?'50%':'0';flip.style.transformOrigin=fwd?'left center':'right center';}
+   flip.style.transition='none';flip.style.transform='rotateY(0deg)';requestAnimationFrame(()=>{flip.style.transition='transform .6s ease';flip.style.transform='rotateY('+(fwd?-160:160)+'deg)';});setTimeout(after,300);setTimeout(()=>{flip.style.display='none';},640);}
  let drag=null,ox=0,oy=0;
- addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;if(drag){drag.style.left=(e.clientX-ox)+'px';drag.style.top=(e.clientY-oy)+'px';if(drag._cap)placeCap(drag);}relayout();});
+ /* the cursor pushes a hole in the text — a nice desktop touch, but on a phone
+    a finger would leave a hole parked wherever you last tapped, so skip it */
+ addEventListener('pointermove',e=>{if(!COARSE){mx=e.clientX;my=e.clientY;}if(drag){drag.style.left=(e.clientX-ox)+'px';drag.style.top=(e.clientY-oy)+'px';if(drag._cap)placeCap(drag);}relayout();});
  addEventListener('pointerup',()=>{drag=null;document.body.classList.remove('grabbing');});
  function openBook(){view='spread';spread=0;document.body.classList.remove('showback');document.body.classList.add('opened');buildSpread();}
  function closeFront(){view='front';document.body.classList.remove('opened','showback');pics.forEach(p=>{p.style.display='none';p.dataset.on='';});}
  function showBack(){view='back';pics.forEach(p=>{p.style.display='none';p.dataset.on='';});document.body.classList.add('showback');refreshNav();}
  function go(d){
    if(view==='front'){if(d>0)openBook();return;}
-   if(view==='back'){if(d<0){document.body.classList.remove('showback');view='spread';spread=SPREADS-1;buildSpread();}return;}
+   if(view==='back'){if(d<0){document.body.classList.remove('showback');view='spread';spread=viewCount()-1;buildSpread();}return;}
    // spread
-   if(d>0){ if(spread<SPREADS-1)turn(d,()=>{spread++;buildSpread();}); else showBack(); }
+   if(d>0){ if(spread<viewCount()-1)turn(d,()=>{spread++;buildSpread();}); else showBack(); }
    else { if(spread>0)turn(d,()=>{spread--;buildSpread();}); else closeFront(); }
  }
  document.getElementById('next').onclick=()=>go(1);
  document.getElementById('prev').onclick=()=>go(-1);
  addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
- addEventListener('resize',()=>{if(view==='spread')buildSpread();});
+ /* Rotating the phone must not lose your place: convert the view index through
+    the underlying page number, which is the one thing both modes agree on. */
+ function applyMode(){
+   const want=mqSingle.matches;COARSE=matchMedia('(pointer:coarse)').matches;
+   if(want===SINGLE)return false;
+   const page=SINGLE?spread:spread*2;
+   SINGLE=want;document.body.classList.toggle('single',SINGLE);
+   spread=SINGLE?page:Math.floor(page/2);
+   spread=Math.max(0,Math.min(spread,viewCount()-1));
+   return true;
+ }
+ /* rotating on the cover still has to fix the page count behind it */
+ function onViewportChange(){applyMode();if(view==='spread')buildSpread();else refreshNav();}
+ addEventListener('resize',onViewportChange);
+ addEventListener('orientationchange',()=>setTimeout(onViewportChange,120));
+ if(mqSingle.addEventListener)mqSingle.addEventListener('change',onViewportChange);
+
+ /* swipe to turn pages; a swipe that starts on a photo is a drag, not a turn */
+ let sx=0,sy=0,st=0,sw=false;
+ addEventListener('touchstart',e=>{
+   if(e.target.closest&&e.target.closest('.pic')){sw=false;return;}
+   const t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now();sw=true;},{passive:true});
+ addEventListener('touchend',e=>{
+   if(!sw)return;sw=false;
+   const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
+   if(Date.now()-st<700&&Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.5)go(dx<0?1:-1);},{passive:true});
+
  document.getElementById('frontBook').addEventListener('click',openBook);
- if(document.readyState==='complete')buildSpread();else addEventListener('load',buildSpread);
+ document.body.classList.toggle('single',SINGLE);
+ function boot(){computeMetrics();buildSpread();}
+ if(document.readyState==='complete')boot();else addEventListener('load',boot);
 </script></body></html>
